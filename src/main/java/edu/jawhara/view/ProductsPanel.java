@@ -4,6 +4,9 @@
  */
 package edu.jawhara.view;
 
+import edu.jawhara.custom.ActionTableCellEditor;
+import edu.jawhara.custom.ActionTableCellRenderer;
+import edu.jawhara.custom.ActionTableEvent;
 import edu.jawhara.model.Loading;
 import edu.jawhara.model.MyConnection;
 import edu.jawhara.model.User;
@@ -14,6 +17,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableColumnModel;
+import javax.swing.table.DefaultTableModel;
 import rojerusan.RSMaterialButtonRectangle;
 
 /**
@@ -22,6 +27,8 @@ import rojerusan.RSMaterialButtonRectangle;
  */
 public class ProductsPanel extends javax.swing.JPanel {
     private static String categorySelected;
+    private DefaultTableModel productsTableModel;
+    private DefaultTableColumnModel productsTableColumnModel;
 
     /**
      * Creates new form ProductsPanel
@@ -59,6 +66,8 @@ public class ProductsPanel extends javax.swing.JPanel {
             _cButton_.addActionListener(e -> {
                 rButton4.setVisible(false);
                 rButton5.setVisible(false);
+                
+                rTextField1.setText("");
                 categorySelected = null;
                 
                 refreshProducts();
@@ -74,6 +83,7 @@ public class ProductsPanel extends javax.swing.JPanel {
             PreparedStatement stmt = conn.prepareStatement(sqlq);
             ResultSet rslt = stmt.executeQuery();
             
+            int i = 0;
             int x = 132;
             while (rslt.next())
             {
@@ -85,6 +95,8 @@ public class ProductsPanel extends javax.swing.JPanel {
                 cButton.addActionListener(e -> {
                     rButton4.setVisible(true);
                     rButton5.setVisible(true);
+                    
+                    rTextField1.setText("");
                     categorySelected = categoryName;
                     
                     refreshProducts();
@@ -93,8 +105,10 @@ public class ProductsPanel extends javax.swing.JPanel {
                 cPanel.add(cButton);
                 x += 120;
                 x += 6;
+                i++;
             }
             
+            jLabel3.setText(String.valueOf(i));
             cPanel.setPreferredSize(new Dimension(x, 60));
             jScrollPane1.setViewportView(cPanel);
         }
@@ -106,6 +120,99 @@ public class ProductsPanel extends javax.swing.JPanel {
 
     private void refreshProducts() {
         Loading.infiniteLoading(jPanel4, "tablePanel");
+        
+        productsTableModel = (DefaultTableModel) jTable1.getModel();
+        productsTableColumnModel = (DefaultTableColumnModel) jTable1.getColumnModel();
+        
+        resetProductsTable();
+        loadProductsTable();
+        
+        customProductsTable();
+    }
+
+    private void resetProductsTable()
+    {
+        productsTableModel.getDataVector().removeAllElements();
+        productsTableModel.fireTableStructureChanged();
+        productsTableModel.fireTableDataChanged();
+        productsTableModel.setRowCount(0);
+    }
+
+    private void loadProductsTable()
+    {
+        try
+        {
+            Connection conn = MyConnection.getConnection();
+            
+            String sqlq = "SELECT p.id, p.name, c.name AS category, q.quantity ";
+            sqlq += "FROM categories c ";
+            sqlq += "JOIN products p ON c.id = p.category_id ";
+            sqlq += "JOIN product_quantity q ON p.id = q.product_id ";
+            
+            if (rTextField1.getText().trim().equals("0"))
+            {
+                sqlq += "WHERE q.quantity = '0' ";
+            }
+            else if (!rTextField1.getText().trim().isEmpty())
+            {
+                sqlq += "WHERE p.name LIKE '%" + rTextField1.getText().trim() + "%' ";
+                sqlq += "OR c.name LIKE '%" + rTextField1.getText().trim() + "%' ";
+                sqlq += "OR q.quantity LIKE '%" + rTextField1.getText().trim() + "%' ";
+            }
+            else if (categorySelected != null)
+            {
+                sqlq += "WHERE c.name = '" + categorySelected + "' ";
+            }
+            
+            sqlq += "ORDER BY p.id ASC";
+            
+            PreparedStatement stmt = conn.prepareStatement(sqlq.trim());
+            ResultSet rslt = stmt.executeQuery();
+            
+            while (rslt.next())
+            {
+                Object[] data = new Object[5];
+                data[0] = String.valueOf(rslt.getInt("id"));
+                data[1] = rslt.getString("name");
+                data[2] = rslt.getString("category");
+                data[3] = String.valueOf(rslt.getInt("quantity"));
+                data[4] = null;
+                
+                productsTableModel.addRow(data);
+            }
+            
+            jLabel6.setText(String.valueOf(productsTableModel.getRowCount()));
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    private void customProductsTable()
+    {
+        ActionTableEvent actionTableEvent = new ActionTableEvent() {
+            @Override
+            public void onEdit(int row)
+            {
+                //
+            }
+            
+            @Override
+            public void onDelete(int row)
+            {
+                //
+            }
+        };
+        
+        productsTableColumnModel.getColumn(4).setCellRenderer(new ActionTableCellRenderer());
+        productsTableColumnModel.getColumn(4).setCellEditor(new ActionTableCellEditor(actionTableEvent));
+        
+        productsTableColumnModel.getColumn(4).setPreferredWidth(165);
+        productsTableColumnModel.getColumn(4).setMaxWidth(165);
+        productsTableColumnModel.getColumn(4).setMinWidth(165);
+        
+        productsTableColumnModel.removeColumn(productsTableColumnModel.getColumn(0));
     }
 
     /**
@@ -261,17 +368,36 @@ public class ProductsPanel extends javax.swing.JPanel {
         jPanel4.setLayout(new java.awt.CardLayout());
         jPanel4.add(new edu.jawhara.view.InfinitePanel(), "infinitePanel");
 
+        jTable1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Name", "Category", "Quantity", "Action"
+                "ID", "Name", "Category", "Quantity", "Action"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable1.setFocusable(false);
+        jTable1.setIntercellSpacing(new java.awt.Dimension(10, 5));
+        jTable1.setOpaque(false);
+        jTable1.setRowHeight(55);
+        jTable1.setShowHorizontalLines(true);
+        jTable1.getTableHeader().setReorderingAllowed(false);
+        jTable1.getTableHeader().setPreferredSize(new java.awt.Dimension(0, 36));
+        jTable1.getTableHeader().setBackground(new java.awt.Color(51, 51, 51));
+        jTable1.getTableHeader().setForeground(new java.awt.Color(255, 255, 255));
+        jTable1.getTableHeader().setFont(new java.awt.Font("Segoe UI", 0, 16));
         jScrollPane2.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -393,6 +519,10 @@ public class ProductsPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void rTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rTextField1ActionPerformed
+        rButton4.setVisible(false);
+        rButton5.setVisible(false);
+        categorySelected = null;
+        
         refreshProducts();
     }//GEN-LAST:event_rTextField1ActionPerformed
 
@@ -407,11 +537,12 @@ public class ProductsPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_rButton2ActionPerformed
 
     private void rButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton3ActionPerformed
-        refreshCategories();
-        refreshProducts();
-        
         rButton4.setVisible(false);
         rButton5.setVisible(false);
+        categorySelected = null;
+        
+        refreshCategories();
+        refreshProducts();
     }//GEN-LAST:event_rButton3ActionPerformed
 
     private void rButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton4ActionPerformed
@@ -445,8 +576,10 @@ public class ProductsPanel extends javax.swing.JPanel {
                     
                     rButton4.setVisible(false);
                     rButton5.setVisible(false);
+                    categorySelected = null;
                     
                     refreshCategories();
+                    refreshProducts();
                 }
                 else
                 {

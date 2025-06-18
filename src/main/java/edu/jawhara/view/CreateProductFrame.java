@@ -76,7 +76,7 @@ public class CreateProductFrame extends javax.swing.JFrame {
         nameField = new javax.swing.JTextField();
         submitButton = new rojerusan.RSMaterialButtonRectangle();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Create New Product");
