@@ -201,7 +201,43 @@ public class ProductsPanel extends javax.swing.JPanel {
             @Override
             public void onDelete(int row)
             {
-                //
+                int confirm = JOptionPane.showConfirmDialog(
+                    null,
+                    ("Delete " + productsTableModel.getValueAt(row, 1) + " ?"),
+                    "Delete Product",
+                    JOptionPane.YES_NO_OPTION
+                );
+                
+                if (confirm == JOptionPane.YES_OPTION)
+                {
+                    int productId = Integer.parseInt(productsTableModel.getValueAt(row, 0).toString());
+                    
+                    try
+                    {
+                        Connection conn = MyConnection.getConnection();
+                        
+                        String sqlq = "DELETE FROM products WHERE id = ?";
+                        PreparedStatement stmt = conn.prepareStatement(sqlq);
+                            
+                        stmt.setInt(1, productId);
+                        int rslt = stmt.executeUpdate();
+                            
+                        if (rslt > 0)
+                        {
+                            JOptionPane.showMessageDialog(null, "Product deleted successfully.");
+                            refreshProducts();
+                        }
+                        else
+                        {
+                            JOptionPane.showMessageDialog(null, "Something wrong!");
+                        }
+                    }
+                    catch (SQLException e)
+                    {
+                        JOptionPane.showMessageDialog(null, e);
+                        e.printStackTrace();
+                    }
+                }
             }
         };
         
