@@ -19,7 +19,7 @@ public class DashboardPanel extends javax.swing.JPanel {
         initComponents();
         refreshDashboard();
     }
-    
+
     private void refreshDashboard() {
         Loading.infiniteLoading(jPanel15, "tablePanel");
         Loading.infiniteLoading(jPanel14, "tablePanel");

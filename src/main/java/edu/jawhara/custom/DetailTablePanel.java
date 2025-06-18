@@ -44,6 +44,7 @@ public class DetailTablePanel extends javax.swing.JPanel {
 
         detailButton.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         detailButton.setText("Detail");
+        detailButton.setFocusable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
