@@ -38,13 +38,16 @@ edu\jawhara\view\CreateCategoryFrame$1.class
 edu\jawhara\custom\ActionTableEvent.class
 edu\jawhara\view\CreateUserFrame$1.class
 edu\jawhara\model\MyConnection.class
+edu\jawhara\view\CreateProductFrame$2.class
 edu\jawhara\view\ProductsPanel$2.class
 edu\jawhara\view\AppView.class
+edu\jawhara\view\CreateProductFrame$1.class
 edu\jawhara\custom\ActionTablePanel$1.class
 edu\jawhara\view\UpdateUserFrame$1.class
 edu\jawhara\model\User.class
 edu\jawhara\view\ProductsPanel.class
 edu\jawhara\view\StocksPanel$2.class
+edu\jawhara\view\CreateProductFrame.class
 edu\jawhara\view\SettingsPanel.class
 edu\jawhara\Jawhara.class
 edu\jawhara\view\UpdateCategoryFrame.class

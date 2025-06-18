@@ -402,7 +402,8 @@ public class ProductsPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_rButton1ActionPerformed
 
     private void rButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton2ActionPerformed
-        // TODO add your handling code here:
+        CreateProductFrame createProductFrame = new CreateProductFrame();
+        createProductFrame.setVisible(true);
     }//GEN-LAST:event_rButton2ActionPerformed
 
     private void rButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton3ActionPerformed

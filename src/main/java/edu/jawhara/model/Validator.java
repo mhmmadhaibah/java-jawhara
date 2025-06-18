@@ -13,6 +13,11 @@ import java.util.regex.Pattern;
  */
 public class Validator
 {
+    public static boolean isName(String input)
+    {
+        return isMatcher("^[a-zA-Z ]+$", input);
+    }
+    
     public static boolean isUsername(String input)
     {
         return isMatcher("^[a-zA-Z0-9]+$", input);
