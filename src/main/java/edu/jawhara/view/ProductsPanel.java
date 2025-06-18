@@ -255,9 +255,9 @@ public class ProductsPanel extends javax.swing.JPanel {
         rTextField1.setBotonColor(new java.awt.Color(51, 51, 51));
         rTextField1.setPhColor(new java.awt.Color(51, 51, 51));
         rTextField1.setPlaceholder("  Search");
-        rTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rTextField1ActionPerformed(evt);
+        rTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                rTextField1KeyReleased(evt);
             }
         });
 
@@ -518,14 +518,6 @@ public class ProductsPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void rTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rTextField1ActionPerformed
-        rButton4.setVisible(false);
-        rButton5.setVisible(false);
-        categorySelected = null;
-        
-        refreshProducts();
-    }//GEN-LAST:event_rTextField1ActionPerformed
-
     private void rButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton1ActionPerformed
         CreateCategoryFrame createCategoryFrame = new CreateCategoryFrame();
         createCategoryFrame.setVisible(true);
@@ -539,6 +531,8 @@ public class ProductsPanel extends javax.swing.JPanel {
     private void rButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton3ActionPerformed
         rButton4.setVisible(false);
         rButton5.setVisible(false);
+        
+        rTextField1.setText("");
         categorySelected = null;
         
         refreshCategories();
@@ -593,6 +587,14 @@ public class ProductsPanel extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_rButton5ActionPerformed
+
+    private void rTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rTextField1KeyReleased
+        rButton4.setVisible(false);
+        rButton5.setVisible(false);
+        categorySelected = null;
+        
+        refreshProducts();
+    }//GEN-LAST:event_rTextField1KeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private rojerusan.RSMaterialButtonRectangle cButton1;
