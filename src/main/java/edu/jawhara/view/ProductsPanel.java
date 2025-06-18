@@ -21,13 +21,14 @@ import rojerusan.RSMaterialButtonRectangle;
  * @author mhmmadhaibah
  */
 public class ProductsPanel extends javax.swing.JPanel {
+    private static String categorySelected;
 
     /**
      * Creates new form ProductsPanel
      */
     public ProductsPanel() {
         initComponents();
-
+        
         refreshCategories();
         refreshProducts();
         
@@ -35,11 +36,11 @@ public class ProductsPanel extends javax.swing.JPanel {
         {
             rButton1.setVisible(false);
             rButton2.setVisible(false);
-            
-            rButton4.setVisible(false);
-            rButton5.setVisible(false);
         }
-
+        
+        rButton4.setVisible(false);
+        rButton5.setVisible(false);
+        
         cButton1.setVisible(false);
         cButton2.setVisible(false);
         cButton3.setVisible(false);
@@ -52,33 +53,46 @@ public class ProductsPanel extends javax.swing.JPanel {
         
         try
         {
+            RSMaterialButtonRectangle _cButton_ = new RSMaterialButtonRectangle();
+            _cButton_.setText("All");
+            _cButton_.setBounds(6, 6, 120, 60);
+            _cButton_.addActionListener(e -> {
+                rButton4.setVisible(false);
+                rButton5.setVisible(false);
+                categorySelected = null;
+                
+                refreshProducts();
+            });
+            
+            JPanel cPanel = new JPanel();
+            cPanel.setLayout(null);
+            cPanel.add(_cButton_);
+            
             Connection conn = MyConnection.getConnection();
             
             String sqlq = "SELECT * FROM categories";
             PreparedStatement stmt = conn.prepareStatement(sqlq);
             ResultSet rslt = stmt.executeQuery();
             
-            RSMaterialButtonRectangle _cButton_ = new RSMaterialButtonRectangle();
-            _cButton_.setText("All");
-            _cButton_.setBounds(6, 6, 120, 60);
-            
-            _cButton_.addActionListener(e -> JOptionPane.showMessageDialog(null, "sample"));
-            
-            JPanel cPanel = new JPanel();
-            cPanel.setLayout(null);
-            cPanel.add(_cButton_);
-            
             int x = 132;
             while (rslt.next())
             {
-                RSMaterialButtonRectangle cButton = new RSMaterialButtonRectangle();
-                cButton.setText(rslt.getString("name"));
-                cButton.setBounds(x, 6, 120, 60);
+                String categoryName = rslt.getString("name");
                 
-                cButton.addActionListener(e -> JOptionPane.showMessageDialog(null, "sample"));
+                RSMaterialButtonRectangle cButton = new RSMaterialButtonRectangle();
+                cButton.setText(categoryName);
+                cButton.setBounds(x, 6, 120, 60);
+                cButton.addActionListener(e -> {
+                    rButton4.setVisible(true);
+                    rButton5.setVisible(true);
+                    categorySelected = categoryName;
+                    
+                    refreshProducts();
+                });
                 
                 cPanel.add(cButton);
-                x += 120 + 6;
+                x += 120;
+                x += 6;
             }
             
             cPanel.setPreferredSize(new Dimension(x, 60));
@@ -296,7 +310,7 @@ public class ProductsPanel extends javax.swing.JPanel {
         });
 
         rButton5.setBackground(new java.awt.Color(255, 0, 51));
-        rButton5.setText("Remove");
+        rButton5.setText("Delete");
         rButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rButton5ActionPerformed(evt);
@@ -383,7 +397,8 @@ public class ProductsPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_rTextField1ActionPerformed
 
     private void rButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton1ActionPerformed
-        // TODO add your handling code here:
+        CreateCategoryFrame createCategoryFrame = new CreateCategoryFrame();
+        createCategoryFrame.setVisible(true);
     }//GEN-LAST:event_rButton1ActionPerformed
 
     private void rButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton2ActionPerformed
@@ -399,11 +414,50 @@ public class ProductsPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_rButton3ActionPerformed
 
     private void rButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton4ActionPerformed
-        // TODO add your handling code here:
+        UpdateCategoryFrame updateCategoryFrame = new UpdateCategoryFrame(categorySelected);
+        updateCategoryFrame.setVisible(true);
     }//GEN-LAST:event_rButton4ActionPerformed
 
     private void rButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton5ActionPerformed
-        // TODO add your handling code here:
+        int confirm = JOptionPane.showConfirmDialog(
+            null,
+            ("Delete " + categorySelected + "?"),
+            "Delete Category",
+            JOptionPane.YES_NO_OPTION
+        );
+        
+        if (confirm == JOptionPane.YES_OPTION)
+        {
+            try
+            {
+                Connection conn = MyConnection.getConnection();
+                
+                String sqlq = "DELETE FROM categories WHERE name = ?";
+                PreparedStatement stmt = conn.prepareStatement(sqlq);
+                
+                stmt.setString(1, categorySelected);
+                int rslt = stmt.executeUpdate();
+                
+                if (rslt > 0)
+                {
+                    JOptionPane.showMessageDialog(null, "Category deleted successfully.");
+                    
+                    rButton4.setVisible(false);
+                    rButton5.setVisible(false);
+                    
+                    refreshCategories();
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(null, "Something wrong!");
+                }
+            }
+            catch (SQLException e)
+            {
+                JOptionPane.showMessageDialog(null, e);
+                e.printStackTrace();
+            }
+        }
     }//GEN-LAST:event_rButton5ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
