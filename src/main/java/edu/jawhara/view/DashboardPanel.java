@@ -4,13 +4,27 @@
  */
 package edu.jawhara.view;
 
+import edu.jawhara.custom.DetailTableCellEditor;
+import edu.jawhara.custom.DetailTableCellRenderer;
+import edu.jawhara.custom.DetailTableEvent;
 import edu.jawhara.model.Loading;
+import edu.jawhara.model.MyConnection;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.table.DefaultTableColumnModel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author mhmmadhaibah
  */
 public class DashboardPanel extends javax.swing.JPanel {
+    private DefaultTableModel inStocksTableModel;
+    private DefaultTableColumnModel inStocksTableColumnModel;
+    private DefaultTableModel outStocksTableModel;
+    private DefaultTableColumnModel outStocksTableColumnModel;
 
     /**
      * Creates new form DashboardPanel
@@ -21,8 +35,124 @@ public class DashboardPanel extends javax.swing.JPanel {
     }
 
     private void refreshDashboard() {
+        try
+        {
+            Connection conn = MyConnection.getConnection();
+            
+            String sqlq = """
+                SELECT
+                    (SELECT COUNT(*) FROM users WHERE role = 'Staff') AS users,
+                    (SELECT COUNT(*) FROM products) AS products,
+                    (SELECT COUNT(*) FROM categories) AS categories,
+                    (SELECT COUNT(*) FROM transactions) AS stocks
+                """;
+            
+            PreparedStatement stmt = conn.prepareStatement(sqlq);
+            ResultSet rslt = stmt.executeQuery();
+            
+            if (rslt.next())
+            {
+                jLabel2.setText(rslt.getString("users"));
+                jLabel4.setText(rslt.getString("products"));
+                jLabel6.setText(rslt.getString("categories"));
+                jLabel8.setText(rslt.getString("stocks"));
+            }
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        
+        inStocksTableModel = (DefaultTableModel) jTable2.getModel();
+        inStocksTableColumnModel = (DefaultTableColumnModel) jTable2.getColumnModel();
+        
+        outStocksTableModel = (DefaultTableModel) jTable1.getModel();
+        outStocksTableColumnModel = (DefaultTableColumnModel) jTable1.getColumnModel();
+        
+        resetStocksTable();
+        loadStocksTable();
+        customStocksTable();
+        
         Loading.infiniteLoading(jPanel15, "tablePanel");
         Loading.infiniteLoading(jPanel14, "tablePanel");
+    }
+
+    private void resetStocksTable()
+    {
+        inStocksTableModel.getDataVector().removeAllElements();
+        inStocksTableModel.fireTableStructureChanged();
+        inStocksTableModel.fireTableDataChanged();
+        inStocksTableModel.setRowCount(0);
+        
+        outStocksTableModel.getDataVector().removeAllElements();
+        outStocksTableModel.fireTableStructureChanged();
+        outStocksTableModel.fireTableDataChanged();
+        outStocksTableModel.setRowCount(0);
+    }
+
+    private void loadStocksTable()
+    {
+        try
+        {
+            Connection conn = MyConnection.getConnection();
+            
+            String sqlq = "SELECT t.id, u.username AS staff, t.type, t.timestamp ";
+            sqlq += "FROM transactions t JOIN users u ON t.user_id = u.id ORDER BY t.timestamp DESC";
+            
+            PreparedStatement stmt = conn.prepareStatement(sqlq.trim());
+            ResultSet rslt = stmt.executeQuery();
+            
+            while (rslt.next())
+            {
+                Object[] data = new Object[4];
+                data[0] = String.valueOf(rslt.getInt("id"));
+                data[1] = rslt.getString("staff");
+                data[2] = rslt.getTimestamp("timestamp").toString();
+                data[3] = null;
+                
+                if (rslt.getString("type").equals("IN"))
+                {
+                    inStocksTableModel.addRow(data);
+                }
+                else if (rslt.getString("type").equals("OUT"))
+                {
+                    outStocksTableModel.addRow(data);
+                }
+            }
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    private void customStocksTable()
+    {
+        DetailTableEvent detailTableEvent = new DetailTableEvent() {
+            @Override
+            public void onShow(int row)
+            {
+                //
+            }
+        };
+        
+        inStocksTableColumnModel.getColumn(3).setCellRenderer(new DetailTableCellRenderer());
+        inStocksTableColumnModel.getColumn(3).setCellEditor(new DetailTableCellEditor(detailTableEvent));
+        
+        inStocksTableColumnModel.getColumn(3).setPreferredWidth(98);
+        inStocksTableColumnModel.getColumn(3).setMaxWidth(98);
+        inStocksTableColumnModel.getColumn(3).setMinWidth(98);
+        
+        inStocksTableColumnModel.removeColumn(inStocksTableColumnModel.getColumn(0));
+        
+        outStocksTableColumnModel.getColumn(3).setCellRenderer(new DetailTableCellRenderer());
+        outStocksTableColumnModel.getColumn(3).setCellEditor(new DetailTableCellEditor(detailTableEvent));
+        
+        outStocksTableColumnModel.getColumn(3).setPreferredWidth(98);
+        outStocksTableColumnModel.getColumn(3).setMaxWidth(98);
+        outStocksTableColumnModel.getColumn(3).setMinWidth(98);
+        
+        outStocksTableColumnModel.removeColumn(outStocksTableColumnModel.getColumn(0));
     }
 
     /**
@@ -299,17 +429,17 @@ public class DashboardPanel extends javax.swing.JPanel {
         jTable2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Staff", "Date", "Detail"
+                "ID", "Staff", "Date", "Detail"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, true
+                false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -383,17 +513,17 @@ public class DashboardPanel extends javax.swing.JPanel {
         jTable1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Staff", "Date", "Detail"
+                "ID", "Staff", "Date", "Detail"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, true
+                false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

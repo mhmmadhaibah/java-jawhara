@@ -62,6 +62,7 @@ edu\jawhara\model\User.class
 edu\jawhara\view\ProductsPanel.class
 edu\jawhara\view\StocksPanel$2.class
 edu\jawhara\view\CreateProductFrame.class
+edu\jawhara\view\DashboardPanel$4.class
 edu\jawhara\view\SettingsPanel.class
 edu\jawhara\Jawhara.class
 edu\jawhara\view\UpdateCategoryFrame.class
