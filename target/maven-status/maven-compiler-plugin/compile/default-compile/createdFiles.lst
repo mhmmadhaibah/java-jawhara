@@ -2,6 +2,7 @@ edu\jawhara\view\CreateUserFrame$2.class
 edu\jawhara\view\ReportsPanel.class
 edu\jawhara\model\Loading.class
 edu\jawhara\view\ProductsPanel$8.class
+edu\jawhara\view\DashboardPanel$3.class
 edu\jawhara\view\StocksPanel$1.class
 edu\jawhara\view\UsersPanel$1.class
 edu\jawhara\view\CreateCategoryFrame$2.class
@@ -41,6 +42,7 @@ edu\jawhara\model\Validator.class
 edu\jawhara\view\UpdateProductFrame.class
 edu\jawhara\view\UpdateUserFrame$3.class
 edu\jawhara\view\CreateCategoryFrame$1.class
+edu\jawhara\view\DashboardPanel$2.class
 edu\jawhara\custom\ActionTableEvent.class
 edu\jawhara\view\ProductsPanel$7.class
 edu\jawhara\view\CreateUserFrame$1.class

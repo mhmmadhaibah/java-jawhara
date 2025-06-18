@@ -93,8 +93,16 @@ public class ProductsPanel extends javax.swing.JPanel {
                 cButton.setText(categoryName);
                 cButton.setBounds(x, 6, 120, 60);
                 cButton.addActionListener(e -> {
-                    rButton4.setVisible(true);
-                    rButton5.setVisible(true);
+                    if (!User.getRole().equals("Admin"))
+                    {
+                        rButton4.setVisible(false);
+                        rButton5.setVisible(false);
+                    }
+                    else
+                    {
+                        rButton4.setVisible(true);
+                        rButton5.setVisible(true);
+                    }
                     
                     rTextField1.setText("");
                     categorySelected = categoryName;
@@ -251,6 +259,11 @@ public class ProductsPanel extends javax.swing.JPanel {
         productsTableColumnModel.getColumn(4).setPreferredWidth(165);
         productsTableColumnModel.getColumn(4).setMaxWidth(165);
         productsTableColumnModel.getColumn(4).setMinWidth(165);
+        
+        if (!User.getRole().equals("Admin"))
+        {
+            productsTableColumnModel.removeColumn(productsTableColumnModel.getColumn(4));
+        }
         
         productsTableColumnModel.removeColumn(productsTableColumnModel.getColumn(0));
     }

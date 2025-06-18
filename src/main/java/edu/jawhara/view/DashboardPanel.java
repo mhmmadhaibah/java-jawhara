@@ -296,7 +296,7 @@ public class DashboardPanel extends javax.swing.JPanel {
         jPanel15.setLayout(new java.awt.CardLayout());
         jPanel15.add(new edu.jawhara.view.InfinitePanel(), "infinitePanel");
 
-        jTable2.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jTable2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -305,9 +305,27 @@ public class DashboardPanel extends javax.swing.JPanel {
                 {null, null, null}
             },
             new String [] {
-                "Staff", "Date", "Action"
+                "Staff", "Date", "Detail"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable2.setFocusable(false);
+        jTable2.setIntercellSpacing(new java.awt.Dimension(10, 5));
+        jTable2.setOpaque(false);
+        jTable2.setRowHeight(55);
+        jTable2.setShowGrid(true);
+        jTable2.getTableHeader().setReorderingAllowed(false);
+        jTable2.getTableHeader().setPreferredSize(new java.awt.Dimension(0, 36));
+        jTable2.getTableHeader().setBackground(new java.awt.Color(51, 51, 51));
+        jTable2.getTableHeader().setForeground(new java.awt.Color(255, 255, 255));
+        jTable2.getTableHeader().setFont(new java.awt.Font("Segoe UI", 0, 16));
         jScrollPane2.setViewportView(jTable2);
 
         javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
@@ -362,6 +380,7 @@ public class DashboardPanel extends javax.swing.JPanel {
         jPanel14.setLayout(new java.awt.CardLayout());
         jPanel14.add(new edu.jawhara.view.InfinitePanel(), "infinitePanel");
 
+        jTable1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -370,9 +389,27 @@ public class DashboardPanel extends javax.swing.JPanel {
                 {null, null, null}
             },
             new String [] {
-                "Staff", "Date", "Action"
+                "Staff", "Date", "Detail"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable1.setFocusable(false);
+        jTable1.setIntercellSpacing(new java.awt.Dimension(10, 5));
+        jTable1.setOpaque(false);
+        jTable1.setRowHeight(55);
+        jTable1.setShowGrid(true);
+        jTable1.getTableHeader().setReorderingAllowed(false);
+        jTable1.getTableHeader().setPreferredSize(new java.awt.Dimension(0, 36));
+        jTable1.getTableHeader().setBackground(new java.awt.Color(51, 51, 51));
+        jTable1.getTableHeader().setForeground(new java.awt.Color(255, 255, 255));
+        jTable1.getTableHeader().setFont(new java.awt.Font("Segoe UI", 0, 16));
         jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);

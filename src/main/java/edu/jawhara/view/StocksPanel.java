@@ -9,6 +9,7 @@ import edu.jawhara.custom.ActionTableCellRenderer;
 import edu.jawhara.custom.ActionTableEvent;
 import edu.jawhara.model.Loading;
 import edu.jawhara.model.MyConnection;
+import edu.jawhara.model.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -117,6 +118,11 @@ public class StocksPanel extends javax.swing.JPanel {
         stocksTableColumnModel.getColumn(4).setPreferredWidth(165);
         stocksTableColumnModel.getColumn(4).setMaxWidth(165);
         stocksTableColumnModel.getColumn(4).setMinWidth(165);
+        
+        if (!User.getRole().equals("Admin"))
+        {
+            stocksTableColumnModel.removeColumn(stocksTableColumnModel.getColumn(4));
+        }
         
         stocksTableColumnModel.removeColumn(stocksTableColumnModel.getColumn(0));
     }
