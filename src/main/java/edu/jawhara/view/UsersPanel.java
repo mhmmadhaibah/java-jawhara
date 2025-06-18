@@ -9,6 +9,7 @@ import edu.jawhara.custom.ActionTableCellRenderer;
 import edu.jawhara.custom.ActionTableEvent;
 import edu.jawhara.model.Loading;
 import edu.jawhara.model.MyConnection;
+import edu.jawhara.model.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -89,13 +90,59 @@ public class UsersPanel extends javax.swing.JPanel {
             @Override
             public void onEdit(int row)
             {
-                JOptionPane.showMessageDialog(null, usersTableModel.getValueAt(row, 0));
+                int userId = Integer.parseInt(usersTableModel.getValueAt(row, 0).toString());
+                
+                UpdateUserFrame updateUserFrame = new UpdateUserFrame(userId);
+                updateUserFrame.setVisible(true);
             }
             
             @Override
             public void onDelete(int row)
             {
-                JOptionPane.showMessageDialog(null, usersTableModel.getValueAt(row, 0));
+                int confirm = JOptionPane.showConfirmDialog(
+                    null,
+                    ("Delete " + usersTableModel.getValueAt(row, 2) + " " + usersTableModel.getValueAt(row, 1) + "?"),
+                    "Delete User",
+                    JOptionPane.YES_NO_OPTION
+                );
+                
+                if (confirm == JOptionPane.YES_OPTION)
+                {
+                    int userId = Integer.parseInt(usersTableModel.getValueAt(row, 0).toString());
+                    
+                    if (User.getUserId() != userId)
+                    {
+                        try
+                        {
+                            Connection conn = MyConnection.getConnection();
+                            
+                            String sqlq = "DELETE FROM users WHERE id = ?";
+                            PreparedStatement stmt = conn.prepareStatement(sqlq);
+                            
+                            stmt.setInt(1, userId);
+                            int rslt = stmt.executeUpdate();
+                            
+                            if (rslt > 0)
+                            {
+                                JOptionPane.showMessageDialog(null, "User-data deleted successfully.");
+                                refreshUsersTable();
+                            }
+                            else
+                            {
+                                JOptionPane.showMessageDialog(null, "Something wrong!");
+                            }
+                        }
+                        catch (SQLException e)
+                        {
+                            JOptionPane.showMessageDialog(null, e);
+                            e.printStackTrace();
+                        }
+                    }
+                    else
+                    {
+                        JOptionPane.showMessageDialog(null, "Cannot delete yourself!");
+                    }
+                }
             }
         };
         

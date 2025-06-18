@@ -123,7 +123,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI" size="18" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Create New User"/>
+                    <Property name="text" type="java.lang.String" value="Update User"/>
                   </Properties>
                 </Component>
               </SubComponents>

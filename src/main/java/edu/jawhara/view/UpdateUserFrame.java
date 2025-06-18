@@ -17,14 +17,46 @@ import javax.swing.JOptionPane;
  *
  * @author mhmmadhaibah
  */
-public class CreateUserFrame extends javax.swing.JFrame {
+public class UpdateUserFrame extends javax.swing.JFrame {
+    private final int userId;
+    private static String userPassword;
 
     /**
-     * Creates new form CreateUserFrame
+     * Creates new form UpdateUserFrame
+     * 
+     * @param userId
      */
-    public CreateUserFrame() {
+    public UpdateUserFrame(int userId) {
         initComponents();
         setLocationRelativeTo(null);
+        
+        this.userId = userId;
+        loadUserForm();
+    }
+    
+    private void loadUserForm()
+    {
+        try
+        {
+            Connection conn = MyConnection.getConnection();
+            
+            String sqlq = "SELECT * FROM users WHERE id = ?";
+            PreparedStatement stmt = conn.prepareStatement(sqlq);
+            
+            stmt.setInt(1, userId);
+            ResultSet rslt = stmt.executeQuery();
+            
+            while (rslt.next())
+            {
+                roleField.setSelectedItem(rslt.getString("role"));
+                usernameField.setText(rslt.getString("username"));
+                userPassword = rslt.getString("password");
+            }
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -55,7 +87,7 @@ public class CreateUserFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setText("Create New User");
+        jLabel1.setText("Update User");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -248,22 +280,23 @@ public class CreateUserFrame extends javax.swing.JFrame {
         String password = String.valueOf(passwordField.getPassword()).trim();
         String confirmPassword = String.valueOf(confirmPasswordField.getPassword()).trim();
         
-        if ("".equals(username) || "".equals(password) || "".equals(confirmPassword))
-        {
-            JOptionPane.showMessageDialog(submitButton, "Please enter the data completely!");
-            return;
-        }
-        
         if (!Validator.isUsername(username))
         {
             JOptionPane.showMessageDialog(submitButton, "Usernames can only be letters and numbers.");
             return;
         }
         
-        if (!password.equals(confirmPassword))
+        if (!"".equals(password))
         {
-            JOptionPane.showMessageDialog(submitButton, "You must enter the same new password twice.");
-            return;
+            if (password.equals(confirmPassword))
+            {
+                userPassword = Password.hashPassword(password);
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(submitButton, "You must enter the same new password twice.");
+                return;
+            }
         }
         
         try
@@ -276,7 +309,7 @@ public class CreateUserFrame extends javax.swing.JFrame {
             stmt.setString(1, username);
             ResultSet rslt = stmt.executeQuery();
             
-            if (rslt.next())
+            if (rslt.next() && rslt.getInt("id") != userId)
             {
                 JOptionPane.showMessageDialog(submitButton, "Username is already registered.");
                 return;
@@ -293,17 +326,18 @@ public class CreateUserFrame extends javax.swing.JFrame {
         {
             Connection conn = MyConnection.getConnection();
             
-            String sqlq = "INSERT INTO users (role, username, password) VALUES (?, ?, ?)";
+            String sqlq = "UPDATE users SET role = ?, username = ?, password = ? WHERE id = ?";
             PreparedStatement stmt = conn.prepareStatement(sqlq);
             
             stmt.setString(1, role);
             stmt.setString(2, username);
-            stmt.setString(3, Password.hashPassword(password));
+            stmt.setString(3, userPassword);
+            stmt.setInt(4, userId);
             int rslt = stmt.executeUpdate();
             
             if (rslt > 0)
             {
-                JOptionPane.showMessageDialog(submitButton, "New user-data has been successfully created.");
+                JOptionPane.showMessageDialog(submitButton, "User-data updated successfully.");
                 dispose();
             }
             else
@@ -335,20 +369,21 @@ public class CreateUserFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CreateUserFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UpdateUserFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CreateUserFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UpdateUserFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CreateUserFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UpdateUserFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CreateUserFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UpdateUserFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CreateUserFrame().setVisible(true);
+                new UpdateUserFrame(0).setVisible(true);
             }
         });
     }

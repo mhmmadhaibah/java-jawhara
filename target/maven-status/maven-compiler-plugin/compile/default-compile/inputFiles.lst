@@ -7,6 +7,7 @@ C:\Users\User\Documents\NetBeansProjects\jawhara\src\main\java\edu\jawhara\model
 C:\Users\User\Documents\NetBeansProjects\jawhara\src\main\java\edu\jawhara\model\MyConnection.java
 C:\Users\User\Documents\NetBeansProjects\jawhara\src\main\java\edu\jawhara\model\Password.java
 C:\Users\User\Documents\NetBeansProjects\jawhara\src\main\java\edu\jawhara\model\User.java
+C:\Users\User\Documents\NetBeansProjects\jawhara\src\main\java\edu\jawhara\model\Validator.java
 C:\Users\User\Documents\NetBeansProjects\jawhara\src\main\java\edu\jawhara\view\AppView.java
 C:\Users\User\Documents\NetBeansProjects\jawhara\src\main\java\edu\jawhara\view\CreateUserFrame.java
 C:\Users\User\Documents\NetBeansProjects\jawhara\src\main\java\edu\jawhara\view\DashboardPanel.java
@@ -16,4 +17,5 @@ C:\Users\User\Documents\NetBeansProjects\jawhara\src\main\java\edu\jawhara\view\
 C:\Users\User\Documents\NetBeansProjects\jawhara\src\main\java\edu\jawhara\view\ReportsPanel.java
 C:\Users\User\Documents\NetBeansProjects\jawhara\src\main\java\edu\jawhara\view\SettingsPanel.java
 C:\Users\User\Documents\NetBeansProjects\jawhara\src\main\java\edu\jawhara\view\StocksPanel.java
+C:\Users\User\Documents\NetBeansProjects\jawhara\src\main\java\edu\jawhara\view\UpdateUserFrame.java
 C:\Users\User\Documents\NetBeansProjects\jawhara\src\main\java\edu\jawhara\view\UsersPanel.java
