@@ -7,6 +7,9 @@ package edu.jawhara.view;
 import edu.jawhara.custom.ActionTableCellEditor;
 import edu.jawhara.custom.ActionTableCellRenderer;
 import edu.jawhara.custom.ActionTableEvent;
+import edu.jawhara.custom.DetailTableCellEditor;
+import edu.jawhara.custom.DetailTableCellRenderer;
+import edu.jawhara.custom.DetailTableEvent;
 import edu.jawhara.model.Loading;
 import edu.jawhara.model.MyConnection;
 import edu.jawhara.model.User;
@@ -68,12 +71,13 @@ public class StocksPanel extends javax.swing.JPanel {
             
             while (rslt.next())
             {
-                Object[] data = new Object[5];
+                Object[] data = new Object[6];
                 data[0] = String.valueOf(rslt.getInt("id"));
                 data[1] = rslt.getString("staff");
                 data[2] = rslt.getString("type");
                 data[3] = rslt.getTimestamp("timestamp").toString();
                 data[4] = null;
+                data[5] = null;
                 
                 stocksTableModel.addRow(data);
             }
@@ -88,6 +92,21 @@ public class StocksPanel extends javax.swing.JPanel {
 
     private void customStocksTable()
     {
+        DetailTableEvent detailTableEvent = new DetailTableEvent() {
+            @Override
+            public void onShow(int row)
+            {
+                //
+            }
+        };
+        
+        stocksTableColumnModel.getColumn(4).setCellRenderer(new DetailTableCellRenderer());
+        stocksTableColumnModel.getColumn(4).setCellEditor(new DetailTableCellEditor(detailTableEvent));
+        
+        stocksTableColumnModel.getColumn(4).setPreferredWidth(98);
+        stocksTableColumnModel.getColumn(4).setMaxWidth(98);
+        stocksTableColumnModel.getColumn(4).setMinWidth(98);
+        
         ActionTableEvent actionTableEvent = new ActionTableEvent() {
             @Override
             public void onEdit(int row)
@@ -112,16 +131,16 @@ public class StocksPanel extends javax.swing.JPanel {
             }
         };
         
-        stocksTableColumnModel.getColumn(4).setCellRenderer(new ActionTableCellRenderer());
-        stocksTableColumnModel.getColumn(4).setCellEditor(new ActionTableCellEditor(actionTableEvent));
+        stocksTableColumnModel.getColumn(5).setCellRenderer(new ActionTableCellRenderer());
+        stocksTableColumnModel.getColumn(5).setCellEditor(new ActionTableCellEditor(actionTableEvent));
         
-        stocksTableColumnModel.getColumn(4).setPreferredWidth(165);
-        stocksTableColumnModel.getColumn(4).setMaxWidth(165);
-        stocksTableColumnModel.getColumn(4).setMinWidth(165);
+        stocksTableColumnModel.getColumn(5).setPreferredWidth(165);
+        stocksTableColumnModel.getColumn(5).setMaxWidth(165);
+        stocksTableColumnModel.getColumn(5).setMinWidth(165);
         
         if (!User.getRole().equals("Admin"))
         {
-            stocksTableColumnModel.removeColumn(stocksTableColumnModel.getColumn(4));
+            stocksTableColumnModel.removeColumn(stocksTableColumnModel.getColumn(5));
         }
         
         stocksTableColumnModel.removeColumn(stocksTableColumnModel.getColumn(0));
@@ -176,17 +195,17 @@ public class StocksPanel extends javax.swing.JPanel {
         jTable1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Staff", "Type", "Date", "Action"
+                "ID", "Staff", "Type", "Date", "Detail", "Action"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true
+                false, false, false, false, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
