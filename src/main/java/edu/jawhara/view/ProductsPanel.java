@@ -195,7 +195,10 @@ public class ProductsPanel extends javax.swing.JPanel {
             @Override
             public void onEdit(int row)
             {
-                //
+                int productId = Integer.parseInt(productsTableModel.getValueAt(row, 0).toString());
+                
+                UpdateProductFrame updateProductFrame = new UpdateProductFrame(productId);
+                updateProductFrame.setVisible(true);
             }
             
             @Override
