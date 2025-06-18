@@ -242,7 +242,7 @@ public class CreateProductFrame extends javax.swing.JFrame {
             
             if (rows > 0 && rslt.next())
             {
-                String sqlq2 = "INSERT INTO product_quantity (product_id, quantity) VALUES (?, 0)";
+                String sqlq2 = "INSERT INTO product_stocks (product_id, quantity) VALUES (?, 0)";
                 PreparedStatement stmt2 = conn.prepareStatement(sqlq2);
                 
                 stmt2.setInt(1, rslt.getInt(1));

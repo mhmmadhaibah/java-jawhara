@@ -31,10 +31,10 @@ public class UsersPanel extends javax.swing.JPanel {
      */
     public UsersPanel() {
         initComponents();
-        refreshUsersTable();
+        refreshUsers();
     }
 
-    private void refreshUsersTable()
+    private void refreshUsers()
     {
         Loading.infiniteLoading(jPanel1, "tablePanel");
         
@@ -101,7 +101,7 @@ public class UsersPanel extends javax.swing.JPanel {
             {
                 int confirm = JOptionPane.showConfirmDialog(
                     null,
-                    ("Delete " + usersTableModel.getValueAt(row, 2) + " " + usersTableModel.getValueAt(row, 1) + "?"),
+                    ("Delete " + usersTableModel.getValueAt(row, 2) + " " + usersTableModel.getValueAt(row, 1) + " ?"),
                     "Delete User",
                     JOptionPane.YES_NO_OPTION
                 );
@@ -124,8 +124,8 @@ public class UsersPanel extends javax.swing.JPanel {
                             
                             if (rslt > 0)
                             {
-                                JOptionPane.showMessageDialog(null, "User-data deleted successfully.");
-                                refreshUsersTable();
+                                JOptionPane.showMessageDialog(null, "User deleted successfully.");
+                                refreshUsers();
                             }
                             else
                             {
@@ -297,7 +297,7 @@ public class UsersPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_rButton1ActionPerformed
 
     private void rButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton2ActionPerformed
-        refreshUsersTable();
+        refreshUsers();
     }//GEN-LAST:event_rButton2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

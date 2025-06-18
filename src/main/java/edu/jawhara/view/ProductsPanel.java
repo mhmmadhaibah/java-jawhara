@@ -109,6 +109,7 @@ public class ProductsPanel extends javax.swing.JPanel {
             }
             
             jLabel3.setText(String.valueOf(i));
+            
             cPanel.setPreferredSize(new Dimension(x, 60));
             jScrollPane1.setViewportView(cPanel);
         }
@@ -147,7 +148,7 @@ public class ProductsPanel extends javax.swing.JPanel {
             String sqlq = "SELECT p.id, p.name, c.name AS category, q.quantity ";
             sqlq += "FROM categories c ";
             sqlq += "JOIN products p ON c.id = p.category_id ";
-            sqlq += "JOIN product_quantity q ON p.id = q.product_id ";
+            sqlq += "JOIN product_stocks q ON p.id = q.product_id ";
             
             if (rTextField1.getText().trim().equals("0"))
             {
@@ -221,10 +222,10 @@ public class ProductsPanel extends javax.swing.JPanel {
                         
                         String sqlq = "DELETE FROM products WHERE id = ?";
                         PreparedStatement stmt = conn.prepareStatement(sqlq);
-                            
+                        
                         stmt.setInt(1, productId);
                         int rslt = stmt.executeUpdate();
-                            
+                        
                         if (rslt > 0)
                         {
                             JOptionPane.showMessageDialog(null, "Product deleted successfully.");
@@ -586,7 +587,7 @@ public class ProductsPanel extends javax.swing.JPanel {
     private void rButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton5ActionPerformed
         int confirm = JOptionPane.showConfirmDialog(
             null,
-            ("Delete " + categorySelected + "?"),
+            ("Delete " + categorySelected + " ?"),
             "Delete Category",
             JOptionPane.YES_NO_OPTION
         );

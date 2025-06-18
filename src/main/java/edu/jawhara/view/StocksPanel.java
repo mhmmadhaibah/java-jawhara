@@ -4,13 +4,26 @@
  */
 package edu.jawhara.view;
 
+import edu.jawhara.custom.ActionTableCellEditor;
+import edu.jawhara.custom.ActionTableCellRenderer;
+import edu.jawhara.custom.ActionTableEvent;
 import edu.jawhara.model.Loading;
+import edu.jawhara.model.MyConnection;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableColumnModel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author mhmmadhaibah
  */
 public class StocksPanel extends javax.swing.JPanel {
+    private DefaultTableModel stocksTableModel;
+    private DefaultTableColumnModel stocksTableColumnModel;
 
     /**
      * Creates new form StocksPanel
@@ -22,6 +35,90 @@ public class StocksPanel extends javax.swing.JPanel {
 
     private void refreshStocks() {
         Loading.infiniteLoading(jPanel1, "tablePanel");
+        
+        stocksTableModel = (DefaultTableModel) jTable1.getModel();
+        stocksTableColumnModel = (DefaultTableColumnModel) jTable1.getColumnModel();
+        
+        resetStocksTable();
+        loadStocksTable();
+        
+        customStocksTable();
+    }
+
+    private void resetStocksTable()
+    {
+        stocksTableModel.getDataVector().removeAllElements();
+        stocksTableModel.fireTableStructureChanged();
+        stocksTableModel.fireTableDataChanged();
+        stocksTableModel.setRowCount(0);
+    }
+
+    private void loadStocksTable()
+    {
+        try
+        {
+            Connection conn = MyConnection.getConnection();
+            
+            String sqlq = "SELECT t.id, u.username AS staff, t.type, t.timestamp ";
+            sqlq += "FROM transactions t JOIN users u ON t.user_id = u.id ORDER BY t.timestamp DESC";
+            
+            PreparedStatement stmt = conn.prepareStatement(sqlq.trim());
+            ResultSet rslt = stmt.executeQuery();
+            
+            while (rslt.next())
+            {
+                Object[] data = new Object[5];
+                data[0] = String.valueOf(rslt.getInt("id"));
+                data[1] = rslt.getString("staff");
+                data[2] = rslt.getString("type");
+                data[3] = rslt.getTimestamp("timestamp").toString();
+                data[4] = null;
+                
+                stocksTableModel.addRow(data);
+            }
+            
+            jLabel3.setText(String.valueOf(stocksTableModel.getRowCount()));
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    private void customStocksTable()
+    {
+        ActionTableEvent actionTableEvent = new ActionTableEvent() {
+            @Override
+            public void onEdit(int row)
+            {
+                //
+            }
+            
+            @Override
+            public void onDelete(int row)
+            {
+                int confirm = JOptionPane.showConfirmDialog(
+                    null,
+                    ("Are sure want to delete ?"),
+                    "Delete Stock",
+                    JOptionPane.YES_NO_OPTION
+                );
+                
+                if (confirm == JOptionPane.YES_OPTION)
+                {
+                    //
+                }
+            }
+        };
+        
+        stocksTableColumnModel.getColumn(4).setCellRenderer(new ActionTableCellRenderer());
+        stocksTableColumnModel.getColumn(4).setCellEditor(new ActionTableCellEditor(actionTableEvent));
+        
+        stocksTableColumnModel.getColumn(4).setPreferredWidth(165);
+        stocksTableColumnModel.getColumn(4).setMaxWidth(165);
+        stocksTableColumnModel.getColumn(4).setMinWidth(165);
+        
+        stocksTableColumnModel.removeColumn(stocksTableColumnModel.getColumn(0));
     }
 
     /**
@@ -70,17 +167,36 @@ public class StocksPanel extends javax.swing.JPanel {
         jPanel1.setLayout(new java.awt.CardLayout());
         jPanel1.add(new edu.jawhara.view.InfinitePanel(), "infinitePanel");
 
+        jTable1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Staff", "Type", "Date", "Action"
+                "ID", "Staff", "Type", "Date", "Action"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable1.setFocusable(false);
+        jTable1.setIntercellSpacing(new java.awt.Dimension(10, 5));
+        jTable1.setOpaque(false);
+        jTable1.setRowHeight(55);
+        jTable1.setShowHorizontalLines(true);
+        jTable1.getTableHeader().setReorderingAllowed(false);
+        jTable1.getTableHeader().setPreferredSize(new java.awt.Dimension(0, 36));
+        jTable1.getTableHeader().setBackground(new java.awt.Color(51, 51, 51));
+        jTable1.getTableHeader().setForeground(new java.awt.Color(255, 255, 255));
+        jTable1.getTableHeader().setFont(new java.awt.Font("Segoe UI", 0, 16));
         jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);

@@ -337,7 +337,7 @@ public class UpdateUserFrame extends javax.swing.JFrame {
             
             if (rslt > 0)
             {
-                JOptionPane.showMessageDialog(submitButton, "User-data updated successfully.");
+                JOptionPane.showMessageDialog(submitButton, "User updated successfully.");
                 dispose();
             }
             else

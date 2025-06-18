@@ -303,7 +303,7 @@ public class CreateUserFrame extends javax.swing.JFrame {
             
             if (rslt > 0)
             {
-                JOptionPane.showMessageDialog(submitButton, "New user-data has been successfully created.");
+                JOptionPane.showMessageDialog(submitButton, "New user has been successfully created.");
                 dispose();
             }
             else
