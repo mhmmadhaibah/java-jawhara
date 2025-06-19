@@ -430,7 +430,7 @@ public class ProductsPanel extends javax.swing.JPanel {
                 {null, null, null, null, null}
             },
             new String [] {
-                "ID", "Name", "Category", "Quantity", "Action"
+                "ID", "Product Name", "Category", "Quantity", "Action"
             }
         ) {
             boolean[] canEdit = new boolean [] {
