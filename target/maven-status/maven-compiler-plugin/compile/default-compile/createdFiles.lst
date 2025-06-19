@@ -45,6 +45,8 @@ edu\jawhara\model\Validator.class
 edu\jawhara\view\UpdateProductFrame.class
 edu\jawhara\view\UpdateUserFrame$3.class
 edu\jawhara\view\CreateCategoryFrame$1.class
+edu\jawhara\view\CreateStockFrame$2.class
+edu\jawhara\view\CreateStockFrame.class
 edu\jawhara\view\DashboardPanel$2.class
 edu\jawhara\custom\ActionTableEvent.class
 edu\jawhara\view\ProductsPanel$7.class
@@ -74,3 +76,4 @@ edu\jawhara\custom\ActionTableCellRenderer.class
 edu\jawhara\model\Password.class
 edu\jawhara\view\LoginView$1.class
 edu\jawhara\view\AppView$7.class
+edu\jawhara\view\CreateStockFrame$1.class
