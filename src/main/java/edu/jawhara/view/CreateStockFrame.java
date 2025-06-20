@@ -19,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
  * @author mhmmadhaibah
  */
 public class CreateStockFrame extends javax.swing.JFrame {
-    private static ArrayList<String[]> categories = new ArrayList<>();
+    private static ArrayList<String[]> categoryList = new ArrayList<>();
 
     /**
      * Creates new form CreateStockFrame
@@ -46,7 +46,7 @@ public class CreateStockFrame extends javax.swing.JFrame {
             while (rslt.next())
             {
                 jComboBox1.addItem(rslt.getString("name"));
-                categories.add(new String[] {
+                categoryList.add(new String[] {
                     String.valueOf(rslt.getInt("id")),
                     rslt.getString("name")
                 });
@@ -61,11 +61,11 @@ public class CreateStockFrame extends javax.swing.JFrame {
     private void loadProductForm()
     {
         int categoryId = 0;
-        for (String[] row : categories)
+        for (String[] category : categoryList)
         {
-            if (row[1].equals(jComboBox1.getSelectedItem()))
+            if (category[1].equals(jComboBox1.getSelectedItem()))
             {
-                categoryId = Integer.parseInt(row[0]);
+                categoryId = Integer.parseInt(category[0]);
             }
         }
         
