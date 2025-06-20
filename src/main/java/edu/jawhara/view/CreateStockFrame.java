@@ -4,11 +4,22 @@
  */
 package edu.jawhara.view;
 
+import edu.jawhara.model.MyConnection;
+import edu.jawhara.model.Validator;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author mhmmadhaibah
  */
 public class CreateStockFrame extends javax.swing.JFrame {
+    private static ArrayList<String[]> categories = new ArrayList<>();
 
     /**
      * Creates new form CreateStockFrame
@@ -16,6 +27,68 @@ public class CreateStockFrame extends javax.swing.JFrame {
     public CreateStockFrame() {
         initComponents();
         setLocationRelativeTo(null);
+        
+        loadCategoryForm();
+        loadProductForm();
+    }
+
+    private void loadCategoryForm()
+    {
+        try
+        {
+            Connection conn = MyConnection.getConnection();
+            
+            String sqlq = "SELECT * FROM categories";
+            PreparedStatement stmt = conn.prepareStatement(sqlq);
+            
+            ResultSet rslt = stmt.executeQuery();
+            
+            while (rslt.next())
+            {
+                jComboBox1.addItem(rslt.getString("name"));
+                categories.add(new String[] {
+                    String.valueOf(rslt.getInt("id")),
+                    rslt.getString("name")
+                });
+            }
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadProductForm()
+    {
+        int categoryId = 0;
+        for (String[] row : categories)
+        {
+            if (row[1].equals(jComboBox1.getSelectedItem()))
+            {
+                categoryId = Integer.parseInt(row[0]);
+            }
+        }
+        
+        try
+        {
+            Connection conn = MyConnection.getConnection();
+            
+            String sqlq = "SELECT * FROM products WHERE category_id = ?";
+            PreparedStatement stmt = conn.prepareStatement(sqlq);
+            
+            stmt.setInt(1, categoryId);
+            ResultSet rslt = stmt.executeQuery();
+            
+            jComboBox2.removeAllItems();
+            while (rslt.next())
+            {
+                jComboBox2.addItem(rslt.getString("name"));
+            }
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -83,6 +156,11 @@ public class CreateStockFrame extends javax.swing.JFrame {
 
         jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jComboBox1.setFocusable(false);
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel4.setText("Product Name");
@@ -97,6 +175,11 @@ public class CreateStockFrame extends javax.swing.JFrame {
 
         rSMaterialButtonRectangle1.setBackground(new java.awt.Color(51, 51, 51));
         rSMaterialButtonRectangle1.setText("Add");
+        rSMaterialButtonRectangle1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rSMaterialButtonRectangle1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -165,10 +248,16 @@ public class CreateStockFrame extends javax.swing.JFrame {
         jLabel7.setText("Type");
 
         jComboBox3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "IN", "OUT" }));
         jComboBox3.setFocusable(false);
 
         rSMaterialButtonRectangle2.setBackground(new java.awt.Color(51, 51, 51));
         rSMaterialButtonRectangle2.setText("Submit");
+        rSMaterialButtonRectangle2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rSMaterialButtonRectangle2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -223,6 +312,11 @@ public class CreateStockFrame extends javax.swing.JFrame {
 
         rSMaterialButtonRectangle3.setBackground(new java.awt.Color(51, 51, 51));
         rSMaterialButtonRectangle3.setText("Delete");
+        rSMaterialButtonRectangle3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rSMaterialButtonRectangle3ActionPerformed(evt);
+            }
+        });
 
         jTable1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -351,6 +445,48 @@ public class CreateStockFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        loadProductForm();
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void rSMaterialButtonRectangle1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSMaterialButtonRectangle1ActionPerformed
+        if ("".equals(jTextField1.getText().trim()))
+        {
+            JOptionPane.showMessageDialog(rSMaterialButtonRectangle1, "Please enter the data completely!");
+            return;
+        }
+        
+        if (!Validator.isNumeric(jTextField1.getText().trim()))
+        {
+            JOptionPane.showMessageDialog(rSMaterialButtonRectangle1, "Product quantity must be numeric.");
+            return;
+        }
+        
+        Object[] data = new Object[3];
+        data[0] = jComboBox1.getSelectedItem();
+        data[1] = jComboBox2.getSelectedItem();
+        data[2] = jTextField1.getText().trim();
+        
+        DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
+        tableModel.addRow(data);
+    }//GEN-LAST:event_rSMaterialButtonRectangle1ActionPerformed
+
+    private void rSMaterialButtonRectangle3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSMaterialButtonRectangle3ActionPerformed
+        if (jTable1.getSelectedRow() != -1)
+        {
+            DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
+            tableModel.removeRow(jTable1.getSelectedRow());
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(rSMaterialButtonRectangle3, "Please select the rows you want to delete first.");
+        }
+    }//GEN-LAST:event_rSMaterialButtonRectangle3ActionPerformed
+
+    private void rSMaterialButtonRectangle2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSMaterialButtonRectangle2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rSMaterialButtonRectangle2ActionPerformed
 
     /**
      * @param args the command line arguments

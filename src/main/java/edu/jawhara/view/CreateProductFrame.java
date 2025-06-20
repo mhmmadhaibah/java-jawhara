@@ -29,7 +29,7 @@ public class CreateProductFrame extends javax.swing.JFrame {
         
         loadCategoryForm();
     }
-    
+
     private void loadCategoryForm()
     {
         try

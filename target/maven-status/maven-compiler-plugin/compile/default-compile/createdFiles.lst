@@ -6,6 +6,7 @@ edu\jawhara\view\DashboardPanel$3.class
 edu\jawhara\view\StocksPanel$1.class
 edu\jawhara\view\UsersPanel$1.class
 edu\jawhara\view\CreateCategoryFrame$2.class
+edu\jawhara\view\CreateStockFrame$3.class
 edu\jawhara\view\ProductsPanel$1.class
 edu\jawhara\view\UpdateUserFrame$2.class
 edu\jawhara\view\UsersPanel.class
@@ -48,6 +49,7 @@ edu\jawhara\view\CreateCategoryFrame$1.class
 edu\jawhara\view\CreateStockFrame$2.class
 edu\jawhara\view\CreateStockFrame.class
 edu\jawhara\view\DashboardPanel$2.class
+edu\jawhara\view\CreateStockFrame$5.class
 edu\jawhara\custom\ActionTableEvent.class
 edu\jawhara\view\ProductsPanel$7.class
 edu\jawhara\view\CreateUserFrame$1.class
@@ -58,6 +60,7 @@ edu\jawhara\view\ProductsPanel$2.class
 edu\jawhara\view\AppView.class
 edu\jawhara\custom\DetailTableCellEditor.class
 edu\jawhara\view\CreateProductFrame$1.class
+edu\jawhara\view\CreateStockFrame$4.class
 edu\jawhara\custom\ActionTablePanel$1.class
 edu\jawhara\view\UpdateUserFrame$1.class
 edu\jawhara\model\User.class

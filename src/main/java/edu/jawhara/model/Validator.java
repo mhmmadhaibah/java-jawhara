@@ -23,6 +23,11 @@ public class Validator
         return isMatcher("^[a-zA-Z0-9]+$", input);
     }
     
+    public static boolean isNumeric(String input)
+    {
+        return isMatcher("^[0-9]+$", input);
+    }
+    
     public static boolean isMatcher(String regex, String input)
     {
         Pattern pattern = Pattern.compile(regex);
