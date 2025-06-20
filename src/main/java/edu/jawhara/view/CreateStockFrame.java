@@ -5,11 +5,13 @@
 package edu.jawhara.view;
 
 import edu.jawhara.model.MyConnection;
+import edu.jawhara.model.User;
 import edu.jawhara.model.Validator;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -20,6 +22,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class CreateStockFrame extends javax.swing.JFrame {
     private static ArrayList<String[]> categoryList = new ArrayList<>();
+    private static ArrayList<String[]> productList = new ArrayList<>();
 
     /**
      * Creates new form CreateStockFrame
@@ -66,6 +69,7 @@ public class CreateStockFrame extends javax.swing.JFrame {
             if (category[1].equals(jComboBox1.getSelectedItem()))
             {
                 categoryId = Integer.parseInt(category[0]);
+                break;
             }
         }
         
@@ -83,6 +87,11 @@ public class CreateStockFrame extends javax.swing.JFrame {
             while (rslt.next())
             {
                 jComboBox2.addItem(rslt.getString("name"));
+                productList.add(new String[] {
+                    String.valueOf(rslt.getInt("id")),
+                    String.valueOf(rslt.getInt("category_id")),
+                    rslt.getString("name")
+                });
             }
         }
         catch (SQLException e)
@@ -112,17 +121,17 @@ public class CreateStockFrame extends javax.swing.JFrame {
         jComboBox2 = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        rSMaterialButtonRectangle1 = new rojerusan.RSMaterialButtonRectangle();
+        rButton1 = new rojerusan.RSMaterialButtonRectangle();
         jPanel5 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jComboBox3 = new javax.swing.JComboBox<>();
-        rSMaterialButtonRectangle2 = new rojerusan.RSMaterialButtonRectangle();
+        rButton2 = new rojerusan.RSMaterialButtonRectangle();
         jPanel7 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
-        rSMaterialButtonRectangle3 = new rojerusan.RSMaterialButtonRectangle();
+        rButton3 = new rojerusan.RSMaterialButtonRectangle();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
@@ -173,11 +182,11 @@ public class CreateStockFrame extends javax.swing.JFrame {
 
         jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        rSMaterialButtonRectangle1.setBackground(new java.awt.Color(51, 51, 51));
-        rSMaterialButtonRectangle1.setText("Add");
-        rSMaterialButtonRectangle1.addActionListener(new java.awt.event.ActionListener() {
+        rButton1.setBackground(new java.awt.Color(51, 51, 51));
+        rButton1.setText("Add");
+        rButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rSMaterialButtonRectangle1ActionPerformed(evt);
+                rButton1ActionPerformed(evt);
             }
         });
 
@@ -188,7 +197,7 @@ public class CreateStockFrame extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(rSMaterialButtonRectangle1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel3)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -214,7 +223,7 @@ public class CreateStockFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(rSMaterialButtonRectangle1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(rButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -251,11 +260,11 @@ public class CreateStockFrame extends javax.swing.JFrame {
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "IN", "OUT" }));
         jComboBox3.setFocusable(false);
 
-        rSMaterialButtonRectangle2.setBackground(new java.awt.Color(51, 51, 51));
-        rSMaterialButtonRectangle2.setText("Submit");
-        rSMaterialButtonRectangle2.addActionListener(new java.awt.event.ActionListener() {
+        rButton2.setBackground(new java.awt.Color(51, 51, 51));
+        rButton2.setText("Submit");
+        rButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rSMaterialButtonRectangle2ActionPerformed(evt);
+                rButton2ActionPerformed(evt);
             }
         });
 
@@ -266,7 +275,7 @@ public class CreateStockFrame extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(rSMaterialButtonRectangle2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel7)
                         .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -280,7 +289,7 @@ public class CreateStockFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(rSMaterialButtonRectangle2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(rButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -310,11 +319,11 @@ public class CreateStockFrame extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel8.setText("Stock Details");
 
-        rSMaterialButtonRectangle3.setBackground(new java.awt.Color(51, 51, 51));
-        rSMaterialButtonRectangle3.setText("Delete");
-        rSMaterialButtonRectangle3.addActionListener(new java.awt.event.ActionListener() {
+        rButton3.setBackground(new java.awt.Color(51, 51, 51));
+        rButton3.setText("Delete");
+        rButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rSMaterialButtonRectangle3ActionPerformed(evt);
+                rButton3ActionPerformed(evt);
             }
         });
 
@@ -357,7 +366,7 @@ public class CreateStockFrame extends javax.swing.JFrame {
                     .addComponent(jScrollPane1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(rSMaterialButtonRectangle3, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(rButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
@@ -366,7 +375,7 @@ public class CreateStockFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rSMaterialButtonRectangle3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(rButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -450,7 +459,7 @@ public class CreateStockFrame extends javax.swing.JFrame {
         loadProductForm();
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
-    private void rSMaterialButtonRectangle1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSMaterialButtonRectangle1ActionPerformed
+    private void rButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton1ActionPerformed
         DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
         String categoryName = jComboBox1.getSelectedItem().toString();
         String productName = jComboBox2.getSelectedItem().toString();
@@ -458,7 +467,7 @@ public class CreateStockFrame extends javax.swing.JFrame {
         
         if ("".equals(productQuantity) || !Validator.isNumeric(productQuantity))
         {
-            JOptionPane.showMessageDialog(rSMaterialButtonRectangle1, "Product quantity must be numeric.");
+            JOptionPane.showMessageDialog(rButton1, "Quantity must be numeric.");
             return;
         }
         
@@ -477,20 +486,15 @@ public class CreateStockFrame extends javax.swing.JFrame {
         
         if (!duplicate)
         {
-            Object[] data = new Object[3];
-            data[0] = productName;
-            data[1] = categoryName;
-            data[2] = productQuantity;
-            
-            tableModel.addRow(data);
+            tableModel.addRow(new Object[]{productName, categoryName, productQuantity});
         }
         else
         {
-            JOptionPane.showMessageDialog(rSMaterialButtonRectangle1, "The same product already exists.");
+            JOptionPane.showMessageDialog(rButton1, "The same product already exists.");
         }
-    }//GEN-LAST:event_rSMaterialButtonRectangle1ActionPerformed
+    }//GEN-LAST:event_rButton1ActionPerformed
 
-    private void rSMaterialButtonRectangle3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSMaterialButtonRectangle3ActionPerformed
+    private void rButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton3ActionPerformed
         if (jTable1.getSelectedRow() != -1)
         {
             DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
@@ -498,13 +502,74 @@ public class CreateStockFrame extends javax.swing.JFrame {
         }
         else
         {
-            JOptionPane.showMessageDialog(rSMaterialButtonRectangle3, "Please select the rows you want to delete first.");
+            JOptionPane.showMessageDialog(rButton3, "Please select the rows you want to delete first.");
         }
-    }//GEN-LAST:event_rSMaterialButtonRectangle3ActionPerformed
+    }//GEN-LAST:event_rButton3ActionPerformed
 
-    private void rSMaterialButtonRectangle2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSMaterialButtonRectangle2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rSMaterialButtonRectangle2ActionPerformed
+    private void rButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton2ActionPerformed
+        DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
+        String stockType = jComboBox3.getSelectedItem().toString();
+        
+        try
+        {
+            Connection conn = MyConnection.getConnection();
+            
+            String sqlq = "INSERT INTO transactions (user_id, type) VALUES (?, ?)";
+            PreparedStatement stmt = conn.prepareStatement(sqlq, Statement.RETURN_GENERATED_KEYS);
+            
+            stmt.setInt(1, User.getUserId());
+            stmt.setString(2, stockType);
+            
+            int rows = stmt.executeUpdate();
+            ResultSet rslt = stmt.getGeneratedKeys();
+            
+            if (rows > 0 && rslt.next())
+            {
+                for (int i = 0; i < tableModel.getRowCount(); i++)
+                {
+                    int productId = 0;
+                    for (String[] category : categoryList)
+                    {
+                        if (tableModel.getValueAt(i, 1).toString().equals(category[1]))
+                        {
+                            for (String[] product : productList)
+                            {
+                                if (tableModel.getValueAt(i, 0).toString().equals(product[2]))
+                                {
+                                    productId = Integer.parseInt(product[0]);
+                                    break;
+                                }
+                            }
+                            
+                            break;
+                        }
+                    }
+                    
+                    System.out.println("b" + String.valueOf(productId));
+                    
+                    String sqlq2 = "INSERT INTO transaction_details (transaction_id, product_id, quantity) VALUES (?, ?, ?)";
+                    PreparedStatement stmt2 = conn.prepareStatement(sqlq2);
+                    
+                    stmt2.setInt(1, rslt.getInt(1));
+                    stmt2.setInt(2, productId);
+                    stmt2.setInt(3, Integer.parseInt(tableModel.getValueAt(i, 2).toString()));
+                    stmt2.executeUpdate();
+                }
+                
+                JOptionPane.showMessageDialog(rButton3, "New stocks has been successfully created.");
+                dispose();
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(rButton3, "Something wrong!");
+            }
+        }
+        catch (SQLException e)
+        {
+            JOptionPane.showMessageDialog(rButton3, e);
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_rButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -564,8 +629,8 @@ public class CreateStockFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
-    private rojerusan.RSMaterialButtonRectangle rSMaterialButtonRectangle1;
-    private rojerusan.RSMaterialButtonRectangle rSMaterialButtonRectangle2;
-    private rojerusan.RSMaterialButtonRectangle rSMaterialButtonRectangle3;
+    private rojerusan.RSMaterialButtonRectangle rButton1;
+    private rojerusan.RSMaterialButtonRectangle rButton2;
+    private rojerusan.RSMaterialButtonRectangle rButton3;
     // End of variables declaration//GEN-END:variables
 }
