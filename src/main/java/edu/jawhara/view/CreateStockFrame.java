@@ -169,7 +169,7 @@ public class CreateStockFrame extends javax.swing.JFrame {
         jComboBox2.setFocusable(false);
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel5.setText("Product Quantity");
+        jLabel5.setText("Quantity");
 
         jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
@@ -324,7 +324,7 @@ public class CreateStockFrame extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Category", "Product Name", "Product Quantity"
+                "Product Name", "Category", "Quantity"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -451,25 +451,43 @@ public class CreateStockFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void rSMaterialButtonRectangle1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSMaterialButtonRectangle1ActionPerformed
-        if ("".equals(jTextField1.getText().trim()))
-        {
-            JOptionPane.showMessageDialog(rSMaterialButtonRectangle1, "Please enter the data completely!");
-            return;
-        }
+        DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
+        String categoryName = jComboBox1.getSelectedItem().toString();
+        String productName = jComboBox2.getSelectedItem().toString();
+        String productQuantity = jTextField1.getText().trim();
         
-        if (!Validator.isNumeric(jTextField1.getText().trim()))
+        if ("".equals(productQuantity) || !Validator.isNumeric(productQuantity))
         {
             JOptionPane.showMessageDialog(rSMaterialButtonRectangle1, "Product quantity must be numeric.");
             return;
         }
         
-        Object[] data = new Object[3];
-        data[0] = jComboBox1.getSelectedItem();
-        data[1] = jComboBox2.getSelectedItem();
-        data[2] = jTextField1.getText().trim();
+        boolean duplicate = false;
+        for (int i = 0; i < tableModel.getRowCount(); i++)
+        {
+            String eCategory = tableModel.getValueAt(i, 1).toString();
+            String eProduct = tableModel.getValueAt(i, 0).toString();
+            
+            if (eCategory.equals(categoryName) && eProduct.equals(productName))
+            {
+                duplicate = true;
+                break;
+            }
+        }
         
-        DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
-        tableModel.addRow(data);
+        if (!duplicate)
+        {
+            Object[] data = new Object[3];
+            data[0] = productName;
+            data[1] = categoryName;
+            data[2] = productQuantity;
+            
+            tableModel.addRow(data);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(rSMaterialButtonRectangle1, "The same product already exists.");
+        }
     }//GEN-LAST:event_rSMaterialButtonRectangle1ActionPerformed
 
     private void rSMaterialButtonRectangle3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSMaterialButtonRectangle3ActionPerformed
