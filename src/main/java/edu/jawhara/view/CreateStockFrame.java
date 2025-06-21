@@ -471,6 +471,12 @@ public class CreateStockFrame extends javax.swing.JFrame {
             return;
         }
         
+        if (Integer.parseInt(productQuantity) <= 0)
+        {
+            JOptionPane.showMessageDialog(rButton1, "Quantity must be at least 1.");
+            return;
+        }
+        
         boolean duplicate = false;
         for (int i = 0; i < tableModel.getRowCount(); i++)
         {
@@ -545,8 +551,6 @@ public class CreateStockFrame extends javax.swing.JFrame {
                         }
                     }
                     
-                    System.out.println("b" + String.valueOf(productId));
-                    
                     String sqlq2 = "INSERT INTO transaction_details (transaction_id, product_id, quantity) VALUES (?, ?, ?)";
                     PreparedStatement stmt2 = conn.prepareStatement(sqlq2);
                     
@@ -554,6 +558,14 @@ public class CreateStockFrame extends javax.swing.JFrame {
                     stmt2.setInt(2, productId);
                     stmt2.setInt(3, Integer.parseInt(tableModel.getValueAt(i, 2).toString()));
                     stmt2.executeUpdate();
+                    
+                    String operator = stockType.equals("IN") ? "+" : "-";
+                    String sqlq3 = "UPDATE product_stocks SET quantity = quantity " + operator + " ? WHERE product_id = ?";
+                    PreparedStatement stmt3 = conn.prepareStatement(sqlq3);
+                    
+                    stmt3.setInt(1, Integer.parseInt(tableModel.getValueAt(i, 2).toString()));
+                    stmt3.setInt(2, productId);
+                    stmt3.executeUpdate();
                 }
                 
                 JOptionPane.showMessageDialog(rButton3, "New stocks has been successfully created.");
