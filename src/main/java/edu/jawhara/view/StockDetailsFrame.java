@@ -50,7 +50,7 @@ public class StockDetailsFrame extends javax.swing.JFrame {
                 t += " Stock — Created by ";
                 t += rslt.getString("staff");
                 t += " on ";
-                t += rslt.getTimestamp("timestamp").toString();
+                t += rslt.getTimestamp("timestamp").toString().split("\\.")[0];
                 
                 jLabel2.setText(t);
             }

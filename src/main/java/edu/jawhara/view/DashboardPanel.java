@@ -107,7 +107,7 @@ public class DashboardPanel extends javax.swing.JPanel {
                 Object[] data = new Object[4];
                 data[0] = String.valueOf(rslt.getInt("id"));
                 data[1] = rslt.getString("staff");
-                data[2] = rslt.getTimestamp("timestamp").toString();
+                data[2] = rslt.getTimestamp("timestamp").toString().split("\\.")[0];
                 data[3] = null;
                 
                 if (rslt.getString("type").equals("IN"))
@@ -443,10 +443,7 @@ public class DashboardPanel extends javax.swing.JPanel {
         jTable2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "ID", "Staff", "Date", "Detail"
@@ -527,10 +524,7 @@ public class DashboardPanel extends javax.swing.JPanel {
         jTable1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "ID", "Staff", "Date", "Detail"

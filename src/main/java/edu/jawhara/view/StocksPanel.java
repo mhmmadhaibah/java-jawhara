@@ -75,7 +75,7 @@ public class StocksPanel extends javax.swing.JPanel {
                 data[0] = String.valueOf(rslt.getInt("id"));
                 data[1] = rslt.getString("staff");
                 data[2] = rslt.getString("type");
-                data[3] = rslt.getTimestamp("timestamp").toString();
+                data[3] = rslt.getTimestamp("timestamp").toString().split("\\.")[0];
                 data[4] = null;
                 data[5] = null;
                 
@@ -198,10 +198,7 @@ public class StocksPanel extends javax.swing.JPanel {
         jTable1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "ID", "Staff", "Type", "Date", "Detail", "Action"
@@ -219,7 +216,7 @@ public class StocksPanel extends javax.swing.JPanel {
         jTable1.setIntercellSpacing(new java.awt.Dimension(10, 5));
         jTable1.setOpaque(false);
         jTable1.setRowHeight(55);
-        jTable1.setShowHorizontalLines(true);
+        jTable1.setShowGrid(true);
         jTable1.getTableHeader().setReorderingAllowed(false);
         jTable1.getTableHeader().setPreferredSize(new java.awt.Dimension(0, 36));
         jTable1.getTableHeader().setBackground(new java.awt.Color(51, 51, 51));

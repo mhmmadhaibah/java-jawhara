@@ -223,7 +223,7 @@ public class UsersPanel extends javax.swing.JPanel {
         jTable1.setIntercellSpacing(new java.awt.Dimension(10, 5));
         jTable1.setOpaque(false);
         jTable1.setRowHeight(55);
-        jTable1.setShowHorizontalLines(true);
+        jTable1.setShowGrid(true);
         jTable1.getTableHeader().setReorderingAllowed(false);
         jTable1.getTableHeader().setPreferredSize(new java.awt.Dimension(0, 36));
         jTable1.getTableHeader().setBackground(new java.awt.Color(51, 51, 51));
