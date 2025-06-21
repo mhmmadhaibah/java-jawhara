@@ -42,7 +42,7 @@ public class AppView extends javax.swing.JFrame {
         int confirm = JOptionPane.showConfirmDialog(
             null,
             ("Are sure want to logout ?"),
-            "Logout",
+            "User Logout",
             JOptionPane.YES_NO_OPTION
         );
         
