@@ -96,7 +96,10 @@ public class StocksPanel extends javax.swing.JPanel {
             @Override
             public void onShow(int row)
             {
-                //
+                int stockId = Integer.parseInt(stocksTableModel.getValueAt(row, 0).toString());
+                
+                StockDetailsFrame stockDetailsFrame = new StockDetailsFrame(stockId);
+                stockDetailsFrame.setVisible(true);
             }
         };
         

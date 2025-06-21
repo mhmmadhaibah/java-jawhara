@@ -128,16 +128,19 @@ public class DashboardPanel extends javax.swing.JPanel {
 
     private void customStocksTable()
     {
-        DetailTableEvent detailTableEvent = new DetailTableEvent() {
+        DetailTableEvent detailTableEvent1 = new DetailTableEvent() {
             @Override
             public void onShow(int row)
             {
-                //
+                int stockId = Integer.parseInt(inStocksTableModel.getValueAt(row, 0).toString());
+                
+                StockDetailsFrame stockDetailsFrame = new StockDetailsFrame(stockId);
+                stockDetailsFrame.setVisible(true);
             }
         };
         
         inStocksTableColumnModel.getColumn(3).setCellRenderer(new DetailTableCellRenderer());
-        inStocksTableColumnModel.getColumn(3).setCellEditor(new DetailTableCellEditor(detailTableEvent));
+        inStocksTableColumnModel.getColumn(3).setCellEditor(new DetailTableCellEditor(detailTableEvent1));
         
         inStocksTableColumnModel.getColumn(3).setPreferredWidth(98);
         inStocksTableColumnModel.getColumn(3).setMaxWidth(98);
@@ -145,8 +148,19 @@ public class DashboardPanel extends javax.swing.JPanel {
         
         inStocksTableColumnModel.removeColumn(inStocksTableColumnModel.getColumn(0));
         
+        DetailTableEvent detailTableEvent2 = new DetailTableEvent() {
+            @Override
+            public void onShow(int row)
+            {
+                int stockId = Integer.parseInt(outStocksTableModel.getValueAt(row, 0).toString());
+                
+                StockDetailsFrame stockDetailsFrame = new StockDetailsFrame(stockId);
+                stockDetailsFrame.setVisible(true);
+            }
+        };
+        
         outStocksTableColumnModel.getColumn(3).setCellRenderer(new DetailTableCellRenderer());
-        outStocksTableColumnModel.getColumn(3).setCellEditor(new DetailTableCellEditor(detailTableEvent));
+        outStocksTableColumnModel.getColumn(3).setCellEditor(new DetailTableCellEditor(detailTableEvent2));
         
         outStocksTableColumnModel.getColumn(3).setPreferredWidth(98);
         outStocksTableColumnModel.getColumn(3).setMaxWidth(98);
