@@ -6,6 +6,9 @@ package edu.jawhara.view;
 
 import edu.jawhara.model.Loading;
 import edu.jawhara.model.User;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,11 +22,41 @@ public class AppView extends javax.swing.JFrame {
     public AppView() {
         initComponents();
         setLocationRelativeTo(null);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e)
+            {
+                logoutHandle();
+            }
+        });
         
         Loading.infiniteLoading(jPanel1, "dashboardPanel");
         if (!User.getRole().equals("Admin"))
         {
             rButton5.setVisible(false);
+        }
+    }
+
+    private void logoutHandle()
+    {
+        int confirm = JOptionPane.showConfirmDialog(
+            null,
+            ("Are sure want to logout ?"),
+            "Logout",
+            JOptionPane.YES_NO_OPTION
+        );
+        
+        if (confirm == JOptionPane.YES_OPTION)
+        {
+            User.setUserId(0);
+            User.setRole(null);
+            User.setUsername(null);
+            User.setPassword(null);
+            
+            LoginView loginView = new LoginView();
+            loginView.setVisible(true);
+            
+            dispose();
         }
     }
 
@@ -48,7 +81,7 @@ public class AppView extends javax.swing.JFrame {
         rButton6 = new rojerusan.RSMaterialButtonRectangle();
         rButton7 = new rojerusan.RSMaterialButtonRectangle();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setName("appView"); // NOI18N
 
         jPanel1.setPreferredSize(new java.awt.Dimension(1280, 720));
@@ -223,15 +256,7 @@ public class AppView extends javax.swing.JFrame {
     }//GEN-LAST:event_rButton6ActionPerformed
 
     private void rButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton7ActionPerformed
-        User.setUserId(0);
-        User.setRole(null);
-        User.setUsername(null);
-        User.setPassword(null);
-        
-        LoginView loginView = new LoginView();
-        loginView.setVisible(true);
-        
-        dispose();
+        logoutHandle();
     }//GEN-LAST:event_rButton7ActionPerformed
 
     /**

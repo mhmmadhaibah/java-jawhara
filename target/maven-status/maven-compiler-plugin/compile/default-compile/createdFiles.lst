@@ -51,6 +51,7 @@ edu\jawhara\view\CreateStockFrame$2.class
 edu\jawhara\view\CreateStockFrame.class
 edu\jawhara\view\DashboardPanel$2.class
 edu\jawhara\view\DashboardPanel$5.class
+edu\jawhara\view\AppView$8.class
 edu\jawhara\view\CreateStockFrame$5.class
 edu\jawhara\custom\ActionTableEvent.class
 edu\jawhara\view\ProductsPanel$7.class
