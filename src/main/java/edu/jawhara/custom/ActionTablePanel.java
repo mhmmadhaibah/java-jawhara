@@ -19,7 +19,7 @@ public class ActionTablePanel extends javax.swing.JPanel {
     public ActionTablePanel() {
         initComponents();
     }
-    
+
     public void initEvent(ActionTableEvent event, int row)
     {
         editButton.addActionListener(new ActionListener() {
@@ -38,7 +38,7 @@ public class ActionTablePanel extends javax.swing.JPanel {
             }
         });
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
