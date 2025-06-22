@@ -4,15 +4,15 @@
  */
 package edu.jawhara.view;
 
-import edu.jawhara.model.Loading;
-import edu.jawhara.model.MyConnection;
-import edu.jawhara.model.User;
 import edu.jawhara.custom.ActionTableCellEditor;
 import edu.jawhara.custom.ActionTableCellRenderer;
 import edu.jawhara.custom.ActionTableEvent;
 import edu.jawhara.custom.ActionTableEventAdapter;
 import edu.jawhara.custom.detailsActionTablePanel;
 import edu.jawhara.custom.editDeleteActionTablePanel;
+import edu.jawhara.model.Loading;
+import edu.jawhara.model.MyConnection;
+import edu.jawhara.model.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
