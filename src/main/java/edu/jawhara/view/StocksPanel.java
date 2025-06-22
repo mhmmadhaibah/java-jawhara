@@ -129,7 +129,39 @@ public class StocksPanel extends javax.swing.JPanel {
                 
                 if (confirm == JOptionPane.YES_OPTION)
                 {
-                    //
+                    int stockId = Integer.parseInt(stocksTableModel.getValueAt(row, 0).toString());
+                    
+                    try
+                    {
+                        Connection conn = MyConnection.getConnection();
+                        
+                        String sqlq = "DELETE FROM transactions WHERE id = ?";
+                        PreparedStatement stmt = conn.prepareStatement(sqlq);
+                        
+                        stmt.setInt(1, stockId);
+                        int rslt = stmt.executeUpdate();
+                        
+                        if (rslt > 0)
+                        {
+                            String sqlq2 = "DELETE FROM transaction_details WHERE transaction_id = ?";
+                            PreparedStatement stmt2 = conn.prepareStatement(sqlq2);
+                            
+                            stmt2.setInt(1, stockId);
+                            stmt2.executeUpdate();
+                            
+                            JOptionPane.showMessageDialog(null, "Stock deleted successfully.");
+                            refreshStocks();
+                        }
+                        else
+                        {
+                            JOptionPane.showMessageDialog(null, "Something wrong!");
+                        }
+                    }
+                    catch (SQLException e)
+                    {
+                        JOptionPane.showMessageDialog(null, e);
+                        e.printStackTrace();
+                    }
                 }
             }
         };
