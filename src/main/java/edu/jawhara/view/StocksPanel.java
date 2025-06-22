@@ -155,7 +155,7 @@ public class StocksPanel extends javax.swing.JPanel {
                             stmt2.setInt(1, rslt.getInt("id"));
                             stmt2.executeUpdate();
                             
-                            String operator = !rslt.getString("type").equals("IN") ? "+" : "-";
+                            String operator = rslt.getString("type").equals("OUT") ? "+" : "-";
                             String sqlq3 = "UPDATE product_stocks SET quantity = quantity " + operator + " ? WHERE product_id = ?";
                             PreparedStatement stmt3 = conn.prepareStatement(sqlq3);
                             
@@ -168,10 +168,17 @@ public class StocksPanel extends javax.swing.JPanel {
                         PreparedStatement stmt4 = conn.prepareStatement(sqlq4);
                         
                         stmt4.setInt(1, stockId);
-                        stmt4.executeUpdate();
+                        int rslt4 = stmt4.executeUpdate();
                         
-                        JOptionPane.showMessageDialog(null, "Stock deleted successfully.");
-                        refreshStocks();
+                        if (rslt4 > 0)
+                        {
+                            JOptionPane.showMessageDialog(null, "Stock deleted successfully.");
+                            refreshStocks();
+                        }
+                        else
+                        {
+                            JOptionPane.showMessageDialog(null, "Something wrong!");
+                        }
                     }
                     catch (SQLException e)
                     {
