@@ -516,7 +516,7 @@ public class CreateStockFrame extends javax.swing.JFrame {
         DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
         String stockType = jComboBox3.getSelectedItem().toString();
         
-        if (tableModel.getRowCount() != -1)
+        if (tableModel.getRowCount() <= 0)
         {
             JOptionPane.showMessageDialog(rButton3, "Please add rows of stocks first.");
             return;

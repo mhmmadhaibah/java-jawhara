@@ -18,7 +18,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="detailButton" min="-2" max="-2" attributes="0"/>
+              <Component id="detailsButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -27,19 +27,19 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="detailButton" min="-2" max="-2" attributes="0"/>
+              <Component id="detailsButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="detailButton">
+    <Component class="javax.swing.JButton" name="detailsButton">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="12" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Detail"/>
+        <Property name="text" type="java.lang.String" value="Details"/>
         <Property name="focusable" type="boolean" value="false"/>
       </Properties>
     </Component>

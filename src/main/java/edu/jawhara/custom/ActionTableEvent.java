@@ -12,4 +12,5 @@ public interface ActionTableEvent
 {
     public void onEdit(int row);
     public void onDelete(int row);
+    public void onDetails(int row);
 }

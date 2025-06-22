@@ -4,9 +4,11 @@
  */
 package edu.jawhara.view;
 
-import edu.jawhara.custom.DetailTableCellEditor;
-import edu.jawhara.custom.DetailTableCellRenderer;
-import edu.jawhara.custom.DetailTableEvent;
+import edu.jawhara.custom.ActionTableCellEditor;
+import edu.jawhara.custom.ActionTableCellRenderer;
+import edu.jawhara.custom.ActionTableEvent;
+import edu.jawhara.custom.ActionTableEventAdapter;
+import edu.jawhara.custom.detailsActionTablePanel;
 import edu.jawhara.model.Loading;
 import edu.jawhara.model.MyConnection;
 import java.sql.Connection;
@@ -38,9 +40,25 @@ public class DashboardPanel extends javax.swing.JPanel {
     }
 
     private void refreshDashboard() {
+        loadDetailsCard();
+        
         Loading.infiniteLoading(jPanel15, "tablePanel");
         Loading.infiniteLoading(jPanel14, "tablePanel");
         
+        inStocksTableModel = (DefaultTableModel) jTable2.getModel();
+        inStocksTableColumnModel = (DefaultTableColumnModel) jTable2.getColumnModel();
+        
+        outStocksTableModel = (DefaultTableModel) jTable1.getModel();
+        outStocksTableColumnModel = (DefaultTableColumnModel) jTable1.getColumnModel();
+        
+        resetStocksTable();
+        loadStocksTable();
+        
+        customStocksTable();
+    }
+
+    private void loadDetailsCard()
+    {
         try
         {
             String sqlq = """
@@ -66,16 +84,6 @@ public class DashboardPanel extends javax.swing.JPanel {
         {
             e.printStackTrace();
         }
-        
-        inStocksTableModel = (DefaultTableModel) jTable2.getModel();
-        inStocksTableColumnModel = (DefaultTableColumnModel) jTable2.getColumnModel();
-        
-        outStocksTableModel = (DefaultTableModel) jTable1.getModel();
-        outStocksTableColumnModel = (DefaultTableColumnModel) jTable1.getColumnModel();
-        
-        resetStocksTable();
-        loadStocksTable();
-        customStocksTable();
     }
 
     private void resetStocksTable()
@@ -134,9 +142,15 @@ public class DashboardPanel extends javax.swing.JPanel {
 
     private void customStocksTable()
     {
-        DetailTableEvent detailTableEvent1 = new DetailTableEvent() {
+        customInStocksTable();
+        customOutStocksTable();
+    }
+
+    private void customInStocksTable()
+    {
+        ActionTableEvent actionTableEvent = new ActionTableEventAdapter() {
             @Override
-            public void onShow(int row)
+            public void onDetails(int row)
             {
                 int stockId = Integer.parseInt(inStocksTableModel.getValueAt(row, 0).toString());
                 
@@ -145,18 +159,21 @@ public class DashboardPanel extends javax.swing.JPanel {
             }
         };
         
-        inStocksTableColumnModel.getColumn(3).setCellRenderer(new DetailTableCellRenderer());
-        inStocksTableColumnModel.getColumn(3).setCellEditor(new DetailTableCellEditor(detailTableEvent1));
+        inStocksTableColumnModel.getColumn(3).setCellRenderer(new ActionTableCellRenderer(detailsActionTablePanel.class));
+        inStocksTableColumnModel.getColumn(3).setCellEditor(new ActionTableCellEditor(actionTableEvent, detailsActionTablePanel.class));
         
         inStocksTableColumnModel.getColumn(3).setPreferredWidth(98);
         inStocksTableColumnModel.getColumn(3).setMaxWidth(98);
         inStocksTableColumnModel.getColumn(3).setMinWidth(98);
         
         inStocksTableColumnModel.removeColumn(inStocksTableColumnModel.getColumn(0));
-        
-        DetailTableEvent detailTableEvent2 = new DetailTableEvent() {
+    }
+
+    private void customOutStocksTable()
+    {
+        ActionTableEvent actionTableEvent = new ActionTableEventAdapter() {
             @Override
-            public void onShow(int row)
+            public void onDetails(int row)
             {
                 int stockId = Integer.parseInt(outStocksTableModel.getValueAt(row, 0).toString());
                 
@@ -165,8 +182,8 @@ public class DashboardPanel extends javax.swing.JPanel {
             }
         };
         
-        outStocksTableColumnModel.getColumn(3).setCellRenderer(new DetailTableCellRenderer());
-        outStocksTableColumnModel.getColumn(3).setCellEditor(new DetailTableCellEditor(detailTableEvent2));
+        outStocksTableColumnModel.getColumn(3).setCellRenderer(new ActionTableCellRenderer(detailsActionTablePanel.class));
+        outStocksTableColumnModel.getColumn(3).setCellEditor(new ActionTableCellEditor(actionTableEvent, detailsActionTablePanel.class));
         
         outStocksTableColumnModel.getColumn(3).setPreferredWidth(98);
         outStocksTableColumnModel.getColumn(3).setMaxWidth(98);

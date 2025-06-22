@@ -11,26 +11,26 @@ import java.awt.event.ActionListener;
  *
  * @author mhmmadhaibah
  */
-public class DetailTablePanel extends javax.swing.JPanel {
+public class detailsActionTablePanel extends javax.swing.JPanel implements ActionTablePanel {
 
     /**
-     * Creates new form DetailTablePanel
+     * Creates new form detailsActionTablePanel
      */
-    public DetailTablePanel() {
+    public detailsActionTablePanel() {
         initComponents();
     }
-    
-    public void initEvent(DetailTableEvent event, int row)
+
+    public void initEvent(ActionTableEvent actionTableEvent, int row)
     {
-        detailButton.addActionListener(new ActionListener() {
+        detailsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae)
             {
-                event.onShow(row);
+                actionTableEvent.onDetails(row);
             }
         });
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -40,11 +40,11 @@ public class DetailTablePanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        detailButton = new javax.swing.JButton();
+        detailsButton = new javax.swing.JButton();
 
-        detailButton.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        detailButton.setText("Detail");
-        detailButton.setFocusable(false);
+        detailsButton.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        detailsButton.setText("Details");
+        detailsButton.setFocusable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -52,20 +52,20 @@ public class DetailTablePanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(detailButton)
+                .addComponent(detailsButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(detailButton)
+                .addComponent(detailsButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton detailButton;
+    private javax.swing.JButton detailsButton;
     // End of variables declaration//GEN-END:variables
 }

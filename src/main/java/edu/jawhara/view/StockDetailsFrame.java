@@ -16,6 +16,8 @@ import javax.swing.table.DefaultTableModel;
  * @author mhmmadhaibah
  */
 public class StockDetailsFrame extends javax.swing.JFrame {
+    Connection conn = MyConnection.getConnection();
+
     private final int stockId;
 
     /**
@@ -26,15 +28,19 @@ public class StockDetailsFrame extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         
         this.stockId = stockId;
+        refreshStockDetails();
+    }
+
+    private void refreshStockDetails()
+    {
         loadStockForm();
+        loadStockDetailsForm();
     }
 
     private void loadStockForm()
     {
         try
         {
-            Connection conn = MyConnection.getConnection();
-            
             String sqlq = "SELECT t.id, u.username AS staff, t.type, t.timestamp ";
             sqlq += "FROM transactions t JOIN users u ";
             sqlq += "ON t.user_id = u.id WHERE t.id = ?";
@@ -44,7 +50,7 @@ public class StockDetailsFrame extends javax.swing.JFrame {
             stmt.setInt(1, stockId);
             ResultSet rslt = stmt.executeQuery();
             
-            while (rslt.next())
+            if (rslt.next())
             {
                 String t = rslt.getString("type");
                 t += " Stock — Created by ";
@@ -59,12 +65,14 @@ public class StockDetailsFrame extends javax.swing.JFrame {
         {
             e.printStackTrace();
         }
+    }
+
+    private void loadStockDetailsForm()
+    {
+        DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
         
         try
         {
-            Connection conn = MyConnection.getConnection();
-            DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
-            
             String sqlq = "SELECT p.name AS product, c.name AS category, t.quantity ";
             sqlq += "FROM transaction_details t JOIN products p ON t.product_id = p.id ";
             sqlq += "JOIN categories c ON p.category_id = c.id ";

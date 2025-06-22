@@ -4,12 +4,14 @@
  */
 package edu.jawhara.view;
 
-import edu.jawhara.custom.ActionTableCellEditor;
-import edu.jawhara.custom.ActionTableCellRenderer;
-import edu.jawhara.custom.ActionTableEvent;
 import edu.jawhara.model.Loading;
 import edu.jawhara.model.MyConnection;
 import edu.jawhara.model.User;
+import edu.jawhara.custom.ActionTableCellEditor;
+import edu.jawhara.custom.ActionTableCellRenderer;
+import edu.jawhara.custom.ActionTableEvent;
+import edu.jawhara.custom.ActionTableEventAdapter;
+import edu.jawhara.custom.editDeleteActionTablePanel;
 import java.awt.Dimension;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -136,6 +138,7 @@ public class ProductsPanel extends javax.swing.JPanel {
         
         resetProductsTable();
         loadProductsTable();
+        
         customProductsTable();
     }
 
@@ -198,7 +201,7 @@ public class ProductsPanel extends javax.swing.JPanel {
 
     private void customProductsTable()
     {
-        ActionTableEvent actionTableEvent = new ActionTableEvent() {
+        ActionTableEvent actionTableEvent = new ActionTableEventAdapter() {
             @Override
             public void onEdit(int row)
             {
@@ -249,8 +252,8 @@ public class ProductsPanel extends javax.swing.JPanel {
             }
         };
         
-        productsTableColumnModel.getColumn(4).setCellRenderer(new ActionTableCellRenderer());
-        productsTableColumnModel.getColumn(4).setCellEditor(new ActionTableCellEditor(actionTableEvent));
+        productsTableColumnModel.getColumn(4).setCellRenderer(new ActionTableCellRenderer(editDeleteActionTablePanel.class));
+        productsTableColumnModel.getColumn(4).setCellEditor(new ActionTableCellEditor(actionTableEvent, editDeleteActionTablePanel.class));
         
         productsTableColumnModel.getColumn(4).setPreferredWidth(165);
         productsTableColumnModel.getColumn(4).setMaxWidth(165);

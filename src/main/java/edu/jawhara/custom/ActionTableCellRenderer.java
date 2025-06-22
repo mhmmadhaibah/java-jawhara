@@ -6,6 +6,7 @@ package edu.jawhara.custom;
 
 import java.awt.Color;
 import java.awt.Component;
+import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
@@ -15,20 +16,36 @@ import javax.swing.table.DefaultTableCellRenderer;
  */
 public class ActionTableCellRenderer extends DefaultTableCellRenderer
 {
+    private final Class<? extends JPanel> actionTablePanel;
+    
+    public ActionTableCellRenderer(Class<? extends JPanel> actionTablePanel)
+    {
+        this.actionTablePanel = actionTablePanel;
+    }
+    
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)
     {
-        ActionTablePanel actionTabelPanel = new ActionTablePanel();
-        
-        if (isSelected)
+        try
         {
-            actionTabelPanel.setBackground(table.getSelectionBackground());
+            JPanel tablePanel = actionTablePanel.getDeclaredConstructor().newInstance();
+            
+            if (isSelected)
+            {
+                tablePanel.setBackground(table.getSelectionBackground());
+            }
+            else
+            {
+                tablePanel.setBackground(Color.WHITE);
+            }
+            
+            return tablePanel;
         }
-        else
+        catch (Exception e)
         {
-            actionTabelPanel.setBackground(Color.WHITE);
+            e.printStackTrace();
         }
         
-        return actionTabelPanel;
+        return new JPanel();
     }
 }

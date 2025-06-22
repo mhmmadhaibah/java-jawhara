@@ -4,15 +4,15 @@
  */
 package edu.jawhara.view;
 
-import edu.jawhara.custom.ActionTableCellEditor;
-import edu.jawhara.custom.ActionTableCellRenderer;
-import edu.jawhara.custom.ActionTableEvent;
-import edu.jawhara.custom.DetailTableCellEditor;
-import edu.jawhara.custom.DetailTableCellRenderer;
-import edu.jawhara.custom.DetailTableEvent;
 import edu.jawhara.model.Loading;
 import edu.jawhara.model.MyConnection;
 import edu.jawhara.model.User;
+import edu.jawhara.custom.ActionTableCellEditor;
+import edu.jawhara.custom.ActionTableCellRenderer;
+import edu.jawhara.custom.ActionTableEvent;
+import edu.jawhara.custom.ActionTableEventAdapter;
+import edu.jawhara.custom.detailsActionTablePanel;
+import edu.jawhara.custom.editDeleteActionTablePanel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -92,9 +92,9 @@ public class StocksPanel extends javax.swing.JPanel {
 
     private void customStocksTable()
     {
-        DetailTableEvent detailTableEvent = new DetailTableEvent() {
+        ActionTableEvent actionTableEvent1 = new ActionTableEventAdapter() {
             @Override
-            public void onShow(int row)
+            public void onDetails(int row)
             {
                 int stockId = Integer.parseInt(stocksTableModel.getValueAt(row, 0).toString());
                 
@@ -103,14 +103,14 @@ public class StocksPanel extends javax.swing.JPanel {
             }
         };
         
-        stocksTableColumnModel.getColumn(4).setCellRenderer(new DetailTableCellRenderer());
-        stocksTableColumnModel.getColumn(4).setCellEditor(new DetailTableCellEditor(detailTableEvent));
+        stocksTableColumnModel.getColumn(4).setCellRenderer(new ActionTableCellRenderer(detailsActionTablePanel.class));
+        stocksTableColumnModel.getColumn(4).setCellEditor(new ActionTableCellEditor(actionTableEvent1, detailsActionTablePanel.class));
         
         stocksTableColumnModel.getColumn(4).setPreferredWidth(98);
         stocksTableColumnModel.getColumn(4).setMaxWidth(98);
         stocksTableColumnModel.getColumn(4).setMinWidth(98);
         
-        ActionTableEvent actionTableEvent = new ActionTableEvent() {
+        ActionTableEvent actionTableEvent2 = new ActionTableEventAdapter() {
             @Override
             public void onEdit(int row)
             {
@@ -169,8 +169,8 @@ public class StocksPanel extends javax.swing.JPanel {
             }
         };
         
-        stocksTableColumnModel.getColumn(5).setCellRenderer(new ActionTableCellRenderer());
-        stocksTableColumnModel.getColumn(5).setCellEditor(new ActionTableCellEditor(actionTableEvent));
+        stocksTableColumnModel.getColumn(5).setCellRenderer(new ActionTableCellRenderer(editDeleteActionTablePanel.class));
+        stocksTableColumnModel.getColumn(5).setCellEditor(new ActionTableCellEditor(actionTableEvent2, editDeleteActionTablePanel.class));
         
         stocksTableColumnModel.getColumn(5).setPreferredWidth(165);
         stocksTableColumnModel.getColumn(5).setMaxWidth(165);

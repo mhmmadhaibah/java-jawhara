@@ -7,6 +7,7 @@ package edu.jawhara.custom;
 import java.awt.Component;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JCheckBox;
+import javax.swing.JPanel;
 import javax.swing.JTable;
 
 /**
@@ -15,21 +16,36 @@ import javax.swing.JTable;
  */
 public class ActionTableCellEditor extends DefaultCellEditor
 {
-    private final ActionTableEvent event;
+    private final ActionTableEvent actionTableEvent;
+    private final Class<? extends JPanel> actionTablePanel;
     
-    public ActionTableCellEditor(ActionTableEvent event)
+    public ActionTableCellEditor(ActionTableEvent actionTableEvent, Class<? extends JPanel> actionTablePanel)
     {
         super(new JCheckBox());
-        this.event = event;
+        this.actionTableEvent = actionTableEvent;
+        this.actionTablePanel = actionTablePanel;
     }
     
     @Override
     public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column)
     {
-        ActionTablePanel actionTablePanel = new ActionTablePanel();
-        actionTablePanel.setBackground(table.getSelectionBackground());
-        actionTablePanel.initEvent(event, row);
+        try
+        {
+            JPanel tablePanel = actionTablePanel.getDeclaredConstructor().newInstance();
+            tablePanel.setBackground(table.getSelectionBackground());
+            
+            if (tablePanel instanceof ActionTablePanel actionPanel)
+            {
+                actionPanel.initEvent(actionTableEvent, row);
+            }
+            
+            return tablePanel;
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
         
-        return actionTablePanel;
+        return new JPanel();
     }
 }
