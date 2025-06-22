@@ -21,6 +21,8 @@ import javax.swing.table.DefaultTableModel;
  * @author mhmmadhaibah
  */
 public class CreateStockFrame extends javax.swing.JFrame {
+    Connection conn = MyConnection.getConnection();
+
     private static ArrayList<String[]> categoryList = new ArrayList<>();
     private static ArrayList<String[]> productList = new ArrayList<>();
 
@@ -31,24 +33,23 @@ public class CreateStockFrame extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         
+        loadCategories();
+        loadProducts();
+        
         loadCategoryForm();
         loadProductForm();
     }
 
-    private void loadCategoryForm()
+    private void loadCategories()
     {
         try
         {
-            Connection conn = MyConnection.getConnection();
-            
             String sqlq = "SELECT * FROM categories";
             PreparedStatement stmt = conn.prepareStatement(sqlq);
-            
             ResultSet rslt = stmt.executeQuery();
             
             while (rslt.next())
             {
-                jComboBox1.addItem(rslt.getString("name"));
                 categoryList.add(new String[] {
                     String.valueOf(rslt.getInt("id")),
                     rslt.getString("name")
@@ -58,6 +59,37 @@ public class CreateStockFrame extends javax.swing.JFrame {
         catch (SQLException e)
         {
             e.printStackTrace();
+        }
+    }
+
+    private void loadProducts()
+    {
+        try
+        {
+            String sqlq = "SELECT * FROM products";
+            PreparedStatement stmt = conn.prepareStatement(sqlq);
+            ResultSet rslt = stmt.executeQuery();
+            
+            while (rslt.next())
+            {
+                productList.add(new String[] {
+                    String.valueOf(rslt.getInt("id")),
+                    String.valueOf(rslt.getInt("category_id")),
+                    rslt.getString("name")
+                });
+            }
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadCategoryForm()
+    {
+        for (String[] category : categoryList)
+        {
+            jComboBox1.addItem(category[1]);
         }
     }
 
@@ -73,30 +105,13 @@ public class CreateStockFrame extends javax.swing.JFrame {
             }
         }
         
-        try
+        jComboBox2.removeAllItems();
+        for (String[] product : productList)
         {
-            Connection conn = MyConnection.getConnection();
-            
-            String sqlq = "SELECT * FROM products WHERE category_id = ?";
-            PreparedStatement stmt = conn.prepareStatement(sqlq);
-            
-            stmt.setInt(1, categoryId);
-            ResultSet rslt = stmt.executeQuery();
-            
-            jComboBox2.removeAllItems();
-            while (rslt.next())
+            if (product[1].equals(String.valueOf(categoryId)))
             {
-                jComboBox2.addItem(rslt.getString("name"));
-                productList.add(new String[] {
-                    String.valueOf(rslt.getInt("id")),
-                    String.valueOf(rslt.getInt("category_id")),
-                    rslt.getString("name")
-                });
+                jComboBox2.addItem(product[2]);
             }
-        }
-        catch (SQLException e)
-        {
-            e.printStackTrace();
         }
     }
 
@@ -518,14 +533,12 @@ public class CreateStockFrame extends javax.swing.JFrame {
         
         if (tableModel.getRowCount() <= 0)
         {
-            JOptionPane.showMessageDialog(rButton3, "Please add rows of stocks first.");
+            JOptionPane.showMessageDialog(rButton2, "Please add rows of stocks first.");
             return;
         }
         
         try
         {
-            Connection conn = MyConnection.getConnection();
-            
             String sqlq = "INSERT INTO transactions (user_id, type) VALUES (?, ?)";
             PreparedStatement stmt = conn.prepareStatement(sqlq, Statement.RETURN_GENERATED_KEYS);
             
@@ -574,17 +587,17 @@ public class CreateStockFrame extends javax.swing.JFrame {
                     stmt3.executeUpdate();
                 }
                 
-                JOptionPane.showMessageDialog(rButton3, "New stocks has been successfully created.");
+                JOptionPane.showMessageDialog(rButton2, "New stocks has been successfully created.");
                 dispose();
             }
             else
             {
-                JOptionPane.showMessageDialog(rButton3, "Something wrong!");
+                JOptionPane.showMessageDialog(rButton2, "Something wrong!");
             }
         }
         catch (SQLException e)
         {
-            JOptionPane.showMessageDialog(rButton3, e);
+            JOptionPane.showMessageDialog(rButton2, e);
             e.printStackTrace();
         }
     }//GEN-LAST:event_rButton2ActionPerformed

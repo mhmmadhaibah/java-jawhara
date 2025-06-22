@@ -26,6 +26,8 @@ import javax.swing.table.DefaultTableModel;
  * @author mhmmadhaibah
  */
 public class StocksPanel extends javax.swing.JPanel {
+    Connection conn = MyConnection.getConnection();
+
     private DefaultTableModel stocksTableModel;
     private DefaultTableColumnModel stocksTableColumnModel;
 
@@ -61,8 +63,6 @@ public class StocksPanel extends javax.swing.JPanel {
     {
         try
         {
-            Connection conn = MyConnection.getConnection();
-            
             String sqlq = "SELECT t.id, u.username AS staff, t.type, t.timestamp ";
             sqlq += "FROM transactions t JOIN users u ON t.user_id = u.id ORDER BY t.timestamp DESC";
             
@@ -136,29 +136,42 @@ public class StocksPanel extends javax.swing.JPanel {
                     
                     try
                     {
-                        Connection conn = MyConnection.getConnection();
+                        String sqlq = """
+                            SELECT td.*, t.type
+                                FROM transactions t JOIN transaction_details td
+                                ON t.id = td.transaction_id WHERE t.id = ?
+                            """;
                         
-                        String sqlq = "DELETE FROM transactions WHERE id = ?";
-                        PreparedStatement stmt = conn.prepareStatement(sqlq);
+                        PreparedStatement stmt = conn.prepareStatement(sqlq.trim());
                         
                         stmt.setInt(1, stockId);
-                        int rslt = stmt.executeUpdate();
+                        ResultSet rslt = stmt.executeQuery();
                         
-                        if (rslt > 0)
+                        while (rslt.next())
                         {
-                            String sqlq2 = "DELETE FROM transaction_details WHERE transaction_id = ?";
+                            String sqlq2 = "DELETE FROM transaction_details WHERE id = ?";
                             PreparedStatement stmt2 = conn.prepareStatement(sqlq2);
                             
-                            stmt2.setInt(1, stockId);
+                            stmt2.setInt(1, rslt.getInt("id"));
                             stmt2.executeUpdate();
                             
-                            JOptionPane.showMessageDialog(null, "Stock deleted successfully.");
-                            refreshStocks();
+                            String operator = !rslt.getString("type").equals("IN") ? "+" : "-";
+                            String sqlq3 = "UPDATE product_stocks SET quantity = quantity " + operator + " ? WHERE product_id = ?";
+                            PreparedStatement stmt3 = conn.prepareStatement(sqlq3);
+                            
+                            stmt3.setInt(1, rslt.getInt("quantity"));
+                            stmt3.setInt(2, rslt.getInt("product_id"));
+                            stmt3.executeUpdate();
                         }
-                        else
-                        {
-                            JOptionPane.showMessageDialog(null, "Something wrong!");
-                        }
+                        
+                        String sqlq4 = "DELETE FROM transactions WHERE id = ?";
+                        PreparedStatement stmt4 = conn.prepareStatement(sqlq4);
+                        
+                        stmt4.setInt(1, stockId);
+                        stmt4.executeUpdate();
+                        
+                        JOptionPane.showMessageDialog(null, "Stock deleted successfully.");
+                        refreshStocks();
                     }
                     catch (SQLException e)
                     {
