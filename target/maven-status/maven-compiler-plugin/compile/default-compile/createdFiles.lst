@@ -4,6 +4,8 @@ edu\jawhara\model\Loading.class
 edu\jawhara\view\ProductsPanel$8.class
 edu\jawhara\view\DashboardPanel$3.class
 edu\jawhara\view\StocksPanel$1.class
+edu\jawhara\view\UpdateStockFrame$2.class
+edu\jawhara\view\UpdateStockFrame.class
 edu\jawhara\view\UsersPanel$1.class
 edu\jawhara\view\CreateCategoryFrame$2.class
 edu\jawhara\view\CreateStockFrame$3.class
@@ -16,6 +18,7 @@ edu\jawhara\view\StocksPanel$5.class
 edu\jawhara\view\ProductsPanel$4.class
 edu\jawhara\view\StockDetailsFrame$1.class
 edu\jawhara\view\AppView$3.class
+edu\jawhara\view\UpdateStockFrame$5.class
 edu\jawhara\view\UsersPanel$4.class
 edu\jawhara\custom\DetailTableCellRenderer.class
 edu\jawhara\view\StocksPanel.class
@@ -30,11 +33,13 @@ edu\jawhara\view\StocksPanel$4.class
 edu\jawhara\view\UsersPanel$3.class
 edu\jawhara\view\AppView$2.class
 edu\jawhara\view\LoginView.class
+edu\jawhara\view\UpdateStockFrame$1.class
 edu\jawhara\view\CreateUserFrame.class
 edu\jawhara\view\ProductsPanel$3.class
 edu\jawhara\custom\DetailTableEvent.class
 edu\jawhara\custom\ActionTableCellEditor.class
 edu\jawhara\view\AppView$4.class
+edu\jawhara\view\UpdateStockFrame$4.class
 edu\jawhara\view\UpdateProductFrame$1.class
 edu\jawhara\custom\ActionTablePanel$2.class
 edu\jawhara\view\InfinitePanel.class
@@ -74,7 +79,9 @@ edu\jawhara\view\StockDetailsFrame.class
 edu\jawhara\view\DashboardPanel$4.class
 edu\jawhara\view\SettingsPanel.class
 edu\jawhara\Jawhara.class
+edu\jawhara\view\UpdateStockFrame$3.class
 edu\jawhara\view\UpdateCategoryFrame.class
+edu\jawhara\view\UpdateStockFrame$6.class
 edu\jawhara\custom\DetailTablePanel.class
 edu\jawhara\view\DashboardPanel$1.class
 edu\jawhara\view\ProductsPanel$5.class
