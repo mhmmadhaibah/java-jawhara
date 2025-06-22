@@ -256,7 +256,7 @@ public class StocksPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "ID", "Staff", "Type", "Date", "Detail", "Action"
+                "ID", "Staff", "Type", "Date", "Action", "Action"
             }
         ) {
             boolean[] canEdit = new boolean [] {

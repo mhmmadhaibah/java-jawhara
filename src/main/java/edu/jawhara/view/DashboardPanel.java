@@ -469,7 +469,7 @@ public class DashboardPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "ID", "Staff", "Date", "Detail"
+                "ID", "Staff", "Date", "Action"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -550,7 +550,7 @@ public class DashboardPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "ID", "Staff", "Date", "Detail"
+                "ID", "Staff", "Date", "Action"
             }
         ) {
             boolean[] canEdit = new boolean [] {

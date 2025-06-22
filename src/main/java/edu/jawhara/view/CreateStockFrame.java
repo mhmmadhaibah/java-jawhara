@@ -4,6 +4,11 @@
  */
 package edu.jawhara.view;
 
+import edu.jawhara.custom.ActionTableCellEditor;
+import edu.jawhara.custom.ActionTableCellRenderer;
+import edu.jawhara.custom.ActionTableEvent;
+import edu.jawhara.custom.ActionTableEventAdapter;
+import edu.jawhara.custom.deleteActionTablePanel;
 import edu.jawhara.model.MyConnection;
 import edu.jawhara.model.User;
 import edu.jawhara.model.Validator;
@@ -14,6 +19,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -38,6 +44,8 @@ public class CreateStockFrame extends javax.swing.JFrame {
         
         loadCategoryForm();
         loadProductForm();
+        
+        customStockDetailsTable();
     }
 
     private void loadCategories()
@@ -115,6 +123,27 @@ public class CreateStockFrame extends javax.swing.JFrame {
         }
     }
 
+    private void customStockDetailsTable()
+    {
+        DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
+        DefaultTableColumnModel tableColumnModel = (DefaultTableColumnModel) jTable1.getColumnModel();
+        
+        ActionTableEvent actionTableEvent1 = new ActionTableEventAdapter() {
+            @Override
+            public void onDelete(int row)
+            {
+                tableModel.removeRow(row);
+            }
+        };
+        
+        tableColumnModel.getColumn(3).setCellRenderer(new ActionTableCellRenderer(deleteActionTablePanel.class));
+        tableColumnModel.getColumn(3).setCellEditor(new ActionTableCellEditor(actionTableEvent1, deleteActionTablePanel.class));
+        
+        tableColumnModel.getColumn(3).setPreferredWidth(98);
+        tableColumnModel.getColumn(3).setMaxWidth(98);
+        tableColumnModel.getColumn(3).setMinWidth(98);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -146,7 +175,6 @@ public class CreateStockFrame extends javax.swing.JFrame {
         jPanel7 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
-        rButton3 = new rojerusan.RSMaterialButtonRectangle();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
@@ -334,25 +362,17 @@ public class CreateStockFrame extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel8.setText("Stock Details");
 
-        rButton3.setBackground(new java.awt.Color(51, 51, 51));
-        rButton3.setText("Delete");
-        rButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rButton3ActionPerformed(evt);
-            }
-        });
-
         jTable1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Product Name", "Category", "Quantity"
+                "Product Name", "Category", "Quantity", "Action"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -362,7 +382,7 @@ public class CreateStockFrame extends javax.swing.JFrame {
         jTable1.setFocusable(false);
         jTable1.setIntercellSpacing(new java.awt.Dimension(10, 5));
         jTable1.setOpaque(false);
-        jTable1.setRowHeight(36);
+        jTable1.setRowHeight(55);
         jTable1.setShowGrid(true);
         jTable1.getTableHeader().setReorderingAllowed(false);
         jTable1.getTableHeader().setPreferredSize(new java.awt.Dimension(0, 36));
@@ -377,20 +397,14 @@ public class CreateStockFrame extends javax.swing.JFrame {
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(rButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+            .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -514,18 +528,6 @@ public class CreateStockFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rButton1, "The same product already exists.");
         }
     }//GEN-LAST:event_rButton1ActionPerformed
-
-    private void rButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton3ActionPerformed
-        if (jTable1.getSelectedRow() != -1)
-        {
-            DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
-            tableModel.removeRow(jTable1.getSelectedRow());
-        }
-        else
-        {
-            JOptionPane.showMessageDialog(rButton3, "Please select the rows you want to delete first.");
-        }
-    }//GEN-LAST:event_rButton3ActionPerformed
 
     private void rButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton2ActionPerformed
         DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
@@ -662,6 +664,5 @@ public class CreateStockFrame extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     private rojerusan.RSMaterialButtonRectangle rButton1;
     private rojerusan.RSMaterialButtonRectangle rButton2;
-    private rojerusan.RSMaterialButtonRectangle rButton3;
     // End of variables declaration//GEN-END:variables
 }
