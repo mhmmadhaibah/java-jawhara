@@ -21,9 +21,12 @@ import javax.swing.table.DefaultTableModel;
  * @author mhmmadhaibah
  */
 public class UpdateStockFrame extends javax.swing.JFrame {
+    Connection conn = MyConnection.getConnection();
+
     private static ArrayList<String[]> categoryList = new ArrayList<>();
     private static ArrayList<String[]> productList = new ArrayList<>();
-    private final int stockId;
+
+    private static int stockId;
 
     /**
      * Creates new form UpdateStockFrame
@@ -35,6 +38,9 @@ public class UpdateStockFrame extends javax.swing.JFrame {
         this.stockId = stockId;
         loadDetailsTable();
         
+        loadCategories();
+        loadProducts();
+        
         loadCategoryForm();
         loadProductForm();
     }
@@ -43,7 +49,6 @@ public class UpdateStockFrame extends javax.swing.JFrame {
     {
         try
         {
-            Connection conn = MyConnection.getConnection();
             DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
             
             String sqlq = "SELECT t.type, p.name AS product, c.name AS category, td.quantity ";
@@ -73,20 +78,16 @@ public class UpdateStockFrame extends javax.swing.JFrame {
         }
     }
 
-    private void loadCategoryForm()
+    private void loadCategories()
     {
         try
         {
-            Connection conn = MyConnection.getConnection();
-            
             String sqlq = "SELECT * FROM categories";
             PreparedStatement stmt = conn.prepareStatement(sqlq);
-            
             ResultSet rslt = stmt.executeQuery();
             
             while (rslt.next())
             {
-                jComboBox1.addItem(rslt.getString("name"));
                 categoryList.add(new String[] {
                     String.valueOf(rslt.getInt("id")),
                     rslt.getString("name")
@@ -96,6 +97,37 @@ public class UpdateStockFrame extends javax.swing.JFrame {
         catch (SQLException e)
         {
             e.printStackTrace();
+        }
+    }
+
+    private void loadProducts()
+    {
+        try
+        {
+            String sqlq = "SELECT * FROM products";
+            PreparedStatement stmt = conn.prepareStatement(sqlq);
+            ResultSet rslt = stmt.executeQuery();
+            
+            while (rslt.next())
+            {
+                productList.add(new String[] {
+                    String.valueOf(rslt.getInt("id")),
+                    String.valueOf(rslt.getInt("category_id")),
+                    rslt.getString("name")
+                });
+            }
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadCategoryForm()
+    {
+        for (String[] category : categoryList)
+        {
+            jComboBox1.addItem(category[1]);
         }
     }
 
@@ -111,30 +143,13 @@ public class UpdateStockFrame extends javax.swing.JFrame {
             }
         }
         
-        try
+        jComboBox2.removeAllItems();
+        for (String[] product : productList)
         {
-            Connection conn = MyConnection.getConnection();
-            
-            String sqlq = "SELECT * FROM products WHERE category_id = ?";
-            PreparedStatement stmt = conn.prepareStatement(sqlq);
-            
-            stmt.setInt(1, categoryId);
-            ResultSet rslt = stmt.executeQuery();
-            
-            jComboBox2.removeAllItems();
-            while (rslt.next())
+            if (product[1].equals(String.valueOf(categoryId)))
             {
-                jComboBox2.addItem(rslt.getString("name"));
-                productList.add(new String[] {
-                    String.valueOf(rslt.getInt("id")),
-                    String.valueOf(rslt.getInt("category_id")),
-                    rslt.getString("name")
-                });
+                jComboBox2.addItem(product[2]);
             }
-        }
-        catch (SQLException e)
-        {
-            e.printStackTrace();
         }
     }
 
@@ -554,77 +569,21 @@ public class UpdateStockFrame extends javax.swing.JFrame {
         DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
         String stockType = jComboBox3.getSelectedItem().toString();
         
-        // for something shits!
-        if (stockType.equals("IN") || stockType.equals("OUT"))
+        if (tableModel.getRowCount() <= 0)
         {
+            JOptionPane.showMessageDialog(rButton2, "Please add rows of stocks first.");
             return;
         }
         
-        try
-        {
-            Connection conn = MyConnection.getConnection();
-            
-            String sqlq = "INSERT INTO transactions (user_id, type) VALUES (?, ?)";
-            PreparedStatement stmt = conn.prepareStatement(sqlq, Statement.RETURN_GENERATED_KEYS);
-            
-            stmt.setInt(1, User.getUserId());
-            stmt.setString(2, stockType);
-            
-            int rows = stmt.executeUpdate();
-            ResultSet rslt = stmt.getGeneratedKeys();
-            
-            if (rows > 0 && rslt.next())
-            {
-                for (int i = 0; i < tableModel.getRowCount(); i++)
-                {
-                    int productId = 0;
-                    for (String[] category : categoryList)
-                    {
-                        if (tableModel.getValueAt(i, 1).toString().equals(category[1]))
-                        {
-                            for (String[] product : productList)
-                            {
-                                if (tableModel.getValueAt(i, 0).toString().equals(product[2]) && category[0].equals(product[1]))
-                                {
-                                    productId = Integer.parseInt(product[0]);
-                                    break;
-                                }
-                            }
-                            
-                            break;
-                        }
-                    }
-                    
-                    String sqlq2 = "INSERT INTO transaction_details (transaction_id, product_id, quantity) VALUES (?, ?, ?)";
-                    PreparedStatement stmt2 = conn.prepareStatement(sqlq2);
-                    
-                    stmt2.setInt(1, rslt.getInt(1));
-                    stmt2.setInt(2, productId);
-                    stmt2.setInt(3, Integer.parseInt(tableModel.getValueAt(i, 2).toString()));
-                    stmt2.executeUpdate();
-                    
-                    String operator = stockType.equals("IN") ? "+" : "-";
-                    String sqlq3 = "UPDATE product_stocks SET quantity = quantity " + operator + " ? WHERE product_id = ?";
-                    PreparedStatement stmt3 = conn.prepareStatement(sqlq3);
-                    
-                    stmt3.setInt(1, Integer.parseInt(tableModel.getValueAt(i, 2).toString()));
-                    stmt3.setInt(2, productId);
-                    stmt3.executeUpdate();
-                }
-                
-                JOptionPane.showMessageDialog(rButton3, "New stocks has been successfully created.");
-                dispose();
-            }
-            else
-            {
-                JOptionPane.showMessageDialog(rButton3, "Something wrong!");
-            }
-        }
-        catch (SQLException e)
-        {
-            JOptionPane.showMessageDialog(rButton3, e);
-            e.printStackTrace();
-        }
+//        try
+//        {
+//            //
+//        }
+//        catch (SQLException e)
+//        {
+//            JOptionPane.showMessageDialog(rButton2, e);
+//            e.printStackTrace();
+//        }
     }//GEN-LAST:event_rButton2ActionPerformed
 
     /**
