@@ -21,8 +21,11 @@ import javax.swing.table.DefaultTableModel;
  * @author mhmmadhaibah
  */
 public class DashboardPanel extends javax.swing.JPanel {
+    Connection conn = MyConnection.getConnection();
+
     private DefaultTableModel inStocksTableModel;
     private DefaultTableColumnModel inStocksTableColumnModel;
+
     private DefaultTableModel outStocksTableModel;
     private DefaultTableColumnModel outStocksTableColumnModel;
 
@@ -35,17 +38,18 @@ public class DashboardPanel extends javax.swing.JPanel {
     }
 
     private void refreshDashboard() {
+        Loading.infiniteLoading(jPanel15, "tablePanel");
+        Loading.infiniteLoading(jPanel14, "tablePanel");
+        
         try
         {
-            Connection conn = MyConnection.getConnection();
-            
             String sqlq = """
                 SELECT
                     (SELECT COUNT(*) FROM users WHERE role = 'Staff') AS users,
                     (SELECT COUNT(*) FROM products) AS products,
                     (SELECT COUNT(*) FROM categories) AS categories,
                     (SELECT COUNT(*) FROM transactions) AS stocks
-                """;
+                """.trim();
             
             PreparedStatement stmt = conn.prepareStatement(sqlq);
             ResultSet rslt = stmt.executeQuery();
@@ -72,9 +76,6 @@ public class DashboardPanel extends javax.swing.JPanel {
         resetStocksTable();
         loadStocksTable();
         customStocksTable();
-        
-        Loading.infiniteLoading(jPanel15, "tablePanel");
-        Loading.infiniteLoading(jPanel14, "tablePanel");
     }
 
     private void resetStocksTable()
@@ -94,12 +95,13 @@ public class DashboardPanel extends javax.swing.JPanel {
     {
         try
         {
-            Connection conn = MyConnection.getConnection();
+            String sqlq = """
+                SELECT t.id, u.username AS staff, t.type, t.timestamp
+                    FROM transactions t JOIN users u ON t.user_id = u.id
+                    ORDER BY t.timestamp DESC
+                """.trim();
             
-            String sqlq = "SELECT t.id, u.username AS staff, t.type, t.timestamp ";
-            sqlq += "FROM transactions t JOIN users u ON t.user_id = u.id ORDER BY t.timestamp DESC";
-            
-            PreparedStatement stmt = conn.prepareStatement(sqlq.trim());
+            PreparedStatement stmt = conn.prepareStatement(sqlq);
             ResultSet rslt = stmt.executeQuery();
             
             while (rslt.next())
@@ -117,6 +119,10 @@ public class DashboardPanel extends javax.swing.JPanel {
                 else if (rslt.getString("type").equals("OUT"))
                 {
                     outStocksTableModel.addRow(data);
+                }
+                else
+                {
+                    throw new SQLException("Unexpected value for stock type: '" + rslt.getString("type") + "'.");
                 }
             }
         }

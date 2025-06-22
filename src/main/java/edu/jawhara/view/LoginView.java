@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
  * @author mhmmadhaibah
  */
 public class LoginView extends javax.swing.JFrame {
+    Connection conn = MyConnection.getConnection();
 
     /**
      * Creates new form LoginView
@@ -180,10 +181,14 @@ public class LoginView extends javax.swing.JFrame {
         String username = usernameField.getText().trim();
         String password = String.valueOf(passwordField.getPassword()).trim();
         
+        if ("".equals(username) || "".equals(password))
+        {
+            JOptionPane.showMessageDialog(loginButton, "Please enter the data completely!");
+            return;
+        }
+        
         try
         {
-            Connection conn = MyConnection.getConnection();
-            
             String sqlq = "SELECT * FROM users WHERE username = ? AND password = ?";
             PreparedStatement stmt = conn.prepareStatement(sqlq);
             

@@ -26,9 +26,12 @@ import rojerusan.RSMaterialButtonRectangle;
  * @author mhmmadhaibah
  */
 public class ProductsPanel extends javax.swing.JPanel {
-    private static String categorySelected;
+    Connection conn = MyConnection.getConnection();
+
     private DefaultTableModel productsTableModel;
     private DefaultTableColumnModel productsTableColumnModel;
+
+    private static String categorySelected;
 
     /**
      * Creates new form ProductsPanel
@@ -77,8 +80,6 @@ public class ProductsPanel extends javax.swing.JPanel {
             cPanel.setLayout(null);
             cPanel.add(_cButton_);
             
-            Connection conn = MyConnection.getConnection();
-            
             String sqlq = "SELECT * FROM categories";
             PreparedStatement stmt = conn.prepareStatement(sqlq);
             ResultSet rslt = stmt.executeQuery();
@@ -116,10 +117,10 @@ public class ProductsPanel extends javax.swing.JPanel {
                 i++;
             }
             
-            jLabel3.setText(String.valueOf(i));
-            
             cPanel.setPreferredSize(new Dimension(x, 60));
             jScrollPane1.setViewportView(cPanel);
+            
+            jLabel3.setText(String.valueOf(i));
         }
         catch (SQLException e)
         {
@@ -135,7 +136,6 @@ public class ProductsPanel extends javax.swing.JPanel {
         
         resetProductsTable();
         loadProductsTable();
-        
         customProductsTable();
     }
 
@@ -151,8 +151,6 @@ public class ProductsPanel extends javax.swing.JPanel {
     {
         try
         {
-            Connection conn = MyConnection.getConnection();
-            
             String sqlq = "SELECT p.id, p.name, c.name AS category, q.quantity ";
             sqlq += "FROM categories c ";
             sqlq += "JOIN products p ON c.id = p.category_id ";
@@ -226,8 +224,6 @@ public class ProductsPanel extends javax.swing.JPanel {
                     
                     try
                     {
-                        Connection conn = MyConnection.getConnection();
-                        
                         String sqlq = "DELETE FROM products WHERE id = ?";
                         PreparedStatement stmt = conn.prepareStatement(sqlq);
                         
@@ -606,8 +602,6 @@ public class ProductsPanel extends javax.swing.JPanel {
         {
             try
             {
-                Connection conn = MyConnection.getConnection();
-                
                 String sqlq = "DELETE FROM categories WHERE name = ?";
                 PreparedStatement stmt = conn.prepareStatement(sqlq);
                 
