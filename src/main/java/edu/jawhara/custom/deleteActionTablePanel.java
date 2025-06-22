@@ -11,12 +11,12 @@ import java.awt.event.ActionListener;
  *
  * @author mhmmadhaibah
  */
-public class deleteActionTablePanel extends javax.swing.JPanel implements ActionTablePanel {
+public class DeleteActionTablePanel extends javax.swing.JPanel implements ActionTablePanel {
 
     /**
-     * Creates new form deleteActionTablePanel
+     * Creates new form DeleteActionTablePanel
      */
-    public deleteActionTablePanel() {
+    public DeleteActionTablePanel() {
         initComponents();
     }
 

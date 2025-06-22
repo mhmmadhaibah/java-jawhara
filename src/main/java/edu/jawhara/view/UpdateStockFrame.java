@@ -8,15 +8,13 @@ import edu.jawhara.custom.ActionTableCellEditor;
 import edu.jawhara.custom.ActionTableCellRenderer;
 import edu.jawhara.custom.ActionTableEvent;
 import edu.jawhara.custom.ActionTableEventAdapter;
-import edu.jawhara.custom.deleteActionTablePanel;
+import edu.jawhara.custom.DeleteActionTablePanel;
 import edu.jawhara.model.MyConnection;
-import edu.jawhara.model.User;
 import edu.jawhara.model.Validator;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableColumnModel;
@@ -174,8 +172,8 @@ public class UpdateStockFrame extends javax.swing.JFrame {
             }
         };
         
-        tableColumnModel.getColumn(3).setCellRenderer(new ActionTableCellRenderer(deleteActionTablePanel.class));
-        tableColumnModel.getColumn(3).setCellEditor(new ActionTableCellEditor(actionTableEvent1, deleteActionTablePanel.class));
+        tableColumnModel.getColumn(3).setCellRenderer(new ActionTableCellRenderer(DeleteActionTablePanel.class));
+        tableColumnModel.getColumn(3).setCellEditor(new ActionTableCellEditor(actionTableEvent1, DeleteActionTablePanel.class));
         
         tableColumnModel.getColumn(3).setPreferredWidth(98);
         tableColumnModel.getColumn(3).setMaxWidth(98);

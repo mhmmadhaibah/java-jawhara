@@ -8,7 +8,7 @@ import edu.jawhara.custom.ActionTableCellEditor;
 import edu.jawhara.custom.ActionTableCellRenderer;
 import edu.jawhara.custom.ActionTableEvent;
 import edu.jawhara.custom.ActionTableEventAdapter;
-import edu.jawhara.custom.editDeleteActionTablePanel;
+import edu.jawhara.custom.EditDeleteActionTablePanel;
 import edu.jawhara.model.Loading;
 import edu.jawhara.model.MyConnection;
 import edu.jawhara.model.User;
@@ -252,8 +252,8 @@ public class ProductsPanel extends javax.swing.JPanel {
             }
         };
         
-        productsTableColumnModel.getColumn(4).setCellRenderer(new ActionTableCellRenderer(editDeleteActionTablePanel.class));
-        productsTableColumnModel.getColumn(4).setCellEditor(new ActionTableCellEditor(actionTableEvent, editDeleteActionTablePanel.class));
+        productsTableColumnModel.getColumn(4).setCellRenderer(new ActionTableCellRenderer(EditDeleteActionTablePanel.class));
+        productsTableColumnModel.getColumn(4).setCellEditor(new ActionTableCellEditor(actionTableEvent, EditDeleteActionTablePanel.class));
         
         productsTableColumnModel.getColumn(4).setPreferredWidth(165);
         productsTableColumnModel.getColumn(4).setMaxWidth(165);
