@@ -540,7 +540,7 @@ public class CreateStockFrame extends javax.swing.JFrame {
                         {
                             for (String[] product : productList)
                             {
-                                if (tableModel.getValueAt(i, 0).toString().equals(product[2]))
+                                if (tableModel.getValueAt(i, 0).toString().equals(product[2]) && category[0].equals(product[1]))
                                 {
                                     productId = Integer.parseInt(product[0]);
                                     break;
