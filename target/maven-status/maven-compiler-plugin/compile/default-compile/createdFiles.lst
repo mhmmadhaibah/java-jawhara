@@ -63,6 +63,7 @@ edu\jawhara\view\UsersPanel$3.class
 edu\jawhara\custom\DeleteActionTablePanel.class
 edu\jawhara\view\AppView$2.class
 edu\jawhara\view\LoginView.class
+edu\jawhara\view\SettingsPanel$1.class
 edu\jawhara\custom\EditDeleteActionTablePanel.class
 edu\jawhara\view\ProductsPanel$3.class
 edu\jawhara\custom\ActionTableCellEditor.class
@@ -73,6 +74,7 @@ edu\jawhara\view\InfinitePanel.class
 edu\jawhara\view\UsersPanel$2.class
 edu\jawhara\view\AppView$1.class
 edu\jawhara\model\Validator.class
+edu\jawhara\view\SettingsPanel$2.class
 edu\jawhara\view\UpdateProductFrame.class
 edu\jawhara\view\CreateCategoryFrame$1.class
 edu\jawhara\view\CreateStockFrame$2.class
