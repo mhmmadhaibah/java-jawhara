@@ -33,6 +33,7 @@ public class ProductsPanel extends javax.swing.JPanel {
     private DefaultTableModel productsTableModel;
     private DefaultTableColumnModel productsTableColumnModel;
 
+    private final boolean adminFlag;
     private static String categorySelected;
 
     /**
@@ -44,8 +45,9 @@ public class ProductsPanel extends javax.swing.JPanel {
         refreshCategories();
         refreshProducts();
         
-        rButton1.setVisible(User.getRole().equals("Admin"));
-        rButton2.setVisible(User.getRole().equals("Admin"));
+        this.adminFlag = User.getRole().equals("Admin");
+        rButton1.setVisible(adminFlag);
+        rButton2.setVisible(adminFlag);
         
         rButton4.setVisible(false);
         rButton5.setVisible(false);
@@ -93,8 +95,8 @@ public class ProductsPanel extends javax.swing.JPanel {
                 cButton.setText(categoryName);
                 cButton.setBounds(x, 6, 120, 60);
                 cButton.addActionListener(evt -> {
-                    rButton4.setVisible(User.getRole().equals("Admin"));
-                    rButton5.setVisible(User.getRole().equals("Admin"));
+                    rButton4.setVisible(adminFlag);
+                    rButton5.setVisible(adminFlag);
                     
                     rTextField1.setText("");
                     categorySelected = categoryName;
