@@ -6,6 +6,7 @@ package edu.jawhara.custom;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.lang.reflect.InvocationTargetException;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -41,7 +42,7 @@ public class ActionTableCellRenderer extends DefaultTableCellRenderer
             
             return tablePanel;
         }
-        catch (Exception e)
+        catch (IllegalAccessException | IllegalArgumentException | InstantiationException | NoSuchMethodException | SecurityException | InvocationTargetException e)
         {
             e.printStackTrace();
         }

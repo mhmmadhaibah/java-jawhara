@@ -5,6 +5,7 @@
 package edu.jawhara.custom;
 
 import java.awt.Component;
+import java.lang.reflect.InvocationTargetException;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
@@ -41,7 +42,7 @@ public class ActionTableCellEditor extends DefaultCellEditor
             
             return tablePanel;
         }
-        catch (Exception e)
+        catch (IllegalAccessException | IllegalArgumentException | InstantiationException | NoSuchMethodException | SecurityException | InvocationTargetException e)
         {
             e.printStackTrace();
         }
