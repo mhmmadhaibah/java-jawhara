@@ -174,9 +174,9 @@ public class UpdateStockFrame extends javax.swing.JFrame {
         tableColumnModel.getColumn(3).setCellRenderer(new ActionTableCellRenderer(DeleteActionTablePanel.class));
         tableColumnModel.getColumn(3).setCellEditor(new ActionTableCellEditor(actionTableEvent1, DeleteActionTablePanel.class));
         
-        tableColumnModel.getColumn(3).setPreferredWidth(98);
-        tableColumnModel.getColumn(3).setMaxWidth(98);
-        tableColumnModel.getColumn(3).setMinWidth(98);
+        tableColumnModel.getColumn(3).setPreferredWidth(104);
+        tableColumnModel.getColumn(3).setMaxWidth(104);
+        tableColumnModel.getColumn(3).setMinWidth(104);
     }
 
     /**

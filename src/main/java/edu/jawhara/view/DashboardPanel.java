@@ -173,9 +173,9 @@ public class DashboardPanel extends javax.swing.JPanel {
         inStocksTableColumnModel.getColumn(3).setCellRenderer(new ActionTableCellRenderer(DetailsActionTablePanel.class));
         inStocksTableColumnModel.getColumn(3).setCellEditor(new ActionTableCellEditor(actionTableEvent, DetailsActionTablePanel.class));
         
-        inStocksTableColumnModel.getColumn(3).setPreferredWidth(98);
-        inStocksTableColumnModel.getColumn(3).setMaxWidth(98);
-        inStocksTableColumnModel.getColumn(3).setMinWidth(98);
+        inStocksTableColumnModel.getColumn(3).setPreferredWidth(104);
+        inStocksTableColumnModel.getColumn(3).setMaxWidth(104);
+        inStocksTableColumnModel.getColumn(3).setMinWidth(104);
         
         inStocksTableColumnModel.removeColumn(inStocksTableColumnModel.getColumn(0));
     }
@@ -196,9 +196,9 @@ public class DashboardPanel extends javax.swing.JPanel {
         outStocksTableColumnModel.getColumn(3).setCellRenderer(new ActionTableCellRenderer(DetailsActionTablePanel.class));
         outStocksTableColumnModel.getColumn(3).setCellEditor(new ActionTableCellEditor(actionTableEvent, DetailsActionTablePanel.class));
         
-        outStocksTableColumnModel.getColumn(3).setPreferredWidth(98);
-        outStocksTableColumnModel.getColumn(3).setMaxWidth(98);
-        outStocksTableColumnModel.getColumn(3).setMinWidth(98);
+        outStocksTableColumnModel.getColumn(3).setPreferredWidth(104);
+        outStocksTableColumnModel.getColumn(3).setMaxWidth(104);
+        outStocksTableColumnModel.getColumn(3).setMinWidth(104);
         
         outStocksTableColumnModel.removeColumn(outStocksTableColumnModel.getColumn(0));
     }

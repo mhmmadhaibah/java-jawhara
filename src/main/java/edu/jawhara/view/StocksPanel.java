@@ -117,9 +117,9 @@ public class StocksPanel extends javax.swing.JPanel {
         stocksTableColumnModel.getColumn(4).setCellRenderer(new ActionTableCellRenderer(DetailsActionTablePanel.class));
         stocksTableColumnModel.getColumn(4).setCellEditor(new ActionTableCellEditor(actionTableEvent1, DetailsActionTablePanel.class));
         
-        stocksTableColumnModel.getColumn(4).setPreferredWidth(98);
-        stocksTableColumnModel.getColumn(4).setMaxWidth(98);
-        stocksTableColumnModel.getColumn(4).setMinWidth(98);
+        stocksTableColumnModel.getColumn(4).setPreferredWidth(104);
+        stocksTableColumnModel.getColumn(4).setMaxWidth(104);
+        stocksTableColumnModel.getColumn(4).setMinWidth(104);
         
         ActionTableEvent actionTableEvent2 = new ActionTableEventAdapter() {
             @Override
