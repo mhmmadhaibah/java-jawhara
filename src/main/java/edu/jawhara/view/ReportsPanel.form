@@ -94,21 +94,33 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Current Stock"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rButton1ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="rojerusan.RSMaterialButtonRectangle" name="rButton2">
           <Properties>
             <Property name="text" type="java.lang.String" value="Out of Stock"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rButton2ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="rojerusan.RSMaterialButtonRectangle" name="rButton3">
           <Properties>
             <Property name="text" type="java.lang.String" value="Stock Movement Summary"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rButton3ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="rojerusan.RSMaterialButtonRectangle" name="rButton4">
           <Properties>
             <Property name="text" type="java.lang.String" value="Staff Activity"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rButton4ActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

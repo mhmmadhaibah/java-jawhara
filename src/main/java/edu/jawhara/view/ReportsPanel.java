@@ -4,6 +4,7 @@
  */
 package edu.jawhara.view;
 
+import edu.jawhara.model.MyReport;
 import edu.jawhara.model.User;
 
 /**
@@ -44,12 +45,32 @@ public class ReportsPanel extends javax.swing.JPanel {
         jLabel1.setText("Reports");
 
         rButton1.setText("Current Stock");
+        rButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rButton1ActionPerformed(evt);
+            }
+        });
 
         rButton2.setText("Out of Stock");
+        rButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rButton2ActionPerformed(evt);
+            }
+        });
 
         rButton3.setText("Stock Movement Summary");
+        rButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rButton3ActionPerformed(evt);
+            }
+        });
 
         rButton4.setText("Staff Activity");
+        rButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -104,6 +125,26 @@ public class ReportsPanel extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void rButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton1ActionPerformed
+        MyReport myReport = new MyReport();
+        myReport.viewReport("CurrentStockReport", false);
+    }//GEN-LAST:event_rButton1ActionPerformed
+
+    private void rButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton2ActionPerformed
+        MyReport myReport = new MyReport();
+        myReport.viewReport("OutOfStockReport", false);
+    }//GEN-LAST:event_rButton2ActionPerformed
+
+    private void rButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton3ActionPerformed
+        MyReport myReport = new MyReport();
+        myReport.viewReport("StockMovementSummaryReport", false);
+    }//GEN-LAST:event_rButton3ActionPerformed
+
+    private void rButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton4ActionPerformed
+        MyReport myReport = new MyReport();
+        myReport.viewReport("StaffActivityReport", false);
+    }//GEN-LAST:event_rButton4ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
