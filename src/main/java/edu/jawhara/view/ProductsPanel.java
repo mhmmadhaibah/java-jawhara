@@ -271,7 +271,7 @@ public class ProductsPanel extends javax.swing.JPanel {
         productsTableColumnModel.getColumn(4).setMaxWidth(165);
         productsTableColumnModel.getColumn(4).setMinWidth(165);
         
-        if (!User.getRole().equals("Admin"))
+        if (!adminFlag)
         {
             productsTableColumnModel.removeColumn(productsTableColumnModel.getColumn(4));
         }
