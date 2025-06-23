@@ -22,7 +22,6 @@ public class AppView extends javax.swing.JFrame {
      */
     public AppView() {
         initComponents();
-        
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e)
@@ -31,11 +30,7 @@ public class AppView extends javax.swing.JFrame {
             }
         });
         
-        if (!User.getRole().equals("Admin"))
-        {
-            rButton5.setVisible(false);
-        }
-        
+        rButton5.setVisible(User.getRole().equals("Admin"));
         Loading.infiniteLoading(jPanel1, "dashboardPanel");
     }
 
