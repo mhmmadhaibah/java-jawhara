@@ -58,15 +58,16 @@ public class AppView extends javax.swing.JFrame {
             
             if (!exitOnClose)
             {
-                for (Window window : Window.getWindows())
-                {
-                    window.dispose();
-                }
-                
                 LoginView loginView = new LoginView();
                 loginView.setVisible(true);
                 
-                dispose();
+                for (Window window : Window.getWindows())
+                {
+                    if (window != loginView)
+                    {
+                        window.dispose();
+                    }
+                }
             }
             else
             {
