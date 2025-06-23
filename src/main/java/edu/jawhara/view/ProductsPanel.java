@@ -44,11 +44,8 @@ public class ProductsPanel extends javax.swing.JPanel {
         refreshCategories();
         refreshProducts();
         
-        if (!User.getRole().equals("Admin"))
-        {
-            rButton1.setVisible(false);
-            rButton2.setVisible(false);
-        }
+        rButton1.setVisible(User.getRole().equals("Admin"));
+        rButton2.setVisible(User.getRole().equals("Admin"));
         
         rButton4.setVisible(false);
         rButton5.setVisible(false);
@@ -68,7 +65,7 @@ public class ProductsPanel extends javax.swing.JPanel {
             RSMaterialButtonRectangle _cButton_ = new RSMaterialButtonRectangle();
             _cButton_.setText("All");
             _cButton_.setBounds(6, 6, 120, 60);
-            _cButton_.addActionListener(e -> {
+            _cButton_.addActionListener(evt -> {
                 rButton4.setVisible(false);
                 rButton5.setVisible(false);
                 
@@ -95,17 +92,9 @@ public class ProductsPanel extends javax.swing.JPanel {
                 RSMaterialButtonRectangle cButton = new RSMaterialButtonRectangle();
                 cButton.setText(categoryName);
                 cButton.setBounds(x, 6, 120, 60);
-                cButton.addActionListener(e -> {
-                    if (!User.getRole().equals("Admin"))
-                    {
-                        rButton4.setVisible(false);
-                        rButton5.setVisible(false);
-                    }
-                    else
-                    {
-                        rButton4.setVisible(true);
-                        rButton5.setVisible(true);
-                    }
+                cButton.addActionListener(evt -> {
+                    rButton4.setVisible(User.getRole().equals("Admin"));
+                    rButton5.setVisible(User.getRole().equals("Admin"));
                     
                     rTextField1.setText("");
                     categorySelected = categoryName;
@@ -235,6 +224,12 @@ public class ProductsPanel extends javax.swing.JPanel {
                         
                         if (rslt > 0)
                         {
+                            String sqlq2 = "DELETE FROM product_stocks WHERE product_id = ?";
+                            PreparedStatement stmt2 = conn.prepareStatement(sqlq2);
+                            
+                            stmt2.setInt(1, productId);
+                            stmt2.executeUpdate();
+                            
                             JOptionPane.showMessageDialog(null, "Product deleted successfully.");
                             refreshProducts();
                         }
