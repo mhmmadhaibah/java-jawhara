@@ -575,15 +575,88 @@ public class UpdateStockFrame extends javax.swing.JFrame {
             return;
         }
         
-//        try
-//        {
-//            //
-//        }
-//        catch (SQLException e)
-//        {
-//            JOptionPane.showMessageDialog(rButton2, e);
-//            e.printStackTrace();
-//        }
+        try
+        {
+            String sqlq = """
+                SELECT td.*, t.type
+                    FROM transactions t JOIN transaction_details td
+                    ON t.id = td.transaction_id WHERE t.id = ?
+                """;
+            
+            PreparedStatement stmt = conn.prepareStatement(sqlq.trim());
+            
+            stmt.setInt(1, stockId);
+            ResultSet rslt = stmt.executeQuery();
+            
+            while (rslt.next())
+            {
+                String sqlq2 = "DELETE FROM transaction_details WHERE id = ?";
+                PreparedStatement stmt2 = conn.prepareStatement(sqlq2);
+                
+                stmt2.setInt(1, rslt.getInt("id"));
+                stmt2.executeUpdate();
+                
+                String operator = rslt.getString("type").equals("OUT") ? "+" : "-";
+                String sqlq3 = "UPDATE product_stocks SET quantity = quantity " + operator + " ? WHERE product_id = ?";
+                PreparedStatement stmt3 = conn.prepareStatement(sqlq3);
+                
+                stmt3.setInt(1, rslt.getInt("quantity"));
+                stmt3.setInt(2, rslt.getInt("product_id"));
+                stmt3.executeUpdate();
+            }
+            
+            for (int i = 0; i < tableModel.getRowCount(); i++)
+            {
+                int productId = 0;
+                for (String[] category : categoryList)
+                {
+                    if (tableModel.getValueAt(i, 1).toString().equals(category[1]))
+                    {
+                        for (String[] product : productList)
+                        {
+                            if (tableModel.getValueAt(i, 0).toString().equals(product[2]) && category[0].equals(product[1]))
+                            {
+                                productId = Integer.parseInt(product[0]);
+                                break;
+                            }
+                        }
+                            
+                        break;
+                    }
+                }
+                
+                String sqlq4 = "INSERT INTO transaction_details (transaction_id, product_id, quantity) VALUES (?, ?, ?)";
+                PreparedStatement stmt4 = conn.prepareStatement(sqlq4);
+                
+                stmt4.setInt(1, stockId);
+                stmt4.setInt(2, productId);
+                stmt4.setInt(3, Integer.parseInt(tableModel.getValueAt(i, 2).toString()));
+                stmt4.executeUpdate();
+                
+                String operator = stockType.equals("IN") ? "+" : "-";
+                String sqlq5 = "UPDATE product_stocks SET quantity = quantity " + operator + " ? WHERE product_id = ?";
+                PreparedStatement stmt5 = conn.prepareStatement(sqlq5);
+                
+                stmt5.setInt(1, Integer.parseInt(tableModel.getValueAt(i, 2).toString()));
+                stmt5.setInt(2, productId);
+                stmt5.executeUpdate();
+            }
+            
+            String sqlq6 = "UPDATE transactions SET type = ? WHERE id = ?";
+            PreparedStatement stmt6 = conn.prepareStatement(sqlq6);
+            
+            stmt6.setString(1, jComboBox3.getSelectedItem().toString());
+            stmt6.setInt(2, stockId);
+            stmt6.executeUpdate();
+            
+            JOptionPane.showMessageDialog(rButton2, "Product updated successfully.");
+            dispose();
+        }
+        catch (SQLException e)
+        {
+            JOptionPane.showMessageDialog(rButton2, e);
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_rButton2ActionPerformed
 
     /**
