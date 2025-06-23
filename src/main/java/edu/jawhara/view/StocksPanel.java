@@ -8,8 +8,8 @@ import edu.jawhara.custom.ActionTableCellEditor;
 import edu.jawhara.custom.ActionTableCellRenderer;
 import edu.jawhara.custom.ActionTableEvent;
 import edu.jawhara.custom.ActionTableEventAdapter;
-import edu.jawhara.custom.aaDetailsActionTablePanel;
-import edu.jawhara.custom.aaEditDeleteActionTablePanel;
+import edu.jawhara.custom.DetailsActionTablePanel;
+import edu.jawhara.custom.EditDeleteActionTablePanel;
 import edu.jawhara.model.Loading;
 import edu.jawhara.model.MyConnection;
 import edu.jawhara.model.User;
@@ -103,8 +103,8 @@ public class StocksPanel extends javax.swing.JPanel {
             }
         };
         
-        stocksTableColumnModel.getColumn(4).setCellRenderer(new ActionTableCellRenderer(aaDetailsActionTablePanel.class));
-        stocksTableColumnModel.getColumn(4).setCellEditor(new ActionTableCellEditor(actionTableEvent1, aaDetailsActionTablePanel.class));
+        stocksTableColumnModel.getColumn(4).setCellRenderer(new ActionTableCellRenderer(DetailsActionTablePanel.class));
+        stocksTableColumnModel.getColumn(4).setCellEditor(new ActionTableCellEditor(actionTableEvent1, DetailsActionTablePanel.class));
         
         stocksTableColumnModel.getColumn(4).setPreferredWidth(98);
         stocksTableColumnModel.getColumn(4).setMaxWidth(98);
@@ -189,8 +189,8 @@ public class StocksPanel extends javax.swing.JPanel {
             }
         };
         
-        stocksTableColumnModel.getColumn(5).setCellRenderer(new ActionTableCellRenderer(aaEditDeleteActionTablePanel.class));
-        stocksTableColumnModel.getColumn(5).setCellEditor(new ActionTableCellEditor(actionTableEvent2, aaEditDeleteActionTablePanel.class));
+        stocksTableColumnModel.getColumn(5).setCellRenderer(new ActionTableCellRenderer(EditDeleteActionTablePanel.class));
+        stocksTableColumnModel.getColumn(5).setCellEditor(new ActionTableCellEditor(actionTableEvent2, EditDeleteActionTablePanel.class));
         
         stocksTableColumnModel.getColumn(5).setPreferredWidth(165);
         stocksTableColumnModel.getColumn(5).setMaxWidth(165);

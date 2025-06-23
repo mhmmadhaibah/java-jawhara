@@ -8,7 +8,7 @@ import edu.jawhara.custom.ActionTableCellEditor;
 import edu.jawhara.custom.ActionTableCellRenderer;
 import edu.jawhara.custom.ActionTableEvent;
 import edu.jawhara.custom.ActionTableEventAdapter;
-import edu.jawhara.custom.aaEditDeleteActionTablePanel;
+import edu.jawhara.custom.EditDeleteActionTablePanel;
 import edu.jawhara.model.Loading;
 import edu.jawhara.model.MyConnection;
 import edu.jawhara.model.User;
@@ -148,8 +148,8 @@ public class UsersPanel extends javax.swing.JPanel {
             }
         };
         
-        usersTableColumnModel.getColumn(3).setCellRenderer(new ActionTableCellRenderer(aaEditDeleteActionTablePanel.class));
-        usersTableColumnModel.getColumn(3).setCellEditor(new ActionTableCellEditor(actionTableEvent, aaEditDeleteActionTablePanel.class));
+        usersTableColumnModel.getColumn(3).setCellRenderer(new ActionTableCellRenderer(EditDeleteActionTablePanel.class));
+        usersTableColumnModel.getColumn(3).setCellEditor(new ActionTableCellEditor(actionTableEvent, EditDeleteActionTablePanel.class));
         
         usersTableColumnModel.getColumn(3).setPreferredWidth(165);
         usersTableColumnModel.getColumn(3).setMaxWidth(165);

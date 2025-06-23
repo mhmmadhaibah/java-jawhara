@@ -8,7 +8,7 @@ import edu.jawhara.custom.ActionTableCellEditor;
 import edu.jawhara.custom.ActionTableCellRenderer;
 import edu.jawhara.custom.ActionTableEvent;
 import edu.jawhara.custom.ActionTableEventAdapter;
-import edu.jawhara.custom.aaDetailsActionTablePanel;
+import edu.jawhara.custom.DetailsActionTablePanel;
 import edu.jawhara.model.Loading;
 import edu.jawhara.model.MyConnection;
 import java.sql.Connection;
@@ -159,8 +159,8 @@ public class DashboardPanel extends javax.swing.JPanel {
             }
         };
         
-        inStocksTableColumnModel.getColumn(3).setCellRenderer(new ActionTableCellRenderer(aaDetailsActionTablePanel.class));
-        inStocksTableColumnModel.getColumn(3).setCellEditor(new ActionTableCellEditor(actionTableEvent, aaDetailsActionTablePanel.class));
+        inStocksTableColumnModel.getColumn(3).setCellRenderer(new ActionTableCellRenderer(DetailsActionTablePanel.class));
+        inStocksTableColumnModel.getColumn(3).setCellEditor(new ActionTableCellEditor(actionTableEvent, DetailsActionTablePanel.class));
         
         inStocksTableColumnModel.getColumn(3).setPreferredWidth(98);
         inStocksTableColumnModel.getColumn(3).setMaxWidth(98);
@@ -182,8 +182,8 @@ public class DashboardPanel extends javax.swing.JPanel {
             }
         };
         
-        outStocksTableColumnModel.getColumn(3).setCellRenderer(new ActionTableCellRenderer(aaDetailsActionTablePanel.class));
-        outStocksTableColumnModel.getColumn(3).setCellEditor(new ActionTableCellEditor(actionTableEvent, aaDetailsActionTablePanel.class));
+        outStocksTableColumnModel.getColumn(3).setCellRenderer(new ActionTableCellRenderer(DetailsActionTablePanel.class));
+        outStocksTableColumnModel.getColumn(3).setCellEditor(new ActionTableCellEditor(actionTableEvent, DetailsActionTablePanel.class));
         
         outStocksTableColumnModel.getColumn(3).setPreferredWidth(98);
         outStocksTableColumnModel.getColumn(3).setMaxWidth(98);

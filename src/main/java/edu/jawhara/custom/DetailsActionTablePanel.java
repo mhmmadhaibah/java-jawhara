@@ -11,22 +11,22 @@ import java.awt.event.ActionListener;
  *
  * @author mhmmadhaibah
  */
-public class aaDeleteActionTablePanel extends javax.swing.JPanel implements ActionTablePanel {
+public class DetailsActionTablePanel extends javax.swing.JPanel implements ActionTablePanel {
 
     /**
-     * Creates new form DeleteActionTablePanel
+     * Creates new form DetailsActionTablePanel
      */
-    public aaDeleteActionTablePanel() {
+    public DetailsActionTablePanel() {
         initComponents();
     }
 
     public void initEvent(ActionTableEvent actionTableEvent, int row)
     {
-        deleteButton.addActionListener(new ActionListener() {
+        detailsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae)
             {
-                actionTableEvent.onDelete(row);
+                actionTableEvent.onDetails(row);
             }
         });
     }
@@ -40,11 +40,11 @@ public class aaDeleteActionTablePanel extends javax.swing.JPanel implements Acti
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        deleteButton = new javax.swing.JButton();
+        detailsButton = new javax.swing.JButton();
 
-        deleteButton.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        deleteButton.setText("Delete");
-        deleteButton.setFocusable(false);
+        detailsButton.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        detailsButton.setText("Details");
+        detailsButton.setFocusable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -52,20 +52,20 @@ public class aaDeleteActionTablePanel extends javax.swing.JPanel implements Acti
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(deleteButton)
+                .addComponent(detailsButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(deleteButton)
+                .addComponent(detailsButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton deleteButton;
+    private javax.swing.JButton detailsButton;
     // End of variables declaration//GEN-END:variables
 }
