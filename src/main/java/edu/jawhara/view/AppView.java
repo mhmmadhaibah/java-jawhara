@@ -6,6 +6,7 @@ package edu.jawhara.view;
 
 import edu.jawhara.model.Loading;
 import edu.jawhara.model.User;
+import java.awt.Window;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JOptionPane;
@@ -27,7 +28,7 @@ public class AppView extends javax.swing.JFrame {
             @Override
             public void windowClosing(WindowEvent e)
             {
-                logoutHandle();
+                logoutHandle(true);
             }
         });
         
@@ -39,12 +40,12 @@ public class AppView extends javax.swing.JFrame {
         Loading.infiniteLoading(jPanel1, "dashboardPanel");
     }
 
-    private void logoutHandle()
+    private void logoutHandle(boolean exitOnClose)
     {
         int confirm = JOptionPane.showConfirmDialog(
             null,
-            ("Are sure want to logout ?"),
-            "User Logout",
+            (exitOnClose ? "Are sure want to close application ?" : "Are sure want to logout ?"),
+            (exitOnClose ? "Close Application" : "User Logout"),
             JOptionPane.YES_NO_OPTION
         );
         
@@ -55,10 +56,22 @@ public class AppView extends javax.swing.JFrame {
             User.setUsername(null);
             User.setPassword(null);
             
-            LoginView loginView = new LoginView();
-            loginView.setVisible(true);
-            
-            dispose();
+            if (!exitOnClose)
+            {
+                for (Window window : Window.getWindows())
+                {
+                    window.dispose();
+                }
+                
+                LoginView loginView = new LoginView();
+                loginView.setVisible(true);
+                
+                dispose();
+            }
+            else
+            {
+                System.exit(0);
+            }
         }
     }
 
@@ -258,7 +271,7 @@ public class AppView extends javax.swing.JFrame {
     }//GEN-LAST:event_rButton6ActionPerformed
 
     private void rButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton7ActionPerformed
-        logoutHandle();
+        logoutHandle(false);
     }//GEN-LAST:event_rButton7ActionPerformed
 
     /**
