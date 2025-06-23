@@ -40,7 +40,7 @@ public class DashboardPanel extends javax.swing.JPanel {
     }
 
     private void refreshDashboard() {
-        loadDetailsCard();
+        loadSummaryCard();
         
         Loading.infiniteLoading(jPanel15, "tablePanel");
         Loading.infiniteLoading(jPanel14, "tablePanel");
@@ -57,7 +57,7 @@ public class DashboardPanel extends javax.swing.JPanel {
         customStocksTable();
     }
 
-    private void loadDetailsCard()
+    private void loadSummaryCard()
     {
         try
         {
