@@ -26,7 +26,7 @@ import javax.swing.table.DefaultTableModel;
  * @author mhmmadhaibah
  */
 public class StocksPanel extends javax.swing.JPanel {
-    Connection conn = MyConnection.getConnection();
+    private static final Connection conn = MyConnection.getConnection();
 
     private DefaultTableModel stocksTableModel;
     private DefaultTableColumnModel stocksTableColumnModel;
@@ -37,6 +37,17 @@ public class StocksPanel extends javax.swing.JPanel {
     public StocksPanel() {
         initComponents();
         refreshStocks();
+    }
+
+    @Override
+    public void setVisible(boolean aFlag)
+    {
+        super.setVisible(aFlag);
+        
+        if (aFlag)
+        {
+            refreshStocks();
+        }
     }
 
     private void refreshStocks() {
@@ -125,7 +136,7 @@ public class StocksPanel extends javax.swing.JPanel {
             {
                 int confirm = JOptionPane.showConfirmDialog(
                     null,
-                    ("Are sure want to delete ?"),
+                    "Are sure want to delete ?",
                     "Delete Stock",
                     JOptionPane.YES_NO_OPTION
                 );

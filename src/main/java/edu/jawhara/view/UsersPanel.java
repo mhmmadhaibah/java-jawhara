@@ -25,6 +25,8 @@ import javax.swing.table.DefaultTableModel;
  * @author mhmmadhaibah
  */
 public class UsersPanel extends javax.swing.JPanel {
+    private static final Connection conn = MyConnection.getConnection();
+
     private DefaultTableModel usersTableModel;
     private DefaultTableColumnModel usersTableColumnModel;
 
@@ -34,6 +36,17 @@ public class UsersPanel extends javax.swing.JPanel {
     public UsersPanel() {
         initComponents();
         refreshUsers();
+    }
+
+    @Override
+    public void setVisible(boolean aFlag)
+    {
+        super.setVisible(aFlag);
+        
+        if (aFlag)
+        {
+            refreshUsers();
+        }
     }
 
     private void refreshUsers()
@@ -61,8 +74,6 @@ public class UsersPanel extends javax.swing.JPanel {
     {
         try
         {
-            Connection conn = MyConnection.getConnection();
-            
             String sqlq = "SELECT * FROM users ORDER BY FIELD(role, 'Staff', 'Admin'), id ASC";
             PreparedStatement stmt = conn.prepareStatement(sqlq);
             ResultSet rslt = stmt.executeQuery();
@@ -116,8 +127,6 @@ public class UsersPanel extends javax.swing.JPanel {
                     {
                         try
                         {
-                            Connection conn = MyConnection.getConnection();
-                            
                             String sqlq = "DELETE FROM users WHERE id = ?";
                             PreparedStatement stmt = conn.prepareStatement(sqlq);
                             
@@ -142,7 +151,7 @@ public class UsersPanel extends javax.swing.JPanel {
                     }
                     else
                     {
-                        JOptionPane.showMessageDialog(null, "Cannot delete yourself!");
+                        JOptionPane.showMessageDialog(null, "Cannot delete yourself.");
                     }
                 }
             }

@@ -23,7 +23,7 @@ import javax.swing.table.DefaultTableModel;
  * @author mhmmadhaibah
  */
 public class DashboardPanel extends javax.swing.JPanel {
-    Connection conn = MyConnection.getConnection();
+    private static final Connection conn = MyConnection.getConnection();
 
     private DefaultTableModel inStocksTableModel;
     private DefaultTableColumnModel inStocksTableColumnModel;
@@ -37,6 +37,17 @@ public class DashboardPanel extends javax.swing.JPanel {
     public DashboardPanel() {
         initComponents();
         refreshDashboard();
+    }
+
+    @Override
+    public void setVisible(boolean aFlag)
+    {
+        super.setVisible(aFlag);
+        
+        if (aFlag)
+        {
+            refreshDashboard();
+        }
     }
 
     private void refreshDashboard() {

@@ -28,12 +28,12 @@ import rojerusan.RSMaterialButtonRectangle;
  * @author mhmmadhaibah
  */
 public class ProductsPanel extends javax.swing.JPanel {
-    Connection conn = MyConnection.getConnection();
+    private static final boolean flag = User.getRole().equals("Admin");
+    private static final Connection conn = MyConnection.getConnection();
 
     private DefaultTableModel productsTableModel;
     private DefaultTableColumnModel productsTableColumnModel;
 
-    private final boolean adminFlag;
     private static String categorySelected;
 
     /**
@@ -41,13 +41,24 @@ public class ProductsPanel extends javax.swing.JPanel {
      */
     public ProductsPanel() {
         initComponents();
+        refreshSuperProducts();
+    }
+
+    @Override
+    public void setVisible(boolean aFlag)
+    {
+        super.setVisible(aFlag);
         
-        refreshCategories();
-        refreshProducts();
-        
-        this.adminFlag = User.getRole().equals("Admin");
-        rButton1.setVisible(adminFlag);
-        rButton2.setVisible(adminFlag);
+        if (aFlag)
+        {
+            refreshSuperProducts();
+        }
+    }
+
+    private void refreshSuperProducts()
+    {
+        rButton1.setVisible(flag);
+        rButton2.setVisible(flag);
         
         rButton4.setVisible(false);
         rButton5.setVisible(false);
@@ -57,6 +68,9 @@ public class ProductsPanel extends javax.swing.JPanel {
         cButton3.setVisible(false);
         cButton4.setVisible(false);
         cButton5.setVisible(false);
+        
+        refreshCategories();
+        refreshProducts();
     }
 
     private void refreshCategories() {
@@ -95,8 +109,8 @@ public class ProductsPanel extends javax.swing.JPanel {
                 cButton.setText(categoryName);
                 cButton.setBounds(x, 6, 120, 60);
                 cButton.addActionListener(evt -> {
-                    rButton4.setVisible(adminFlag);
-                    rButton5.setVisible(adminFlag);
+                    rButton4.setVisible(flag);
+                    rButton5.setVisible(flag);
                     
                     rTextField1.setText("");
                     categorySelected = categoryName;

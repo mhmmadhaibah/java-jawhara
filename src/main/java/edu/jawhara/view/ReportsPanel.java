@@ -12,6 +12,7 @@ import edu.jawhara.model.User;
  * @author mhmmadhaibah
  */
 public class ReportsPanel extends javax.swing.JPanel {
+    private static final MyReport myReport = new MyReport();
 
     /**
      * Creates new form ReportsPanel
@@ -124,22 +125,18 @@ public class ReportsPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void rButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton1ActionPerformed
-        MyReport myReport = new MyReport();
         myReport.viewReport("CurrentStockReport", false);
     }//GEN-LAST:event_rButton1ActionPerformed
 
     private void rButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton2ActionPerformed
-        MyReport myReport = new MyReport();
         myReport.viewReport("OutOfStockReport", false);
     }//GEN-LAST:event_rButton2ActionPerformed
 
     private void rButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton3ActionPerformed
-        MyReport myReport = new MyReport();
         myReport.viewReport("StockMovementSummaryReport", false);
     }//GEN-LAST:event_rButton3ActionPerformed
 
     private void rButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton4ActionPerformed
-        MyReport myReport = new MyReport();
         myReport.viewReport("StaffActivityReport", false);
     }//GEN-LAST:event_rButton4ActionPerformed
 
