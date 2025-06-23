@@ -8,7 +8,7 @@ import edu.jawhara.custom.ActionTableCellEditor;
 import edu.jawhara.custom.ActionTableCellRenderer;
 import edu.jawhara.custom.ActionTableEvent;
 import edu.jawhara.custom.ActionTableEventAdapter;
-import edu.jawhara.custom.DeleteActionTablePanel;
+import edu.jawhara.custom.aaDeleteActionTablePanel;
 import edu.jawhara.model.MyConnection;
 import edu.jawhara.model.User;
 import edu.jawhara.model.Validator;
@@ -136,8 +136,8 @@ public class CreateStockFrame extends javax.swing.JFrame {
             }
         };
         
-        tableColumnModel.getColumn(3).setCellRenderer(new ActionTableCellRenderer(DeleteActionTablePanel.class));
-        tableColumnModel.getColumn(3).setCellEditor(new ActionTableCellEditor(actionTableEvent1, DeleteActionTablePanel.class));
+        tableColumnModel.getColumn(3).setCellRenderer(new ActionTableCellRenderer(aaDeleteActionTablePanel.class));
+        tableColumnModel.getColumn(3).setCellEditor(new ActionTableCellEditor(actionTableEvent1, aaDeleteActionTablePanel.class));
         
         tableColumnModel.getColumn(3).setPreferredWidth(98);
         tableColumnModel.getColumn(3).setMaxWidth(98);

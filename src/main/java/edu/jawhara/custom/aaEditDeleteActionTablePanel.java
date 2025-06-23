@@ -11,17 +11,25 @@ import java.awt.event.ActionListener;
  *
  * @author mhmmadhaibah
  */
-public class DeleteActionTablePanel extends javax.swing.JPanel implements ActionTablePanel {
+public class aaEditDeleteActionTablePanel extends javax.swing.JPanel implements ActionTablePanel {
 
     /**
-     * Creates new form DeleteActionTablePanel
+     * Creates new form EditDeleteActionTablePanel
      */
-    public DeleteActionTablePanel() {
+    public aaEditDeleteActionTablePanel() {
         initComponents();
     }
 
     public void initEvent(ActionTableEvent actionTableEvent, int row)
     {
+        editButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae)
+            {
+                actionTableEvent.onEdit(row);
+            }
+        });
+        
         deleteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae)
@@ -40,9 +48,16 @@ public class DeleteActionTablePanel extends javax.swing.JPanel implements Action
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        editButton = new javax.swing.JButton();
         deleteButton = new javax.swing.JButton();
 
-        deleteButton.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+
+        editButton.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        editButton.setText("Edit");
+        editButton.setFocusable(false);
+
+        deleteButton.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         deleteButton.setText("Delete");
         deleteButton.setFocusable(false);
 
@@ -51,15 +66,19 @@ public class DeleteActionTablePanel extends javax.swing.JPanel implements Action
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(editButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(deleteButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(deleteButton)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(editButton)
+                    .addComponent(deleteButton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -67,5 +86,6 @@ public class DeleteActionTablePanel extends javax.swing.JPanel implements Action
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton deleteButton;
+    private javax.swing.JButton editButton;
     // End of variables declaration//GEN-END:variables
 }

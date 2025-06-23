@@ -11,12 +11,12 @@ import java.awt.event.ActionListener;
  *
  * @author mhmmadhaibah
  */
-public class DetailsActionTablePanel extends javax.swing.JPanel implements ActionTablePanel {
+public class aaDetailsActionTablePanel extends javax.swing.JPanel implements ActionTablePanel {
 
     /**
      * Creates new form DetailsActionTablePanel
      */
-    public DetailsActionTablePanel() {
+    public aaDetailsActionTablePanel() {
         initComponents();
     }
 
