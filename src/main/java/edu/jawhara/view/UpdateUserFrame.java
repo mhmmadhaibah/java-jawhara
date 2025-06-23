@@ -28,7 +28,6 @@ public class UpdateUserFrame extends javax.swing.JFrame {
      */
     public UpdateUserFrame(int userId) {
         initComponents();
-        setLocationRelativeTo(null);
         
         this.userId = userId;
         loadUserForm();
@@ -251,6 +250,7 @@ public class UpdateUserFrame extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void autofillCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autofillCheckActionPerformed

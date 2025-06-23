@@ -25,7 +25,6 @@ public class CreateProductFrame extends javax.swing.JFrame {
      */
     public CreateProductFrame() {
         initComponents();
-        setLocationRelativeTo(null);
         
         loadCategoryForm();
     }
@@ -206,6 +205,7 @@ public class CreateProductFrame extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed

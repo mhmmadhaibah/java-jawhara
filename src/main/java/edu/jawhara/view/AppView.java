@@ -22,7 +22,6 @@ public class AppView extends javax.swing.JFrame {
      */
     public AppView() {
         initComponents();
-        setLocationRelativeTo(null);
         
         addWindowListener(new WindowAdapter() {
             @Override

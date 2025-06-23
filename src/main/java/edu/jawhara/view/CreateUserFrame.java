@@ -24,7 +24,6 @@ public class CreateUserFrame extends javax.swing.JFrame {
      */
     public CreateUserFrame() {
         initComponents();
-        setLocationRelativeTo(null);
     }
 
     /**
@@ -219,6 +218,7 @@ public class CreateUserFrame extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void autofillCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autofillCheckActionPerformed

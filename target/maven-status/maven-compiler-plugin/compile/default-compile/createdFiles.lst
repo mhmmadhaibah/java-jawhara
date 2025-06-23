@@ -25,7 +25,6 @@ edu\jawhara\view\UpdateUserFrame$3.class
 edu\jawhara\view\DashboardPanel$5.class
 edu\jawhara\view\CreateStockFrame$5.class
 edu\jawhara\view\CreateUserFrame$1.class
-edu\jawhara\custom\EditDeleteActionTablePanel$1.class
 edu\jawhara\view\AppView.class
 edu\jawhara\view\CreateStockFrame$4.class
 edu\jawhara\model\User.class
@@ -58,10 +57,8 @@ edu\jawhara\model\MyReport.class
 edu\jawhara\view\CreateUserFrame$3.class
 edu\jawhara\view\LoginView$2.class
 edu\jawhara\view\AppView$5.class
-edu\jawhara\custom\EditDeleteActionTablePanel$2.class
 edu\jawhara\view\CreateCategoryFrame.class
 edu\jawhara\view\CreateStockFrame$6.class
-edu\jawhara\custom\DeleteActionTablePanel$1.class
 edu\jawhara\view\UsersPanel$3.class
 edu\jawhara\custom\DeleteActionTablePanel.class
 edu\jawhara\view\AppView$2.class
@@ -72,7 +69,6 @@ edu\jawhara\custom\ActionTableCellEditor.class
 edu\jawhara\view\UpdateStockFrame$4.class
 edu\jawhara\view\UpdateProductFrame$1.class
 edu\jawhara\view\ReportsPanel$2.class
-edu\jawhara\custom\DetailsActionTablePanel$1.class
 edu\jawhara\view\InfinitePanel.class
 edu\jawhara\view\UsersPanel$2.class
 edu\jawhara\view\AppView$1.class

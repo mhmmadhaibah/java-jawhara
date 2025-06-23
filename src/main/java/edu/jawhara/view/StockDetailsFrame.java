@@ -25,7 +25,6 @@ public class StockDetailsFrame extends javax.swing.JFrame {
      */
     public StockDetailsFrame(int stockId) {
         initComponents();
-        setLocationRelativeTo(null);
         
         this.stockId = stockId;
         refreshStockDetails();
@@ -248,6 +247,7 @@ public class StockDetailsFrame extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     /**

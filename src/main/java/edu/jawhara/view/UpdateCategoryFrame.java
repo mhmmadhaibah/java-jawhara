@@ -23,7 +23,6 @@ public class UpdateCategoryFrame extends javax.swing.JFrame {
      */
     public UpdateCategoryFrame(String categoryName) {
         initComponents();
-        setLocationRelativeTo(null);
         
         this.categoryName = categoryName;
         nameField.setText(this.categoryName);
@@ -165,6 +164,7 @@ public class UpdateCategoryFrame extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed

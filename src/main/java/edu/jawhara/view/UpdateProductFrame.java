@@ -25,7 +25,6 @@ public class UpdateProductFrame extends javax.swing.JFrame {
      */
     public UpdateProductFrame(int productId) {
         initComponents();
-        setLocationRelativeTo(null);
         
         this.productId = productId;
         loadProductForm();
@@ -231,6 +230,7 @@ public class UpdateProductFrame extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
