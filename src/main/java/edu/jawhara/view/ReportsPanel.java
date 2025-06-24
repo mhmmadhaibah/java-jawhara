@@ -12,7 +12,7 @@ import edu.jawhara.model.User;
  * @author mhmmadhaibah
  */
 public class ReportsPanel extends javax.swing.JPanel {
-    private static final MyReport myReport = new MyReport();
+    private final MyReport myReport = new MyReport();
 
     private final boolean adminFlag;
 
