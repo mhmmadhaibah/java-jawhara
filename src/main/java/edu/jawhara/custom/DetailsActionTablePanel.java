@@ -5,6 +5,7 @@
 package edu.jawhara.custom;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  *
@@ -22,8 +23,12 @@ public class DetailsActionTablePanel extends javax.swing.JPanel implements Actio
     @Override
     public void initEvent(ActionTableEvent actionTableEvent, int row)
     {
-        detailsButton.addActionListener((ActionEvent evt) -> {
-            actionTableEvent.onDetails(row);
+        detailsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt)
+            {
+                actionTableEvent.onDetails(row);
+            }
         });
     }
 

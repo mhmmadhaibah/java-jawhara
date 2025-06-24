@@ -5,6 +5,7 @@
 package edu.jawhara.custom;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  *
@@ -22,12 +23,20 @@ public class EditDeleteActionTablePanel extends javax.swing.JPanel implements Ac
     @Override
     public void initEvent(ActionTableEvent actionTableEvent, int row)
     {
-        editButton.addActionListener((ActionEvent evt) -> {
-            actionTableEvent.onEdit(row);
+        editButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt)
+            {
+                actionTableEvent.onEdit(row);
+            }
         });
         
-        deleteButton.addActionListener((ActionEvent evt) -> {
-            actionTableEvent.onDelete(row);
+        deleteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt)
+            {
+                actionTableEvent.onDelete(row);
+            }
         });
     }
 
