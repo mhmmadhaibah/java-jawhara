@@ -3,6 +3,7 @@ edu\jawhara\view\ReportsPanel$4.class
 edu\jawhara\custom\ActionTableEventAdapter.class
 edu\jawhara\view\StocksPanel$1.class
 edu\jawhara\view\UsersPanel$1.class
+edu\jawhara\view\AppView$9.class
 edu\jawhara\custom\DetailsActionTablePanel.class
 edu\jawhara\view\ChangePasswordFrame$2.class
 edu\jawhara\view\ProductsPanel$1.class
