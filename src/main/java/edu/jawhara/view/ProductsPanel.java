@@ -30,17 +30,20 @@ import rojerusan.RSMaterialButtonRectangle;
 public class ProductsPanel extends javax.swing.JPanel {
     private static final Connection conn = MyConnection.getConnection();
 
+    private final boolean adminFlag;
+
     private DefaultTableModel productsTableModel;
     private DefaultTableColumnModel productsTableColumnModel;
 
-    private static boolean adminFlag;
-    private static String categorySelected;
+    private String categorySelected;
 
     /**
      * Creates new form ProductsPanel
      */
     public ProductsPanel() {
         initComponents();
+        
+        adminFlag = User.getRole().equals("Admin");
         refreshSuperProducts();
     }
 
@@ -57,7 +60,6 @@ public class ProductsPanel extends javax.swing.JPanel {
 
     private void refreshSuperProducts()
     {
-        this.adminFlag = User.getRole().equals("Admin");
         rButton1.setVisible(adminFlag);
         rButton2.setVisible(adminFlag);
         

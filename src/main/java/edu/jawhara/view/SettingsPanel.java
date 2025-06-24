@@ -11,6 +11,7 @@ import edu.jawhara.model.User;
  * @author mhmmadhaibah
  */
 public class SettingsPanel extends javax.swing.JPanel {
+    private final boolean adminFlag;
 
     /**
      * Creates new form SettingsPanel
@@ -18,11 +19,14 @@ public class SettingsPanel extends javax.swing.JPanel {
     public SettingsPanel() {
         initComponents();
         
-        if (!User.getRole().equals("Admin"))
-        {
-            jLabel2.setVisible(false);
-            rButton2.setVisible(false);
-        }
+        adminFlag = User.getRole().equals("Admin");
+        refreshSettings();
+    }
+
+    private void refreshSettings()
+    {
+        jLabel2.setVisible(adminFlag);
+        rButton2.setVisible(adminFlag);
     }
 
     /**

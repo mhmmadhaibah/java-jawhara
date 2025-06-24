@@ -28,6 +28,8 @@ import javax.swing.table.DefaultTableModel;
 public class StocksPanel extends javax.swing.JPanel {
     private static final Connection conn = MyConnection.getConnection();
 
+    private final boolean adminFlag;
+
     private DefaultTableModel stocksTableModel;
     private DefaultTableColumnModel stocksTableColumnModel;
 
@@ -36,6 +38,8 @@ public class StocksPanel extends javax.swing.JPanel {
      */
     public StocksPanel() {
         initComponents();
+        
+        adminFlag = User.getRole().equals("Admin");
         refreshStocks();
     }
 
@@ -207,7 +211,7 @@ public class StocksPanel extends javax.swing.JPanel {
         stocksTableColumnModel.getColumn(5).setMaxWidth(165);
         stocksTableColumnModel.getColumn(5).setMinWidth(165);
         
-        if (!User.getRole().equals("Admin"))
+        if (!adminFlag)
         {
             stocksTableColumnModel.removeColumn(stocksTableColumnModel.getColumn(5));
         }

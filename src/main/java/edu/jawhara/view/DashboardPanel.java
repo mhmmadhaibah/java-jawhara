@@ -131,17 +131,15 @@ public class DashboardPanel extends javax.swing.JPanel {
                 data[2] = rslt.getTimestamp("timestamp").toString().split("\\.")[0];
                 data[3] = null;
                 
-                if (rslt.getString("type").equals("IN"))
-                {
-                    inStocksTableModel.addRow(data);
-                }
-                else if (rslt.getString("type").equals("OUT"))
-                {
-                    outStocksTableModel.addRow(data);
-                }
-                else
-                {
-                    throw new SQLException("Unexpected value for stock type: '" + rslt.getString("type") + "'.");
+                switch (rslt.getString("type")) {
+                    case "IN":
+                        inStocksTableModel.addRow(data);
+                        break;
+                    case "OUT":
+                        outStocksTableModel.addRow(data);
+                        break;
+                    default:
+                        throw new SQLException("Unexpected value for stock type: '" + rslt.getString("type") + "'.");
                 }
             }
         }

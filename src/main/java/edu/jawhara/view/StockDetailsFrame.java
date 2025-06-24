@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
  * @author mhmmadhaibah
  */
 public class StockDetailsFrame extends javax.swing.JFrame {
-    Connection conn = MyConnection.getConnection();
+    private static final Connection conn = MyConnection.getConnection();
 
     private final int stockId;
 
