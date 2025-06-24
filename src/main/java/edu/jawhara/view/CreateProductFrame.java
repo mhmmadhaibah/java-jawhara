@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
  * @author mhmmadhaibah
  */
 public class CreateProductFrame extends javax.swing.JFrame {
-    private static ArrayList<String[]> categories = new ArrayList<>();
+    private final ArrayList<String[]> categories = new ArrayList<>();
 
     /**
      * Creates new form CreateProductFrame

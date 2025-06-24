@@ -27,10 +27,10 @@ import javax.swing.table.DefaultTableModel;
  * @author mhmmadhaibah
  */
 public class CreateStockFrame extends javax.swing.JFrame {
-    Connection conn = MyConnection.getConnection();
+    private static final Connection conn = MyConnection.getConnection();
 
-    private ArrayList<String[]> categoryList = new ArrayList<>();
-    private ArrayList<String[]> productList = new ArrayList<>();
+    private final ArrayList<String[]> categoryList = new ArrayList<>();
+    private final ArrayList<String[]> productList = new ArrayList<>();
 
     /**
      * Creates new form CreateStockFrame
