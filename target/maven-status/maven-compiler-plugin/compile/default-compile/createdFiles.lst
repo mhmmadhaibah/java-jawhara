@@ -4,6 +4,7 @@ edu\jawhara\custom\ActionTableEventAdapter.class
 edu\jawhara\view\StocksPanel$1.class
 edu\jawhara\view\UsersPanel$1.class
 edu\jawhara\custom\DetailsActionTablePanel.class
+edu\jawhara\view\ChangePasswordFrame$2.class
 edu\jawhara\view\ProductsPanel$1.class
 edu\jawhara\view\UpdateUserFrame$2.class
 edu\jawhara\view\UsersPanel.class
@@ -34,6 +35,7 @@ edu\jawhara\view\CreateProductFrame.class
 edu\jawhara\view\StockDetailsFrame.class
 edu\jawhara\view\DashboardPanel$4.class
 edu\jawhara\view\UpdateCategoryFrame.class
+edu\jawhara\view\ChangePasswordFrame.class
 edu\jawhara\view\UpdateStockFrame$6.class
 edu\jawhara\view\ProductsPanel$5.class
 edu\jawhara\view\UpdateCategoryFrame$2.class
@@ -57,6 +59,7 @@ edu\jawhara\model\MyReport.class
 edu\jawhara\view\CreateUserFrame$3.class
 edu\jawhara\view\LoginView$2.class
 edu\jawhara\view\AppView$5.class
+edu\jawhara\view\ChangePasswordFrame$1.class
 edu\jawhara\view\CreateCategoryFrame.class
 edu\jawhara\view\CreateStockFrame$6.class
 edu\jawhara\view\UsersPanel$3.class
