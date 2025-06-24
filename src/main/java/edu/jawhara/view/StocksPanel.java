@@ -107,7 +107,20 @@ public class StocksPanel extends javax.swing.JPanel {
 
     private void customStocksTable()
     {
-        ActionTableEvent actionTableEvent1 = new ActionTableEventAdapter() {
+        customDetailsStocksTable();
+        customEditDeleteStocksTable();
+        
+        if (!adminFlag)
+        {
+            stocksTableColumnModel.removeColumn(stocksTableColumnModel.getColumn(5));
+        }
+        
+        stocksTableColumnModel.removeColumn(stocksTableColumnModel.getColumn(0));
+    }
+
+    private void customDetailsStocksTable()
+    {
+        ActionTableEvent actionTableEvent = new ActionTableEventAdapter() {
             @Override
             public void onDetails(int row)
             {
@@ -119,13 +132,16 @@ public class StocksPanel extends javax.swing.JPanel {
         };
         
         stocksTableColumnModel.getColumn(4).setCellRenderer(new ActionTableCellRenderer(DetailsActionTablePanel.class));
-        stocksTableColumnModel.getColumn(4).setCellEditor(new ActionTableCellEditor(actionTableEvent1, DetailsActionTablePanel.class));
+        stocksTableColumnModel.getColumn(4).setCellEditor(new ActionTableCellEditor(actionTableEvent, DetailsActionTablePanel.class));
         
         stocksTableColumnModel.getColumn(4).setPreferredWidth(104);
         stocksTableColumnModel.getColumn(4).setMaxWidth(104);
         stocksTableColumnModel.getColumn(4).setMinWidth(104);
-        
-        ActionTableEvent actionTableEvent2 = new ActionTableEventAdapter() {
+    }
+
+    private void customEditDeleteStocksTable()
+    {
+        ActionTableEvent actionTableEvent = new ActionTableEventAdapter() {
             @Override
             public void onEdit(int row)
             {
@@ -205,18 +221,11 @@ public class StocksPanel extends javax.swing.JPanel {
         };
         
         stocksTableColumnModel.getColumn(5).setCellRenderer(new ActionTableCellRenderer(EditDeleteActionTablePanel.class));
-        stocksTableColumnModel.getColumn(5).setCellEditor(new ActionTableCellEditor(actionTableEvent2, EditDeleteActionTablePanel.class));
+        stocksTableColumnModel.getColumn(5).setCellEditor(new ActionTableCellEditor(actionTableEvent, EditDeleteActionTablePanel.class));
         
         stocksTableColumnModel.getColumn(5).setPreferredWidth(165);
         stocksTableColumnModel.getColumn(5).setMaxWidth(165);
         stocksTableColumnModel.getColumn(5).setMinWidth(165);
-        
-        if (!adminFlag)
-        {
-            stocksTableColumnModel.removeColumn(stocksTableColumnModel.getColumn(5));
-        }
-        
-        stocksTableColumnModel.removeColumn(stocksTableColumnModel.getColumn(0));
     }
 
     /**
