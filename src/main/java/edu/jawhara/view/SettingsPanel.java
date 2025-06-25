@@ -136,7 +136,7 @@ public class SettingsPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_rButton1ActionPerformed
 
     private void rButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton2ActionPerformed
-        // TODO add your handling code here:
+        //
     }//GEN-LAST:event_rButton2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

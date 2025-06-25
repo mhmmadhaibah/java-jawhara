@@ -81,7 +81,7 @@ public class UsersPanel extends javax.swing.JPanel {
             while (rslt.next())
             {
                 Object[] data = new Object[4];
-                data[0] = String.valueOf(rslt.getInt("id"));
+                data[0] = rslt.getString("id");
                 data[1] = rslt.getString("username");
                 data[2] = rslt.getString("role");
                 data[3] = null;

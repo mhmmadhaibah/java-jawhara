@@ -78,10 +78,13 @@ public class StocksPanel extends javax.swing.JPanel {
     {
         try
         {
-            String sqlq = "SELECT t.id, u.username AS staff, t.type, t.timestamp ";
-            sqlq += "FROM transactions t JOIN users u ON t.user_id = u.id ORDER BY t.timestamp DESC";
+            String sqlq = """
+                SELECT t.id, u.username AS staff, t.type, t.timestamp
+                    FROM transactions t JOIN users u ON t.user_id = u.id
+                    ORDER BY t.timestamp DESC
+                """.trim();
             
-            PreparedStatement stmt = conn.prepareStatement(sqlq.trim());
+            PreparedStatement stmt = conn.prepareStatement(sqlq);
             ResultSet rslt = stmt.executeQuery();
             
             while (rslt.next())

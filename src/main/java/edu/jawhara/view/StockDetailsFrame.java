@@ -22,6 +22,8 @@ public class StockDetailsFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form StockDetailsFrame
+     * 
+     * @param stockId
      */
     public StockDetailsFrame(int stockId) {
         initComponents();
@@ -40,9 +42,11 @@ public class StockDetailsFrame extends javax.swing.JFrame {
     {
         try
         {
-            String sqlq = "SELECT t.id, u.username AS staff, t.type, t.timestamp ";
-            sqlq += "FROM transactions t JOIN users u ";
-            sqlq += "ON t.user_id = u.id WHERE t.id = ?";
+            String sqlq = """
+                SELECT t.id, u.username AS staff, t.type, t.timestamp
+                    FROM transactions t JOIN users u ON t.user_id = u.id
+                    WHERE t.id = ?
+                """.trim();
             
             PreparedStatement stmt = conn.prepareStatement(sqlq);
             
@@ -72,13 +76,15 @@ public class StockDetailsFrame extends javax.swing.JFrame {
         
         try
         {
-            String sqlq = "SELECT p.name AS product, c.name AS category, t.quantity ";
-            sqlq += "FROM transaction_details t JOIN products p ON t.product_id = p.id ";
-            sqlq += "JOIN categories c ON p.category_id = c.id ";
-            sqlq += "WHERE t.transaction_id = ? ";
-            sqlq += "ORDER BY t.id ASC";
+            String sqlq = """
+                SELECT p.name AS product, c.name AS category, t.quantity
+                    FROM transaction_details t JOIN products p ON t.product_id = p.id
+                    JOIN categories c ON p.category_id = c.id
+                    WHERE t.transaction_id = ?
+                    ORDER BY t.id ASC
+                """.trim();
             
-            PreparedStatement stmt = conn.prepareStatement(sqlq.trim());
+            PreparedStatement stmt = conn.prepareStatement(sqlq);
             
             stmt.setInt(1, stockId);
             ResultSet rslt = stmt.executeQuery();

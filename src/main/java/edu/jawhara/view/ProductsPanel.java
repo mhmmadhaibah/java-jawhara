@@ -284,6 +284,14 @@ public class ProductsPanel extends javax.swing.JPanel {
         productsTableColumnModel.getColumn(4).setMaxWidth(100);
         productsTableColumnModel.getColumn(4).setMinWidth(100);
         
+        productsTableColumnModel.getColumn(3).setPreferredWidth(200);
+        productsTableColumnModel.getColumn(3).setMaxWidth(200);
+        productsTableColumnModel.getColumn(3).setMinWidth(200);
+        
+        productsTableColumnModel.getColumn(1).setPreferredWidth(200);
+        productsTableColumnModel.getColumn(1).setMaxWidth(200);
+        productsTableColumnModel.getColumn(1).setMinWidth(200);
+        
         productsTableColumnModel.removeColumn(productsTableColumnModel.getColumn(0));
     }
 
