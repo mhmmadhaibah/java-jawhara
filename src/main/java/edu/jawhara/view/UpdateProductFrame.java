@@ -5,6 +5,7 @@
 package edu.jawhara.view;
 
 import edu.jawhara.model.MyConnection;
+import edu.jawhara.model.Validator;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,6 +26,8 @@ public class UpdateProductFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form UpdateProductFrame
+     * 
+     * @param productId
      */
     public UpdateProductFrame(int productId) {
         initComponents();
@@ -44,11 +47,12 @@ public class UpdateProductFrame extends javax.swing.JFrame {
             
             while (rslt.next())
             {
-                jComboBox1.addItem(rslt.getString("name"));
                 categoryList.add(new String[] {
-                    String.valueOf(rslt.getInt("id")),
+                    rslt.getString("id"),
                     rslt.getString("name")
                 });
+                
+                jComboBox1.addItem(rslt.getString("name"));
             }
         }
         catch (SQLException e)
@@ -58,16 +62,18 @@ public class UpdateProductFrame extends javax.swing.JFrame {
         
         try
         {
-            String sqlq = "SELECT p.name, c.name AS category ";
-            sqlq += "FROM categories c JOIN products p ";
-            sqlq += "ON c.id = p.category_id WHERE p.id = ?";
+            String sqlq = """
+                SELECT p.name, c.name AS category
+                    FROM products p JOIN categories c ON p.category_id = c.id
+                    WHERE p.id = ?
+                """.trim();
             
             PreparedStatement stmt = conn.prepareStatement(sqlq);
             
             stmt.setInt(1, productId);
             ResultSet rslt = stmt.executeQuery();
             
-            while (rslt.next())
+            if (rslt.next())
             {
                 jComboBox1.setSelectedItem(rslt.getString("category"));
                 jTextField1.setText(rslt.getString("name"));
@@ -245,9 +251,9 @@ public class UpdateProductFrame extends javax.swing.JFrame {
             }
         }
         
-        if ("".equals(productName))
+        if ("".equals(productName) || !Validator.isName(productName))
         {
-            JOptionPane.showMessageDialog(rButton1, "Please enter the data completely!");
+            JOptionPane.showMessageDialog(rButton1, "Invalid field value.");
             return;
         }
         

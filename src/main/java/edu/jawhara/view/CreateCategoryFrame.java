@@ -170,7 +170,7 @@ public class CreateCategoryFrame extends javax.swing.JFrame {
         
         if ("".equals(categoryName) || !Validator.isName(categoryName))
         {
-            JOptionPane.showMessageDialog(rButton1, "Please enter the data completely!");
+            JOptionPane.showMessageDialog(rButton1, "Invalid field value.");
             return;
         }
         

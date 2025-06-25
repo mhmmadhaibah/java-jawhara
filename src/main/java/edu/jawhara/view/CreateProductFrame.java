@@ -43,11 +43,12 @@ public class CreateProductFrame extends javax.swing.JFrame {
             
             while (rslt.next())
             {
-                jComboBox1.addItem(rslt.getString("name"));
                 categoryList.add(new String[] {
-                    String.valueOf(rslt.getInt("id")),
+                    rslt.getString("id"),
                     rslt.getString("name")
                 });
+                
+                jComboBox1.addItem(rslt.getString("name"));
             }
         }
         catch (SQLException e)
@@ -224,7 +225,7 @@ public class CreateProductFrame extends javax.swing.JFrame {
         
         if ("".equals(productName) || !Validator.isName(productName))
         {
-            JOptionPane.showMessageDialog(rButton1, "Please enter the data completely!");
+            JOptionPane.showMessageDialog(rButton1, "Invalid field value.");
             return;
         }
         

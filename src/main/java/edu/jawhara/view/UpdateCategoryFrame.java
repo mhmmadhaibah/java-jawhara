@@ -5,6 +5,7 @@
 package edu.jawhara.view;
 
 import edu.jawhara.model.MyConnection;
+import edu.jawhara.model.Validator;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,6 +23,8 @@ public class UpdateCategoryFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form UpdateCategoryFrame
+     * 
+     * @param categoryName
      */
     public UpdateCategoryFrame(String categoryName) {
         initComponents();
@@ -172,9 +175,9 @@ public class UpdateCategoryFrame extends javax.swing.JFrame {
     private void rButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton1ActionPerformed
         String name = jTextField1.getText().trim();
         
-        if ("".equals(name))
+        if ("".equals(name) || !Validator.isName(name))
         {
-            JOptionPane.showMessageDialog(rButton1, "Please enter the data completely!");
+            JOptionPane.showMessageDialog(rButton1, "Invalid field value.");
             return;
         }
         

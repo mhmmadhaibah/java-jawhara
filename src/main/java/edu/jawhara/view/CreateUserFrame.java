@@ -251,7 +251,7 @@ public class CreateUserFrame extends javax.swing.JFrame {
         
         if ("".equals(username) || "".equals(password) || "".equals(confirmPassword))
         {
-            JOptionPane.showMessageDialog(rButton1, "Please enter the data completely!");
+            JOptionPane.showMessageDialog(rButton1, "Invalid field value.");
             return;
         }
         
