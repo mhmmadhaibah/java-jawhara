@@ -26,7 +26,6 @@ edu\jawhara\view\ProductsPanel$6.class
 edu\jawhara\view\UpdateCategoryFrame$1.class
 edu\jawhara\view\StocksPanel$3.class
 edu\jawhara\view\UpdateUserFrame$3.class
-edu\jawhara\view\DashboardPanel$5.class
 edu\jawhara\view\CreateStockFrame$5.class
 edu\jawhara\view\CreateUserFrame$1.class
 edu\jawhara\custom\EditDeleteActionTablePanel$1.class

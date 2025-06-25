@@ -25,12 +25,6 @@ import javax.swing.table.DefaultTableModel;
 public class DashboardPanel extends javax.swing.JPanel {
     private static final Connection conn = MyConnection.getConnection();
 
-    private DefaultTableModel inStocksTableModel;
-    private DefaultTableColumnModel inStocksTableColumnModel;
-
-    private DefaultTableModel outStocksTableModel;
-    private DefaultTableColumnModel outStocksTableColumnModel;
-
     /**
      * Creates new form DashboardPanel
      */
@@ -53,19 +47,8 @@ public class DashboardPanel extends javax.swing.JPanel {
     private void refreshDashboard() {
         loadSummaryCard();
         
-        Loading.infiniteLoading(jPanel15, "tablePanel");
-        Loading.infiniteLoading(jPanel14, "tablePanel");
-        
-        inStocksTableModel = (DefaultTableModel) jTable2.getModel();
-        inStocksTableColumnModel = (DefaultTableColumnModel) jTable2.getColumnModel();
-        
-        outStocksTableModel = (DefaultTableModel) jTable1.getModel();
-        outStocksTableColumnModel = (DefaultTableColumnModel) jTable1.getColumnModel();
-        
-        resetStocksTable();
         loadStocksTable();
-        
-        customStocksTable();
+        loadProductsTable();
     }
 
     private void loadSummaryCard()
@@ -97,26 +80,22 @@ public class DashboardPanel extends javax.swing.JPanel {
         }
     }
 
-    private void resetStocksTable()
-    {
-        inStocksTableModel.getDataVector().removeAllElements();
-        inStocksTableModel.fireTableStructureChanged();
-        inStocksTableModel.fireTableDataChanged();
-        inStocksTableModel.setRowCount(0);
-        
-        outStocksTableModel.getDataVector().removeAllElements();
-        outStocksTableModel.fireTableStructureChanged();
-        outStocksTableModel.fireTableDataChanged();
-        outStocksTableModel.setRowCount(0);
-    }
-
     private void loadStocksTable()
     {
+        Loading.infiniteLoading(jPanel15, "tablePanel");
+        
+        DefaultTableModel stocksTableModel = (DefaultTableModel) jTable2.getModel();
+        stocksTableModel.getDataVector().removeAllElements();
+        stocksTableModel.fireTableStructureChanged();
+        stocksTableModel.fireTableDataChanged();
+        stocksTableModel.setRowCount(0);
+        
         try
         {
             String sqlq = """
                 SELECT t.id, u.username AS staff, t.type, t.timestamp
                     FROM transactions t JOIN users u ON t.user_id = u.id
+                    WHERE DATE(t.timestamp) = CURRENT_DATE
                     ORDER BY t.timestamp DESC
                 """.trim();
             
@@ -131,74 +110,73 @@ public class DashboardPanel extends javax.swing.JPanel {
                 data[2] = rslt.getTimestamp("timestamp").toString().split("\\.")[0];
                 data[3] = null;
                 
-                switch (rslt.getString("type")) {
-                    case "IN":
-                        inStocksTableModel.addRow(data);
-                        break;
-                    case "OUT":
-                        outStocksTableModel.addRow(data);
-                        break;
-                    default:
-                        throw new SQLException("Unexpected value for stock type: '" + rslt.getString("type") + "'.");
-                }
+                stocksTableModel.addRow(data);
             }
         }
         catch (SQLException e)
         {
             e.printStackTrace();
         }
-    }
-
-    private void customStocksTable()
-    {
-        customInStocksTable();
-        customOutStocksTable();
-    }
-
-    private void customInStocksTable()
-    {
+        
         ActionTableEvent actionTableEvent = new ActionTableEventAdapter() {
             @Override
             public void onDetails(int row)
             {
-                int stockId = Integer.parseInt(inStocksTableModel.getValueAt(row, 0).toString());
+                int stockId = Integer.parseInt(stocksTableModel.getValueAt(row, 0).toString());
                 
                 StockDetailsFrame stockDetailsFrame = new StockDetailsFrame(stockId);
                 stockDetailsFrame.setVisible(true);
             }
         };
         
-        inStocksTableColumnModel.getColumn(3).setCellRenderer(new ActionTableCellRenderer(DetailsActionTablePanel.class));
-        inStocksTableColumnModel.getColumn(3).setCellEditor(new ActionTableCellEditor(actionTableEvent, DetailsActionTablePanel.class));
+        DefaultTableColumnModel stocksTableColumnModel = (DefaultTableColumnModel) jTable2.getColumnModel();
+        stocksTableColumnModel.getColumn(3).setCellRenderer(new ActionTableCellRenderer(DetailsActionTablePanel.class));
+        stocksTableColumnModel.getColumn(3).setCellEditor(new ActionTableCellEditor(actionTableEvent, DetailsActionTablePanel.class));
         
-        inStocksTableColumnModel.getColumn(3).setPreferredWidth(104);
-        inStocksTableColumnModel.getColumn(3).setMaxWidth(104);
-        inStocksTableColumnModel.getColumn(3).setMinWidth(104);
+        stocksTableColumnModel.getColumn(3).setPreferredWidth(104);
+        stocksTableColumnModel.getColumn(3).setMaxWidth(104);
+        stocksTableColumnModel.getColumn(3).setMinWidth(104);
         
-        inStocksTableColumnModel.removeColumn(inStocksTableColumnModel.getColumn(0));
+        stocksTableColumnModel.removeColumn(stocksTableColumnModel.getColumn(0));
     }
 
-    private void customOutStocksTable()
+    private void loadProductsTable()
     {
-        ActionTableEvent actionTableEvent = new ActionTableEventAdapter() {
-            @Override
-            public void onDetails(int row)
+        Loading.infiniteLoading(jPanel14, "tablePanel");
+        
+        DefaultTableModel productsTableModel = (DefaultTableModel) jTable1.getModel();
+        productsTableModel.getDataVector().removeAllElements();
+        productsTableModel.fireTableStructureChanged();
+        productsTableModel.fireTableDataChanged();
+        productsTableModel.setRowCount(0);
+        
+        try
+        {
+            String sqlq = """
+                SELECT s.name AS supplier, p.name AS product, c.name AS category
+                    FROM products p JOIN product_stocks ps ON p.id = ps.product_id
+                    JOIN suppliers s ON s.id = p.supplier_id
+                    JOIN categories c ON c.id = p.category_id
+                    WHERE ps.quantity <= 0 ORDER BY p.id ASC
+                """.trim();
+            
+            PreparedStatement stmt = conn.prepareStatement(sqlq);
+            ResultSet rslt = stmt.executeQuery();
+            
+            while (rslt.next())
             {
-                int stockId = Integer.parseInt(outStocksTableModel.getValueAt(row, 0).toString());
+                Object[] data = new Object[3];
+                data[0] = rslt.getString("supplier");
+                data[1] = rslt.getString("product");
+                data[2] = rslt.getString("category");
                 
-                StockDetailsFrame stockDetailsFrame = new StockDetailsFrame(stockId);
-                stockDetailsFrame.setVisible(true);
+                productsTableModel.addRow(data);
             }
-        };
-        
-        outStocksTableColumnModel.getColumn(3).setCellRenderer(new ActionTableCellRenderer(DetailsActionTablePanel.class));
-        outStocksTableColumnModel.getColumn(3).setCellEditor(new ActionTableCellEditor(actionTableEvent, DetailsActionTablePanel.class));
-        
-        outStocksTableColumnModel.getColumn(3).setPreferredWidth(104);
-        outStocksTableColumnModel.getColumn(3).setMaxWidth(104);
-        outStocksTableColumnModel.getColumn(3).setMinWidth(104);
-        
-        outStocksTableColumnModel.removeColumn(outStocksTableColumnModel.getColumn(0));
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -467,7 +445,7 @@ public class DashboardPanel extends javax.swing.JPanel {
         );
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel11.setText("Last Activity: In-Stocks");
+        jLabel11.setText("Stocks: Today Activity");
 
         jPanel15.setLayout(new java.awt.CardLayout());
         jPanel15.add(new edu.jawhara.view.InfinitePanel(), "infinitePanel");
@@ -548,7 +526,7 @@ public class DashboardPanel extends javax.swing.JPanel {
         );
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel10.setText("Last Activity: Out-Stocks");
+        jLabel10.setText("Products: Out of Stocks");
 
         jPanel14.setLayout(new java.awt.CardLayout());
         jPanel14.add(new edu.jawhara.view.InfinitePanel(), "infinitePanel");
@@ -559,11 +537,11 @@ public class DashboardPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "ID", "Staff", "Date", "Action"
+                "Supplier", "Product", "Category"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, true
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
