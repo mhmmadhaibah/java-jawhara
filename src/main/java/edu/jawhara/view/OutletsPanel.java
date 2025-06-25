@@ -128,7 +128,31 @@ public class OutletsPanel extends javax.swing.JPanel {
                 
                 if (confirm == JOptionPane.YES_OPTION)
                 {
-                    //
+                    int outletId = Integer.parseInt(outletsTableModel.getValueAt(row, 0).toString());
+                    
+                    try
+                    {
+                        String sqlq = "DELETE FROM outlets WHERE id = ?";
+                        PreparedStatement stmt = conn.prepareStatement(sqlq);
+                        
+                        stmt.setInt(1, outletId);
+                        int rslt = stmt.executeUpdate();
+                        
+                        if (rslt > 0)
+                        {
+                            JOptionPane.showMessageDialog(null, "Outlet deleted successfully.");
+                            refreshOutlets();
+                        }
+                        else
+                        {
+                            JOptionPane.showMessageDialog(null, "Something wrong!");
+                        }
+                    }
+                    catch (SQLException e)
+                    {
+                        JOptionPane.showMessageDialog(null, e);
+                        e.printStackTrace();
+                    }
                 }
             }
         };

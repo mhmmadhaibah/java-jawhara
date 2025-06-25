@@ -130,7 +130,31 @@ public class SuppliersPanel extends javax.swing.JPanel {
                 
                 if (confirm == JOptionPane.YES_OPTION)
                 {
-                    //
+                    int supplierId = Integer.parseInt(suppliersTableModel.getValueAt(row, 0).toString());
+                    
+                    try
+                    {
+                        String sqlq = "DELETE FROM suppliers WHERE id = ?";
+                        PreparedStatement stmt = conn.prepareStatement(sqlq);
+                        
+                        stmt.setInt(1, supplierId);
+                        int rslt = stmt.executeUpdate();
+                        
+                        if (rslt > 0)
+                        {
+                            JOptionPane.showMessageDialog(null, "Supplier deleted successfully.");
+                            refreshSuppliers();
+                        }
+                        else
+                        {
+                            JOptionPane.showMessageDialog(null, "Something wrong!");
+                        }
+                    }
+                    catch (SQLException e)
+                    {
+                        JOptionPane.showMessageDialog(null, e);
+                        e.printStackTrace();
+                    }
                 }
             }
         };
