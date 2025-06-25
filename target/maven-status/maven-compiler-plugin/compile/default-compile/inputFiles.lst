@@ -16,8 +16,10 @@ C:\Users\User\Documents\NetBeansProjects\jawhara\src\main\java\edu\jawhara\model
 C:\Users\User\Documents\NetBeansProjects\jawhara\src\main\java\edu\jawhara\view\AppView.java
 C:\Users\User\Documents\NetBeansProjects\jawhara\src\main\java\edu\jawhara\view\ChangePasswordFrame.java
 C:\Users\User\Documents\NetBeansProjects\jawhara\src\main\java\edu\jawhara\view\CreateCategoryFrame.java
+C:\Users\User\Documents\NetBeansProjects\jawhara\src\main\java\edu\jawhara\view\CreateOutletFrame.java
 C:\Users\User\Documents\NetBeansProjects\jawhara\src\main\java\edu\jawhara\view\CreateProductFrame.java
 C:\Users\User\Documents\NetBeansProjects\jawhara\src\main\java\edu\jawhara\view\CreateStockFrame.java
+C:\Users\User\Documents\NetBeansProjects\jawhara\src\main\java\edu\jawhara\view\CreateSupplierFrame.java
 C:\Users\User\Documents\NetBeansProjects\jawhara\src\main\java\edu\jawhara\view\CreateUserFrame.java
 C:\Users\User\Documents\NetBeansProjects\jawhara\src\main\java\edu\jawhara\view\DashboardPanel.java
 C:\Users\User\Documents\NetBeansProjects\jawhara\src\main\java\edu\jawhara\view\InfinitePanel.java
@@ -30,7 +32,9 @@ C:\Users\User\Documents\NetBeansProjects\jawhara\src\main\java\edu\jawhara\view\
 C:\Users\User\Documents\NetBeansProjects\jawhara\src\main\java\edu\jawhara\view\StocksPanel.java
 C:\Users\User\Documents\NetBeansProjects\jawhara\src\main\java\edu\jawhara\view\SuppliersPanel.java
 C:\Users\User\Documents\NetBeansProjects\jawhara\src\main\java\edu\jawhara\view\UpdateCategoryFrame.java
+C:\Users\User\Documents\NetBeansProjects\jawhara\src\main\java\edu\jawhara\view\UpdateOutletFrame.java
 C:\Users\User\Documents\NetBeansProjects\jawhara\src\main\java\edu\jawhara\view\UpdateProductFrame.java
 C:\Users\User\Documents\NetBeansProjects\jawhara\src\main\java\edu\jawhara\view\UpdateStockFrame.java
+C:\Users\User\Documents\NetBeansProjects\jawhara\src\main\java\edu\jawhara\view\UpdateSupplierFrame.java
 C:\Users\User\Documents\NetBeansProjects\jawhara\src\main\java\edu\jawhara\view\UpdateUserFrame.java
 C:\Users\User\Documents\NetBeansProjects\jawhara\src\main\java\edu\jawhara\view\UsersPanel.java
