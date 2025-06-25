@@ -103,6 +103,7 @@ public class AppView extends javax.swing.JFrame {
         jPanel1.setLayout(new java.awt.CardLayout());
         jPanel1.add(new edu.jawhara.view.InfinitePanel(), "infinitePanel");
         jPanel1.add(new edu.jawhara.view.DashboardPanel(), "dashboardPanel");
+        jPanel1.add(new edu.jawhara.view.OutletsPanel(), "outletsPanel");
         jPanel1.add(new edu.jawhara.view.SuppliersPanel(), "suppliersPanel");
         jPanel1.add(new edu.jawhara.view.ProductsPanel(), "productsPanel");
         jPanel1.add(new edu.jawhara.view.StocksPanel(), "stocksPanel");
@@ -278,7 +279,7 @@ public class AppView extends javax.swing.JFrame {
     }//GEN-LAST:event_rButton1ActionPerformed
 
     private void rButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton2ActionPerformed
-        // TODO add your handling code here:
+        Loading.infiniteLoading(jPanel1, "outletsPanel");
     }//GEN-LAST:event_rButton2ActionPerformed
 
     private void rButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton3ActionPerformed

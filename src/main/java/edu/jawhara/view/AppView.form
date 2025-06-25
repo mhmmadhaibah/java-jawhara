@@ -57,7 +57,7 @@
         </Property>
       </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_LayoutCodePre" type="java.lang.String" value="jPanel1.add(new edu.jawhara.view.InfinitePanel(), &quot;infinitePanel&quot;);&#xa;jPanel1.add(new edu.jawhara.view.DashboardPanel(), &quot;dashboardPanel&quot;);&#xa;jPanel1.add(new edu.jawhara.view.SuppliersPanel(), &quot;suppliersPanel&quot;);&#xa;jPanel1.add(new edu.jawhara.view.ProductsPanel(), &quot;productsPanel&quot;);&#xa;jPanel1.add(new edu.jawhara.view.StocksPanel(), &quot;stocksPanel&quot;);&#xa;jPanel1.add(new edu.jawhara.view.ReportsPanel(), &quot;reportsPanel&quot;);&#xa;jPanel1.add(new edu.jawhara.view.UsersPanel(), &quot;usersPanel&quot;);&#xa;jPanel1.add(new edu.jawhara.view.SettingsPanel(), &quot;settingsPanel&quot;);"/>
+        <AuxValue name="JavaCodeGenerator_LayoutCodePre" type="java.lang.String" value="jPanel1.add(new edu.jawhara.view.InfinitePanel(), &quot;infinitePanel&quot;);&#xa;jPanel1.add(new edu.jawhara.view.DashboardPanel(), &quot;dashboardPanel&quot;);&#xa;jPanel1.add(new edu.jawhara.view.OutletsPanel(), &quot;outletsPanel&quot;);&#xa;jPanel1.add(new edu.jawhara.view.SuppliersPanel(), &quot;suppliersPanel&quot;);&#xa;jPanel1.add(new edu.jawhara.view.ProductsPanel(), &quot;productsPanel&quot;);&#xa;jPanel1.add(new edu.jawhara.view.StocksPanel(), &quot;stocksPanel&quot;);&#xa;jPanel1.add(new edu.jawhara.view.ReportsPanel(), &quot;reportsPanel&quot;);&#xa;jPanel1.add(new edu.jawhara.view.UsersPanel(), &quot;usersPanel&quot;);&#xa;jPanel1.add(new edu.jawhara.view.SettingsPanel(), &quot;settingsPanel&quot;);"/>
       </AuxValues>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignCardLayout"/>
