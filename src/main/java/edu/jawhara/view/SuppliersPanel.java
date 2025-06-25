@@ -290,7 +290,6 @@ public class SuppliersPanel extends javax.swing.JPanel {
         refreshSuppliers();
     }//GEN-LAST:event_rButton2ActionPerformed
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

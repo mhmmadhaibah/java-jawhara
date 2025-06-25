@@ -169,7 +169,7 @@ public class ProductsPanel extends javax.swing.JPanel {
             
             if (rTextField1.getText().trim().equals("0"))
             {
-                sqlq += "WHERE ps.quantity < 0 ";
+                sqlq += "WHERE ps.quantity <= 0 ";
             }
             else if (!rTextField1.getText().trim().isEmpty())
             {

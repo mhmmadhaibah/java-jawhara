@@ -25,6 +25,12 @@ import javax.swing.table.DefaultTableModel;
 public class DashboardPanel extends javax.swing.JPanel {
     private static final Connection conn = MyConnection.getConnection();
 
+    private DefaultTableModel productsTableModel;
+    private DefaultTableColumnModel productsTableColumnModel;
+
+    private DefaultTableModel stocksTableModel;
+    private DefaultTableColumnModel stocksTableColumnModel;
+
     /**
      * Creates new form DashboardPanel
      */
@@ -47,8 +53,8 @@ public class DashboardPanel extends javax.swing.JPanel {
     private void refreshDashboard() {
         loadSummaryCard();
         
-        loadStocksTable();
         loadProductsTable();
+        loadStocksTable();
     }
 
     private void loadSummaryCard()
@@ -80,11 +86,55 @@ public class DashboardPanel extends javax.swing.JPanel {
         }
     }
 
+    private void loadProductsTable()
+    {
+        Loading.infiniteLoading(jPanel14, "tablePanel");
+        
+        productsTableModel = (DefaultTableModel) jTable1.getModel();
+        productsTableColumnModel = (DefaultTableColumnModel) jTable1.getColumnModel();
+        
+        productsTableModel.getDataVector().removeAllElements();
+        productsTableModel.fireTableStructureChanged();
+        productsTableModel.fireTableDataChanged();
+        productsTableModel.setRowCount(0);
+        
+        try
+        {
+            String sqlq = """
+                SELECT p.name, ps.quantity
+                    FROM products p JOIN product_stocks ps ON p.id = ps.product_id
+                    WHERE ps.quantity <= 0 ORDER BY p.id ASC
+                """.trim();
+            
+            PreparedStatement stmt = conn.prepareStatement(sqlq);
+            ResultSet rslt = stmt.executeQuery();
+            
+            while (rslt.next())
+            {
+                Object[] data = new Object[2];
+                data[0] = rslt.getString("name");
+                data[1] = rslt.getString("quantity");
+                
+                productsTableModel.addRow(data);
+            }
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        
+        productsTableColumnModel.getColumn(1).setPreferredWidth(100);
+        productsTableColumnModel.getColumn(1).setMaxWidth(100);
+        productsTableColumnModel.getColumn(1).setMinWidth(100);
+    }
+
     private void loadStocksTable()
     {
         Loading.infiniteLoading(jPanel15, "tablePanel");
         
-        DefaultTableModel stocksTableModel = (DefaultTableModel) jTable2.getModel();
+        stocksTableModel = (DefaultTableModel) jTable2.getModel();
+        stocksTableColumnModel = (DefaultTableColumnModel) jTable2.getColumnModel();
+        
         stocksTableModel.getDataVector().removeAllElements();
         stocksTableModel.fireTableStructureChanged();
         stocksTableModel.fireTableDataChanged();
@@ -129,7 +179,6 @@ public class DashboardPanel extends javax.swing.JPanel {
             }
         };
         
-        DefaultTableColumnModel stocksTableColumnModel = (DefaultTableColumnModel) jTable2.getColumnModel();
         stocksTableColumnModel.getColumn(3).setCellRenderer(new ActionTableCellRenderer(DetailsActionTablePanel.class));
         stocksTableColumnModel.getColumn(3).setCellEditor(new ActionTableCellEditor(actionTableEvent, DetailsActionTablePanel.class));
         
@@ -138,45 +187,6 @@ public class DashboardPanel extends javax.swing.JPanel {
         stocksTableColumnModel.getColumn(3).setMinWidth(104);
         
         stocksTableColumnModel.removeColumn(stocksTableColumnModel.getColumn(0));
-    }
-
-    private void loadProductsTable()
-    {
-        Loading.infiniteLoading(jPanel14, "tablePanel");
-        
-        DefaultTableModel productsTableModel = (DefaultTableModel) jTable1.getModel();
-        productsTableModel.getDataVector().removeAllElements();
-        productsTableModel.fireTableStructureChanged();
-        productsTableModel.fireTableDataChanged();
-        productsTableModel.setRowCount(0);
-        
-        try
-        {
-            String sqlq = """
-                SELECT s.name AS supplier, p.name AS product, c.name AS category
-                    FROM products p JOIN product_stocks ps ON p.id = ps.product_id
-                    JOIN suppliers s ON s.id = p.supplier_id
-                    JOIN categories c ON c.id = p.category_id
-                    WHERE ps.quantity <= 0 ORDER BY p.id ASC
-                """.trim();
-            
-            PreparedStatement stmt = conn.prepareStatement(sqlq);
-            ResultSet rslt = stmt.executeQuery();
-            
-            while (rslt.next())
-            {
-                Object[] data = new Object[3];
-                data[0] = rslt.getString("supplier");
-                data[1] = rslt.getString("product");
-                data[2] = rslt.getString("category");
-                
-                productsTableModel.addRow(data);
-            }
-        }
-        catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
     }
 
     /**
@@ -537,11 +547,11 @@ public class DashboardPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Supplier", "Product", "Category"
+                "Product Name", "Quantity"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
