@@ -74,7 +74,7 @@ public class DashboardPanel extends javax.swing.JPanel {
         {
             String sqlq = """
                 SELECT
-                    (SELECT COUNT(*) FROM users WHERE role = 'Staff') AS users,
+                    (SELECT COUNT(*) FROM suppliers) AS suppliers,
                     (SELECT COUNT(*) FROM products) AS products,
                     (SELECT COUNT(*) FROM categories) AS categories,
                     (SELECT COUNT(*) FROM transactions) AS stocks
@@ -85,7 +85,7 @@ public class DashboardPanel extends javax.swing.JPanel {
             
             if (rslt.next())
             {
-                jLabel2.setText(rslt.getString("users"));
+                jLabel2.setText(rslt.getString("suppliers"));
                 jLabel4.setText(rslt.getString("products"));
                 jLabel6.setText(rslt.getString("categories"));
                 jLabel8.setText(rslt.getString("stocks"));
@@ -261,7 +261,7 @@ public class DashboardPanel extends javax.swing.JPanel {
         jLabel2.setText("0");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel3.setText("Staff");
+        jLabel3.setText("Suppliers");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);

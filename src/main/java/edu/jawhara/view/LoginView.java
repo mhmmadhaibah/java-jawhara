@@ -184,7 +184,7 @@ public class LoginView extends javax.swing.JFrame {
         
         if ("".equals(username) || "".equals(password))
         {
-            JOptionPane.showMessageDialog(rButton1, "Invalid username and password.");
+            JOptionPane.showMessageDialog(rButton1, "Invalid field.");
             return;
         }
         

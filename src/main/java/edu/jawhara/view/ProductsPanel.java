@@ -162,20 +162,21 @@ public class ProductsPanel extends javax.swing.JPanel {
     {
         try
         {
-            String sqlq = "SELECT p.id, p.name, c.name AS category, q.quantity ";
-            sqlq += "FROM categories c ";
-            sqlq += "JOIN products p ON c.id = p.category_id ";
-            sqlq += "JOIN product_stocks q ON p.id = q.product_id ";
+            String sqlq = "SELECT p.id, s.name AS supplier, p.name, c.name AS category, ps.quantity ";
+            sqlq += "FROM products p JOIN product_stocks ps ON p.id = ps.product_id ";
+            sqlq += "JOIN suppliers s ON s.id = p.supplier_id ";
+            sqlq += "JOIN categories c ON c.id = p.category_id ";
             
             if (rTextField1.getText().trim().equals("0"))
             {
-                sqlq += "WHERE q.quantity = '0' ";
+                sqlq += "WHERE ps.quantity < 0 ";
             }
             else if (!rTextField1.getText().trim().isEmpty())
             {
                 sqlq += "WHERE p.name LIKE '%" + rTextField1.getText().trim() + "%' ";
+                sqlq += "OR s.name LIKE '%" + rTextField1.getText().trim() + "%' ";
                 sqlq += "OR c.name LIKE '%" + rTextField1.getText().trim() + "%' ";
-                sqlq += "OR q.quantity LIKE '%" + rTextField1.getText().trim() + "%' ";
+                sqlq += "OR ps.quantity LIKE '%" + rTextField1.getText().trim() + "%' ";
             }
             else if (categorySelected != null)
             {
@@ -189,12 +190,13 @@ public class ProductsPanel extends javax.swing.JPanel {
             
             while (rslt.next())
             {
-                Object[] data = new Object[5];
+                Object[] data = new Object[6];
                 data[0] = String.valueOf(rslt.getInt("id"));
-                data[1] = rslt.getString("name");
-                data[2] = rslt.getString("category");
-                data[3] = String.valueOf(rslt.getInt("quantity"));
-                data[4] = null;
+                data[1] = rslt.getString("supplier");
+                data[2] = rslt.getString("name");
+                data[3] = rslt.getString("category");
+                data[4] = String.valueOf(rslt.getInt("quantity"));
+                data[5] = null;
                 
                 productsTableModel.addRow(data);
             }
@@ -266,17 +268,21 @@ public class ProductsPanel extends javax.swing.JPanel {
             }
         };
         
-        productsTableColumnModel.getColumn(4).setCellRenderer(new ActionTableCellRenderer(EditDeleteActionTablePanel.class));
-        productsTableColumnModel.getColumn(4).setCellEditor(new ActionTableCellEditor(actionTableEvent, EditDeleteActionTablePanel.class));
+        productsTableColumnModel.getColumn(5).setCellRenderer(new ActionTableCellRenderer(EditDeleteActionTablePanel.class));
+        productsTableColumnModel.getColumn(5).setCellEditor(new ActionTableCellEditor(actionTableEvent, EditDeleteActionTablePanel.class));
         
-        productsTableColumnModel.getColumn(4).setPreferredWidth(165);
-        productsTableColumnModel.getColumn(4).setMaxWidth(165);
-        productsTableColumnModel.getColumn(4).setMinWidth(165);
+        productsTableColumnModel.getColumn(5).setPreferredWidth(165);
+        productsTableColumnModel.getColumn(5).setMaxWidth(165);
+        productsTableColumnModel.getColumn(5).setMinWidth(165);
         
         if (!adminFlag)
         {
-            productsTableColumnModel.removeColumn(productsTableColumnModel.getColumn(4));
+            productsTableColumnModel.removeColumn(productsTableColumnModel.getColumn(5));
         }
+        
+        productsTableColumnModel.getColumn(4).setPreferredWidth(100);
+        productsTableColumnModel.getColumn(4).setMaxWidth(100);
+        productsTableColumnModel.getColumn(4).setMinWidth(100);
         
         productsTableColumnModel.removeColumn(productsTableColumnModel.getColumn(0));
     }
@@ -440,11 +446,11 @@ public class ProductsPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "ID", "Product Name", "Category", "Quantity", "Action"
+                "ID", "Supplier", "Product Name", "Category", "Quantity", "Action"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true
+                false, false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

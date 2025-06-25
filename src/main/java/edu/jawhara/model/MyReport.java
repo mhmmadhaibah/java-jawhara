@@ -21,12 +21,18 @@ import net.sf.jasperreports.view.JasperViewer;
  */
 public class MyReport
 {
-    public void viewReport(String fileName, boolean isExitOnClose)
+    public URL getResource(String name)
+    {
+        return getClass().getResource(name);
+    }
+    
+    public static void viewReport(String fileName, boolean isExitOnClose)
     {
         Connection conn = MyConnection.getConnection();
         
-        URL fileUrl = getClass().getResource("/reports/" + fileName + ".jasper");
-        URL iconImageUrl = getClass().getResource("/images/coffee_stain.png");
+        MyReport myReport = new MyReport();
+        URL fileUrl = myReport.getResource("/reports/" + fileName + ".jasper");
+        URL iconImageUrl = myReport.getResource("/images/coffee_stain.png");
         
         Map params = new HashMap();
         params.put("TITTLE", "Jawhara Syari`i");

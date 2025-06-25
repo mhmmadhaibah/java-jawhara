@@ -32,7 +32,7 @@ public class AppView extends javax.swing.JFrame {
         });
         
         adminFlag = User.getRole().equals("Admin");
-        rButton5.setVisible(adminFlag);
+        rButton6.setVisible(adminFlag);
         
         Loading.infiniteLoading(jPanel1, "dashboardPanel");
     }
@@ -87,13 +87,13 @@ public class AppView extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         rButton1 = new rojerusan.RSMaterialButtonRectangle();
-        rButton2 = new rojerusan.RSMaterialButtonRectangle();
         rButton3 = new rojerusan.RSMaterialButtonRectangle();
         rButton4 = new rojerusan.RSMaterialButtonRectangle();
         rButton5 = new rojerusan.RSMaterialButtonRectangle();
         rButton6 = new rojerusan.RSMaterialButtonRectangle();
         rButton7 = new rojerusan.RSMaterialButtonRectangle();
         rButton8 = new rojerusan.RSMaterialButtonRectangle();
+        rButton2 = new rojerusan.RSMaterialButtonRectangle();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setName("appView"); // NOI18N
@@ -129,16 +129,8 @@ public class AppView extends javax.swing.JFrame {
             }
         });
 
-        rButton2.setBackground(new java.awt.Color(51, 51, 51));
-        rButton2.setText("Products");
-        rButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rButton2ActionPerformed(evt);
-            }
-        });
-
         rButton3.setBackground(new java.awt.Color(51, 51, 51));
-        rButton3.setText("Stocks");
+        rButton3.setText("Products");
         rButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rButton3ActionPerformed(evt);
@@ -146,7 +138,7 @@ public class AppView extends javax.swing.JFrame {
         });
 
         rButton4.setBackground(new java.awt.Color(51, 51, 51));
-        rButton4.setText("Reports");
+        rButton4.setText("Stocks");
         rButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rButton4ActionPerformed(evt);
@@ -154,7 +146,7 @@ public class AppView extends javax.swing.JFrame {
         });
 
         rButton5.setBackground(new java.awt.Color(51, 51, 51));
-        rButton5.setText("Users");
+        rButton5.setText("Reports");
         rButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rButton5ActionPerformed(evt);
@@ -162,7 +154,7 @@ public class AppView extends javax.swing.JFrame {
         });
 
         rButton6.setBackground(new java.awt.Color(51, 51, 51));
-        rButton6.setText("Settings");
+        rButton6.setText("Users");
         rButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rButton6ActionPerformed(evt);
@@ -170,7 +162,7 @@ public class AppView extends javax.swing.JFrame {
         });
 
         rButton7.setBackground(new java.awt.Color(51, 51, 51));
-        rButton7.setText("Logout");
+        rButton7.setText("Settings");
         rButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rButton7ActionPerformed(evt);
@@ -178,10 +170,18 @@ public class AppView extends javax.swing.JFrame {
         });
 
         rButton8.setBackground(new java.awt.Color(51, 51, 51));
-        rButton8.setText("Suppliers");
+        rButton8.setText("Logout");
         rButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rButton8ActionPerformed(evt);
+            }
+        });
+
+        rButton2.setBackground(new java.awt.Color(51, 51, 51));
+        rButton2.setText("Suppliers");
+        rButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rButton2ActionPerformed(evt);
             }
         });
 
@@ -195,13 +195,13 @@ public class AppView extends javax.swing.JFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(rButton7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+                        .addComponent(rButton8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+                        .addComponent(rButton7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addComponent(rButton6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addComponent(rButton5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addComponent(rButton4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addComponent(rButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addComponent(rButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addComponent(rButton8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addComponent(rButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -215,8 +215,6 @@ public class AppView extends javax.swing.JFrame {
                 .addGap(100, 100, 100)
                 .addComponent(rButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(rButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(rButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -224,10 +222,12 @@ public class AppView extends javax.swing.JFrame {
                 .addComponent(rButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(rButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(100, 100, 100)
-                .addComponent(rButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(rButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(100, 100, 100)
                 .addComponent(rButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(rButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -263,31 +263,31 @@ public class AppView extends javax.swing.JFrame {
     }//GEN-LAST:event_rButton1ActionPerformed
 
     private void rButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton2ActionPerformed
-        Loading.infiniteLoading(jPanel1, "productsPanel");
+        Loading.infiniteLoading(jPanel1, "suppliersPanel");
     }//GEN-LAST:event_rButton2ActionPerformed
 
     private void rButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton3ActionPerformed
-        Loading.infiniteLoading(jPanel1, "stocksPanel");
+        Loading.infiniteLoading(jPanel1, "productsPanel");
     }//GEN-LAST:event_rButton3ActionPerformed
 
     private void rButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton4ActionPerformed
-        Loading.infiniteLoading(jPanel1, "reportsPanel");
+        Loading.infiniteLoading(jPanel1, "stocksPanel");
     }//GEN-LAST:event_rButton4ActionPerformed
 
     private void rButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton5ActionPerformed
-        Loading.infiniteLoading(jPanel1, "usersPanel");
+        Loading.infiniteLoading(jPanel1, "reportsPanel");
     }//GEN-LAST:event_rButton5ActionPerformed
 
     private void rButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton6ActionPerformed
-        Loading.infiniteLoading(jPanel1, "settingsPanel");
+        Loading.infiniteLoading(jPanel1, "usersPanel");
     }//GEN-LAST:event_rButton6ActionPerformed
 
     private void rButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton7ActionPerformed
-        logoutHandle(false);
+        Loading.infiniteLoading(jPanel1, "settingsPanel");
     }//GEN-LAST:event_rButton7ActionPerformed
 
     private void rButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton8ActionPerformed
-        Loading.infiniteLoading(jPanel1, "suppliersPanel");
+       logoutHandle(false);
     }//GEN-LAST:event_rButton8ActionPerformed
 
     /**

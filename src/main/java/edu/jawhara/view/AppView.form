@@ -82,13 +82,13 @@
                       <Component id="jLabel1" max="32767" attributes="0"/>
                       <Component id="jLabel2" pref="135" max="32767" attributes="0"/>
                       <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="rButton7" alignment="0" pref="135" max="32767" attributes="0"/>
+                          <Component id="rButton8" alignment="0" pref="135" max="32767" attributes="0"/>
+                          <Component id="rButton7" alignment="0" pref="0" max="32767" attributes="0"/>
                           <Component id="rButton6" alignment="0" pref="0" max="32767" attributes="0"/>
                           <Component id="rButton5" alignment="0" pref="0" max="32767" attributes="0"/>
                           <Component id="rButton4" alignment="0" pref="0" max="32767" attributes="0"/>
                           <Component id="rButton3" alignment="0" pref="0" max="32767" attributes="0"/>
                           <Component id="rButton2" alignment="0" pref="0" max="32767" attributes="0"/>
-                          <Component id="rButton8" alignment="0" pref="0" max="32767" attributes="0"/>
                           <Component id="rButton1" alignment="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -106,8 +106,6 @@
                   <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
                   <Component id="rButton1" min="-2" pref="45" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="rButton8" min="-2" pref="45" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="rButton2" min="-2" pref="45" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="rButton3" min="-2" pref="45" max="-2" attributes="0"/>
@@ -115,10 +113,12 @@
                   <Component id="rButton4" min="-2" pref="45" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="rButton5" min="-2" pref="45" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
-                  <Component id="rButton6" min="-2" pref="45" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
+                  <Component id="rButton6" min="-2" pref="45" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
                   <Component id="rButton7" min="-2" pref="45" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="rButton8" min="-2" pref="45" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -159,23 +159,12 @@
             <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="AppView_rButton1"/>
           </AuxValues>
         </Component>
-        <Component class="rojerusan.RSMaterialButtonRectangle" name="rButton2">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="33" green="33" red="33" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Products"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rButton2ActionPerformed"/>
-          </Events>
-        </Component>
         <Component class="rojerusan.RSMaterialButtonRectangle" name="rButton3">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="33" green="33" red="33" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Stocks"/>
+            <Property name="text" type="java.lang.String" value="Products"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rButton3ActionPerformed"/>
@@ -186,7 +175,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="33" green="33" red="33" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Reports"/>
+            <Property name="text" type="java.lang.String" value="Stocks"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rButton4ActionPerformed"/>
@@ -197,7 +186,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="33" green="33" red="33" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Users"/>
+            <Property name="text" type="java.lang.String" value="Reports"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rButton5ActionPerformed"/>
@@ -208,7 +197,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="33" green="33" red="33" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Settings"/>
+            <Property name="text" type="java.lang.String" value="Users"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rButton6ActionPerformed"/>
@@ -219,7 +208,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="33" green="33" red="33" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Logout"/>
+            <Property name="text" type="java.lang.String" value="Settings"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rButton7ActionPerformed"/>
@@ -230,10 +219,21 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="33" green="33" red="33" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Suppliers"/>
+            <Property name="text" type="java.lang.String" value="Logout"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rButton8ActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="rojerusan.RSMaterialButtonRectangle" name="rButton2">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="33" green="33" red="33" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Suppliers"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rButton2ActionPerformed"/>
           </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="AppView_rButton1"/>
