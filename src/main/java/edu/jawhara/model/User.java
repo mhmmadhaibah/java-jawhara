@@ -11,6 +11,7 @@ package edu.jawhara.model;
 public class User
 {
     private static int userId;
+    private static String name;
     private static String role;
     private static String username;
     private static String password;
@@ -23,6 +24,16 @@ public class User
     public static void setUserId(int input)
     {
         userId = input;
+    }
+    
+    public static String getName()
+    {
+        return name;
+    }
+    
+    public static void setName(String input)
+    {
+        name = input;
     }
     
     public static String getRole()
