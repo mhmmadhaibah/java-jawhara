@@ -65,7 +65,6 @@ public class DeleteActionTablePanel extends javax.swing.JPanel implements Action
         );
     }// </editor-fold>//GEN-END:initComponents
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton deleteButton;
     // End of variables declaration//GEN-END:variables

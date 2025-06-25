@@ -65,7 +65,6 @@ public class DetailsActionTablePanel extends javax.swing.JPanel implements Actio
         );
     }// </editor-fold>//GEN-END:initComponents
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton detailsButton;
     // End of variables declaration//GEN-END:variables

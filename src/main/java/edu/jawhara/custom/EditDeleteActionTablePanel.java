@@ -84,7 +84,6 @@ public class EditDeleteActionTablePanel extends javax.swing.JPanel implements Ac
         );
     }// </editor-fold>//GEN-END:initComponents
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton deleteButton;
     private javax.swing.JButton editButton;
