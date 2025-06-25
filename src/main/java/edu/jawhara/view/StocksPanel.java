@@ -79,7 +79,7 @@ public class StocksPanel extends javax.swing.JPanel {
         try
         {
             String sqlq = """
-                SELECT t.id, u.username AS staff, t.type, t.timestamp
+                SELECT t.id, u.name AS staff, t.type, t.timestamp
                     FROM transactions t JOIN users u ON t.user_id = u.id
                     ORDER BY t.timestamp DESC
                 """.trim();

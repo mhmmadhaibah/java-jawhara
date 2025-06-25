@@ -66,7 +66,7 @@ public class DashboardPanel extends javax.swing.JPanel {
                     (SELECT COUNT(*) FROM suppliers) AS suppliers,
                     (SELECT COUNT(*) FROM products) AS products,
                     (SELECT COUNT(*) FROM categories) AS categories,
-                    (SELECT COUNT(*) FROM transactions) AS stocks
+                    (SELECT COUNT(*) FROM outlets) AS outlets
                 """.trim();
             
             PreparedStatement stmt = conn.prepareStatement(sqlq);
@@ -77,7 +77,7 @@ public class DashboardPanel extends javax.swing.JPanel {
                 jLabel2.setText(rslt.getString("suppliers"));
                 jLabel4.setText(rslt.getString("products"));
                 jLabel6.setText(rslt.getString("categories"));
-                jLabel8.setText(rslt.getString("stocks"));
+                jLabel8.setText(rslt.getString("outlets"));
             }
         }
         catch (SQLException e)
@@ -144,7 +144,7 @@ public class DashboardPanel extends javax.swing.JPanel {
         try
         {
             String sqlq = """
-                SELECT t.id, u.username AS staff, t.type, t.timestamp
+                SELECT t.id, u.name AS staff, t.timestamp
                     FROM transactions t JOIN users u ON t.user_id = u.id
                     WHERE DATE(t.timestamp) = CURRENT_DATE
                     ORDER BY t.timestamp DESC
@@ -388,7 +388,7 @@ public class DashboardPanel extends javax.swing.JPanel {
         jLabel8.setText("0");
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel9.setText("Stocks");
+        jLabel9.setText("Outlets");
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);

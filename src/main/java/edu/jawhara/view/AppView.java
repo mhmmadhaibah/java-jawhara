@@ -49,6 +49,7 @@ public class AppView extends javax.swing.JFrame {
         if (confirm == JOptionPane.YES_OPTION)
         {
             User.setUserId(0);
+            User.setName(null);
             User.setRole(null);
             User.setUsername(null);
             User.setPassword(null);

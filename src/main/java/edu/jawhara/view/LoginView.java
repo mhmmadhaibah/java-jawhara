@@ -7,6 +7,7 @@ package edu.jawhara.view;
 import edu.jawhara.model.MyConnection;
 import edu.jawhara.model.Password;
 import edu.jawhara.model.User;
+import edu.jawhara.model.Validator;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -182,7 +183,7 @@ public class LoginView extends javax.swing.JFrame {
         String username = jTextField1.getText().trim();
         String password = String.valueOf(jPasswordField1.getPassword()).trim();
         
-        if ("".equals(username) || "".equals(password))
+        if (!Validator.isAtLeast(username, 1) || !Validator.isAtLeast(password, 1))
         {
             JOptionPane.showMessageDialog(rButton1, "Invalid field value.");
             return;
@@ -200,6 +201,7 @@ public class LoginView extends javax.swing.JFrame {
             if (rslt.next())
             {
                 User.setUserId(rslt.getInt("id"));
+                User.setName(rslt.getString("name"));
                 User.setRole(rslt.getString("role"));
                 User.setUsername(rslt.getString("username"));
                 User.setPassword(rslt.getString("password"));

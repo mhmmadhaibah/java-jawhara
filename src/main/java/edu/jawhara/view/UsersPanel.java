@@ -80,11 +80,12 @@ public class UsersPanel extends javax.swing.JPanel {
             
             while (rslt.next())
             {
-                Object[] data = new Object[4];
+                Object[] data = new Object[5];
                 data[0] = rslt.getString("id");
-                data[1] = rslt.getString("username");
-                data[2] = rslt.getString("role");
-                data[3] = null;
+                data[1] = rslt.getString("name");
+                data[2] = rslt.getString("username");
+                data[3] = rslt.getString("role");
+                data[4] = null;
                 
                 usersTableModel.addRow(data);
             }
@@ -157,12 +158,12 @@ public class UsersPanel extends javax.swing.JPanel {
             }
         };
         
-        usersTableColumnModel.getColumn(3).setCellRenderer(new ActionTableCellRenderer(EditDeleteActionTablePanel.class));
-        usersTableColumnModel.getColumn(3).setCellEditor(new ActionTableCellEditor(actionTableEvent, EditDeleteActionTablePanel.class));
+        usersTableColumnModel.getColumn(4).setCellRenderer(new ActionTableCellRenderer(EditDeleteActionTablePanel.class));
+        usersTableColumnModel.getColumn(4).setCellEditor(new ActionTableCellEditor(actionTableEvent, EditDeleteActionTablePanel.class));
         
-        usersTableColumnModel.getColumn(3).setPreferredWidth(165);
-        usersTableColumnModel.getColumn(3).setMaxWidth(165);
-        usersTableColumnModel.getColumn(3).setMinWidth(165);
+        usersTableColumnModel.getColumn(4).setPreferredWidth(165);
+        usersTableColumnModel.getColumn(4).setMaxWidth(165);
+        usersTableColumnModel.getColumn(4).setMinWidth(165);
         
         usersTableColumnModel.removeColumn(usersTableColumnModel.getColumn(0));
     }
@@ -219,11 +220,11 @@ public class UsersPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "ID", "Username", "Role", "Action"
+                "ID", "Name", "Username", "Role", "Action"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, true
+                false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
