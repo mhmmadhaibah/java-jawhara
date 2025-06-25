@@ -48,9 +48,10 @@ public class UpdateUserFrame extends javax.swing.JFrame {
             
             while (rslt.next())
             {
+                userPassword = rslt.getString("password");
+                
                 jComboBox1.setSelectedItem(rslt.getString("role"));
                 jTextField1.setText(rslt.getString("username"));
-                userPassword = rslt.getString("password");
             }
         }
         catch (SQLException e)
