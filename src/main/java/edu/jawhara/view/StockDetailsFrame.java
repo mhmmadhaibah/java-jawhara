@@ -94,7 +94,7 @@ public class StockDetailsFrame extends javax.swing.JFrame {
                 Object[] data = new Object[3];
                 data[0] = rslt.getString("product");
                 data[1] = rslt.getString("category");
-                data[2] = String.valueOf(rslt.getInt("quantity"));
+                data[2] = rslt.getString("quantity");
                 
                 tableModel.addRow(data);
             }

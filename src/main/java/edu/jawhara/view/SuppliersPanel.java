@@ -88,7 +88,7 @@ public class SuppliersPanel extends javax.swing.JPanel {
             while (rslt.next())
             {
                 Object[] data = new Object[6];
-                data[0] = String.valueOf(rslt.getInt("id"));
+                data[0] = rslt.getString("id");
                 data[1] = rslt.getString("name");
                 data[2] = rslt.getString("address");
                 data[3] = rslt.getString("phone");

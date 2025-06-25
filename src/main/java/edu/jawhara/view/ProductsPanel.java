@@ -191,11 +191,11 @@ public class ProductsPanel extends javax.swing.JPanel {
             while (rslt.next())
             {
                 Object[] data = new Object[6];
-                data[0] = String.valueOf(rslt.getInt("id"));
+                data[0] = rslt.getString("id");
                 data[1] = rslt.getString("supplier");
                 data[2] = rslt.getString("name");
                 data[3] = rslt.getString("category");
-                data[4] = String.valueOf(rslt.getInt("quantity"));
+                data[4] = rslt.getString("quantity");
                 data[5] = null;
                 
                 productsTableModel.addRow(data);
