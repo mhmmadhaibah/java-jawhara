@@ -148,7 +148,7 @@ public class ChangePasswordFrame extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -157,14 +157,14 @@ public class ChangePasswordFrame extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(150, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(150, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(30, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(50, Short.MAX_VALUE))
@@ -195,10 +195,11 @@ public class ChangePasswordFrame extends javax.swing.JFrame {
         String currentPassword = String.valueOf(jPasswordField1.getPassword()).trim();
         String newPassword = String.valueOf(jPasswordField2.getPassword()).trim();
         String confirmNewPassword = String.valueOf(jPasswordField3.getPassword()).trim();
+        String hashedPassword = Password.hashPassword(newPassword);
         
         if ("".equals(currentPassword) || "".equals(newPassword) || "".equals(confirmNewPassword))
         {
-            JOptionPane.showMessageDialog(rButton1, "Please enter the data completely!");
+            JOptionPane.showMessageDialog(rButton1, "Invalid field value.");
             return;
         }
         
@@ -214,18 +215,24 @@ public class ChangePasswordFrame extends javax.swing.JFrame {
             return;
         }
         
+        if (newPassword.length() < 6)
+        {
+            JOptionPane.showMessageDialog(rButton1, "Password must be at least 6 characters.");
+            return;
+        }
+        
         try
         {
             String sqlq = "UPDATE users SET password = ? WHERE id = ?";
             PreparedStatement stmt = conn.prepareStatement(sqlq);
             
-            stmt.setString(1, Password.hashPassword(newPassword));
+            stmt.setString(1, hashedPassword);
             stmt.setInt(2, User.getUserId());
             int rslt = stmt.executeUpdate();
             
             if (rslt > 0)
             {
-                User.setPassword(Password.hashPassword(newPassword));
+                User.setPassword(hashedPassword);
                 
                 JOptionPane.showMessageDialog(rButton1, "Password updated successfully.");
                 dispose();

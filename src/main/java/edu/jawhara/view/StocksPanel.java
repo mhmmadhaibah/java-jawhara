@@ -90,7 +90,7 @@ public class StocksPanel extends javax.swing.JPanel {
             while (rslt.next())
             {
                 Object[] data = new Object[6];
-                data[0] = String.valueOf(rslt.getInt("id"));
+                data[0] = rslt.getString("id");
                 data[1] = rslt.getString("staff");
                 data[2] = rslt.getString("type");
                 data[3] = rslt.getTimestamp("timestamp").toString().split("\\.")[0];
@@ -174,9 +174,9 @@ public class StocksPanel extends javax.swing.JPanel {
                             SELECT td.*, t.type
                                 FROM transactions t JOIN transaction_details td
                                 ON t.id = td.transaction_id WHERE t.id = ?
-                            """;
+                            """.trim();
                         
-                        PreparedStatement stmt = conn.prepareStatement(sqlq.trim());
+                        PreparedStatement stmt = conn.prepareStatement(sqlq);
                         
                         stmt.setInt(1, stockId);
                         ResultSet rslt = stmt.executeQuery();
