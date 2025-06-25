@@ -17,8 +17,11 @@ import javax.swing.JOptionPane;
  * @author mhmmadhaibah
  */
 public class UpdateProductFrame extends javax.swing.JFrame {
-    private static ArrayList<String[]> categories = new ArrayList<>();
-    private static int productId;
+    private static final Connection conn = MyConnection.getConnection();
+
+    private final ArrayList<String[]> categoryList = new ArrayList<>();
+
+    private final int productId;
 
     /**
      * Creates new form UpdateProductFrame
@@ -34,8 +37,6 @@ public class UpdateProductFrame extends javax.swing.JFrame {
     {
         try
         {
-            Connection conn = MyConnection.getConnection();
-            
             String sqlq = "SELECT * FROM categories";
             PreparedStatement stmt = conn.prepareStatement(sqlq);
             
@@ -43,8 +44,8 @@ public class UpdateProductFrame extends javax.swing.JFrame {
             
             while (rslt.next())
             {
-                categoryField.addItem(rslt.getString("name"));
-                categories.add(new String[] {
+                jComboBox1.addItem(rslt.getString("name"));
+                categoryList.add(new String[] {
                     String.valueOf(rslt.getInt("id")),
                     rslt.getString("name")
                 });
@@ -57,8 +58,6 @@ public class UpdateProductFrame extends javax.swing.JFrame {
         
         try
         {
-            Connection conn = MyConnection.getConnection();
-            
             String sqlq = "SELECT p.name, c.name AS category ";
             sqlq += "FROM categories c JOIN products p ";
             sqlq += "ON c.id = p.category_id WHERE p.id = ?";
@@ -70,8 +69,8 @@ public class UpdateProductFrame extends javax.swing.JFrame {
             
             while (rslt.next())
             {
-                categoryField.setSelectedItem(rslt.getString("category"));
-                nameField.setText(rslt.getString("name"));
+                jComboBox1.setSelectedItem(rslt.getString("category"));
+                jTextField1.setText(rslt.getString("name"));
             }
         }
         catch (SQLException e)
@@ -95,10 +94,10 @@ public class UpdateProductFrame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        categoryField = new javax.swing.JComboBox<>();
+        jComboBox1 = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        nameField = new javax.swing.JTextField();
-        submitButton = new rojerusan.RSMaterialButtonRectangle();
+        jTextField1 = new javax.swing.JTextField();
+        rButton1 = new rojerusan.RSMaterialButtonRectangle();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -125,19 +124,19 @@ public class UpdateProductFrame extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setText("Category");
 
-        categoryField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        categoryField.setFocusable(false);
+        jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jComboBox1.setFocusable(false);
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel3.setText("Product Name");
 
-        nameField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        submitButton.setBackground(new java.awt.Color(51, 51, 51));
-        submitButton.setText("Submit");
-        submitButton.addActionListener(new java.awt.event.ActionListener() {
+        rButton1.setBackground(new java.awt.Color(51, 51, 51));
+        rButton1.setText("Submit");
+        rButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                submitButtonActionPerformed(evt);
+                rButton1ActionPerformed(evt);
             }
         });
 
@@ -148,12 +147,12 @@ public class UpdateProductFrame extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel2)
-                        .addComponent(categoryField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel3)
-                        .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -162,13 +161,13 @@ public class UpdateProductFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(categoryField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(rButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -233,29 +232,27 @@ public class UpdateProductFrame extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
-        String productName = nameField.getText().trim();
-        String categoryName = String.valueOf(categoryField.getSelectedItem()).trim();
+    private void rButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton1ActionPerformed
+        String productName = jTextField1.getText().trim();
+        String categoryName = String.valueOf(jComboBox1.getSelectedItem()).trim();
         
         int categoryId = 0;
-        for (String[] row : categories)
+        for (String[] category : categoryList)
         {
-            if (row[1].equals(categoryName))
+            if (category[1].equals(categoryName))
             {
-                categoryId = Integer.parseInt(row[0]);
+                categoryId = Integer.parseInt(category[0]);
             }
         }
         
         if ("".equals(productName))
         {
-            JOptionPane.showMessageDialog(submitButton, "Please enter the data completely!");
+            JOptionPane.showMessageDialog(rButton1, "Please enter the data completely!");
             return;
         }
         
         try
         {
-            Connection conn = MyConnection.getConnection();
-            
             String sqlq = "UPDATE products SET name = ?, category_id = ? WHERE id = ?";
             PreparedStatement stmt = conn.prepareStatement(sqlq);
             
@@ -266,20 +263,20 @@ public class UpdateProductFrame extends javax.swing.JFrame {
             
             if (rslt > 0)
             {
-                JOptionPane.showMessageDialog(submitButton, "Product updated successfully.");
+                JOptionPane.showMessageDialog(rButton1, "Product updated successfully.");
                 dispose();
             }
             else
             {
-                JOptionPane.showMessageDialog(submitButton, "Something wrong!");
+                JOptionPane.showMessageDialog(rButton1, "Something wrong!");
             }
         }
         catch (SQLException e)
         {
-            JOptionPane.showMessageDialog(submitButton, e);
+            JOptionPane.showMessageDialog(rButton1, e);
             e.printStackTrace();
         }
-    }//GEN-LAST:event_submitButtonActionPerformed
+    }//GEN-LAST:event_rButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -318,7 +315,7 @@ public class UpdateProductFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> categoryField;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -326,7 +323,7 @@ public class UpdateProductFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JTextField nameField;
-    private rojerusan.RSMaterialButtonRectangle submitButton;
+    private javax.swing.JTextField jTextField1;
+    private rojerusan.RSMaterialButtonRectangle rButton1;
     // End of variables declaration//GEN-END:variables
 }

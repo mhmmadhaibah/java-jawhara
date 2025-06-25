@@ -5,6 +5,7 @@
 package edu.jawhara.view;
 
 import edu.jawhara.model.MyConnection;
+import edu.jawhara.model.Validator;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,6 +17,7 @@ import javax.swing.JOptionPane;
  * @author mhmmadhaibah
  */
 public class CreateCategoryFrame extends javax.swing.JFrame {
+    private static final Connection conn = MyConnection.getConnection();
 
     /**
      * Creates new form CreateCategoryFrame
@@ -39,8 +41,8 @@ public class CreateCategoryFrame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        nameField = new javax.swing.JTextField();
-        submitButton = new rojerusan.RSMaterialButtonRectangle();
+        jTextField1 = new javax.swing.JTextField();
+        rButton1 = new rojerusan.RSMaterialButtonRectangle();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -67,13 +69,13 @@ public class CreateCategoryFrame extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setText("Name");
 
-        nameField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        submitButton.setBackground(new java.awt.Color(51, 51, 51));
-        submitButton.setText("Submit");
-        submitButton.addActionListener(new java.awt.event.ActionListener() {
+        rButton1.setBackground(new java.awt.Color(51, 51, 51));
+        rButton1.setText("Submit");
+        rButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                submitButtonActionPerformed(evt);
+                rButton1ActionPerformed(evt);
             }
         });
 
@@ -84,10 +86,10 @@ public class CreateCategoryFrame extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel2)
-                        .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -96,9 +98,9 @@ public class CreateCategoryFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(rButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -163,64 +165,60 @@ public class CreateCategoryFrame extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
-        String name = nameField.getText().trim();
+    private void rButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton1ActionPerformed
+        String categoryName = jTextField1.getText().trim();
         
-        if ("".equals(name))
+        if ("".equals(categoryName) || !Validator.isName(categoryName))
         {
-            JOptionPane.showMessageDialog(submitButton, "Please enter the data completely!");
+            JOptionPane.showMessageDialog(rButton1, "Please enter the data completely!");
             return;
         }
         
         try
         {
-            Connection conn = MyConnection.getConnection();
-            
             String sqlq = "SELECT * FROM categories WHERE name = ?";
             PreparedStatement stmt = conn.prepareStatement(sqlq);
             
-            stmt.setString(1, name);
+            stmt.setString(1, categoryName);
             ResultSet rslt = stmt.executeQuery();
             
             if (rslt.next())
             {
-                JOptionPane.showMessageDialog(submitButton, "Category is already registered.");
+                JOptionPane.showMessageDialog(rButton1, "Category is already registered.");
                 return;
             }
         }
         catch (SQLException e)
         {
-            JOptionPane.showMessageDialog(submitButton, e);
+            JOptionPane.showMessageDialog(rButton1, e);
             e.printStackTrace();
             return;
         }
         
         try
         {
-            Connection conn = MyConnection.getConnection();
-            
             String sqlq = "INSERT INTO categories (name) VALUES (?)";
             PreparedStatement stmt = conn.prepareStatement(sqlq);
             
-            stmt.setString(1, name);
+            stmt.setString(1, categoryName);
             int rslt = stmt.executeUpdate();
             
             if (rslt > 0)
             {
-                JOptionPane.showMessageDialog(submitButton, "New category has been successfully created.");
+                JOptionPane.showMessageDialog(rButton1, "New category has been successfully created.");
                 dispose();
             }
             else
             {
-                JOptionPane.showMessageDialog(submitButton, "Something wrong!");
+                JOptionPane.showMessageDialog(rButton1, "Something wrong!");
             }
         }
         catch (SQLException e)
         {
-            JOptionPane.showMessageDialog(submitButton, e);
+            JOptionPane.showMessageDialog(rButton1, e);
             e.printStackTrace();
         }
-    }//GEN-LAST:event_submitButtonActionPerformed
+    }//GEN-LAST:event_rButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -264,7 +262,7 @@ public class CreateCategoryFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JTextField nameField;
-    private rojerusan.RSMaterialButtonRectangle submitButton;
+    private javax.swing.JTextField jTextField1;
+    private rojerusan.RSMaterialButtonRectangle rButton1;
     // End of variables declaration//GEN-END:variables
 }

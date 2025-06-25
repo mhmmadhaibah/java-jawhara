@@ -26,7 +26,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jPanel2" max="-2" attributes="0"/>
+              <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel1" pref="1113" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -40,7 +40,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="62" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="11" max="32767" attributes="0"/>
                   </Group>
                   <Component id="jPanel1" pref="0" max="32767" attributes="0"/>
               </Group>
@@ -57,7 +57,7 @@
         </Property>
       </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_LayoutCodePre" type="java.lang.String" value="jPanel1.add(new edu.jawhara.view.InfinitePanel(), &quot;infinitePanel&quot;);&#xa;jPanel1.add(new edu.jawhara.view.DashboardPanel(), &quot;dashboardPanel&quot;);&#xa;jPanel1.add(new edu.jawhara.view.ProductsPanel(), &quot;productsPanel&quot;);&#xa;jPanel1.add(new edu.jawhara.view.StocksPanel(), &quot;stocksPanel&quot;);&#xa;jPanel1.add(new edu.jawhara.view.ReportsPanel(), &quot;reportsPanel&quot;);&#xa;jPanel1.add(new edu.jawhara.view.UsersPanel(), &quot;usersPanel&quot;);&#xa;jPanel1.add(new edu.jawhara.view.SettingsPanel(), &quot;settingsPanel&quot;);"/>
+        <AuxValue name="JavaCodeGenerator_LayoutCodePre" type="java.lang.String" value="jPanel1.add(new edu.jawhara.view.InfinitePanel(), &quot;infinitePanel&quot;);&#xa;jPanel1.add(new edu.jawhara.view.DashboardPanel(), &quot;dashboardPanel&quot;);&#xa;jPanel1.add(new edu.jawhara.view.SuppliersPanel(), &quot;suppliersPanel&quot;);&#xa;jPanel1.add(new edu.jawhara.view.ProductsPanel(), &quot;productsPanel&quot;);&#xa;jPanel1.add(new edu.jawhara.view.StocksPanel(), &quot;stocksPanel&quot;);&#xa;jPanel1.add(new edu.jawhara.view.ReportsPanel(), &quot;reportsPanel&quot;);&#xa;jPanel1.add(new edu.jawhara.view.UsersPanel(), &quot;usersPanel&quot;);&#xa;jPanel1.add(new edu.jawhara.view.SettingsPanel(), &quot;settingsPanel&quot;);"/>
       </AuxValues>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignCardLayout"/>
@@ -80,14 +80,17 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jLabel1" max="32767" attributes="0"/>
-                      <Component id="jLabel2" max="32767" attributes="0"/>
-                      <Component id="rButton7" alignment="0" pref="135" max="32767" attributes="0"/>
-                      <Component id="rButton6" alignment="0" pref="135" max="32767" attributes="0"/>
-                      <Component id="rButton1" alignment="0" pref="135" max="32767" attributes="0"/>
-                      <Component id="rButton2" alignment="0" pref="135" max="32767" attributes="0"/>
-                      <Component id="rButton3" alignment="0" pref="135" max="32767" attributes="0"/>
-                      <Component id="rButton4" alignment="0" pref="135" max="32767" attributes="0"/>
-                      <Component id="rButton5" alignment="0" pref="135" max="32767" attributes="0"/>
+                      <Component id="jLabel2" pref="135" max="32767" attributes="0"/>
+                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="rButton7" alignment="0" pref="135" max="32767" attributes="0"/>
+                          <Component id="rButton6" alignment="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="rButton5" alignment="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="rButton4" alignment="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="rButton3" alignment="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="rButton2" alignment="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="rButton8" alignment="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="rButton1" alignment="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -102,6 +105,8 @@
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
                   <Component id="rButton1" min="-2" pref="45" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="rButton8" min="-2" pref="45" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="rButton2" min="-2" pref="45" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -219,6 +224,20 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rButton7ActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="rojerusan.RSMaterialButtonRectangle" name="rButton8">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="33" green="33" red="33" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Suppliers"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rButton8ActionPerformed"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="AppView_rButton1"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

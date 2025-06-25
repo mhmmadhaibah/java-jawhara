@@ -490,8 +490,8 @@ public class CreateStockFrame extends javax.swing.JFrame {
 
     private void rButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton1ActionPerformed
         DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
-        String categoryName = jComboBox1.getSelectedItem().toString();
         String productName = jComboBox2.getSelectedItem().toString();
+        String categoryName = jComboBox1.getSelectedItem().toString();
         String productQuantity = jTextField1.getText().trim();
         
         if ("".equals(productQuantity) || !Validator.isNumeric(productQuantity))

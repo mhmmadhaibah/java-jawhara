@@ -18,8 +18,11 @@ import javax.swing.JOptionPane;
  * @author mhmmadhaibah
  */
 public class UpdateUserFrame extends javax.swing.JFrame {
+    private static final Connection conn = MyConnection.getConnection();
+
     private final int userId;
-    private static String userPassword;
+
+    private String userPassword;
 
     /**
      * Creates new form UpdateUserFrame
@@ -37,8 +40,6 @@ public class UpdateUserFrame extends javax.swing.JFrame {
     {
         try
         {
-            Connection conn = MyConnection.getConnection();
-            
             String sqlq = "SELECT * FROM users WHERE id = ?";
             PreparedStatement stmt = conn.prepareStatement(sqlq);
             
@@ -47,8 +48,8 @@ public class UpdateUserFrame extends javax.swing.JFrame {
             
             while (rslt.next())
             {
-                roleField.setSelectedItem(rslt.getString("role"));
-                usernameField.setText(rslt.getString("username"));
+                jComboBox1.setSelectedItem(rslt.getString("role"));
+                jTextField1.setText(rslt.getString("username"));
                 userPassword = rslt.getString("password");
             }
         }
@@ -73,15 +74,15 @@ public class UpdateUserFrame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        roleField = new javax.swing.JComboBox<>();
+        jComboBox1 = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
-        usernameField = new javax.swing.JTextField();
+        jTextField1 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        passwordField = new javax.swing.JPasswordField();
+        jPasswordField1 = new javax.swing.JPasswordField();
         jLabel4 = new javax.swing.JLabel();
-        confirmPasswordField = new javax.swing.JPasswordField();
-        autofillCheck = new javax.swing.JCheckBox();
-        submitButton = new rojerusan.RSMaterialButtonRectangle();
+        jPasswordField2 = new javax.swing.JPasswordField();
+        jCheckBox1 = new javax.swing.JCheckBox();
+        rButton1 = new rojerusan.RSMaterialButtonRectangle();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -108,38 +109,38 @@ public class UpdateUserFrame extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel5.setText("Role");
 
-        roleField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        roleField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Staff" }));
-        roleField.setFocusable(false);
+        jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Staff" }));
+        jComboBox1.setFocusable(false);
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setText("Username");
 
-        usernameField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel3.setText("Password");
 
-        passwordField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jPasswordField1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel4.setText("Confirm Password");
 
-        confirmPasswordField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jPasswordField2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        autofillCheck.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        autofillCheck.setText("autofill");
-        autofillCheck.addActionListener(new java.awt.event.ActionListener() {
+        jCheckBox1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jCheckBox1.setText("autofill");
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                autofillCheckActionPerformed(evt);
+                jCheckBox1ActionPerformed(evt);
             }
         });
 
-        submitButton.setBackground(new java.awt.Color(51, 51, 51));
-        submitButton.setText("Submit");
-        submitButton.addActionListener(new java.awt.event.ActionListener() {
+        rButton1.setBackground(new java.awt.Color(51, 51, 51));
+        rButton1.setText("Submit");
+        rButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                submitButtonActionPerformed(evt);
+                rButton1ActionPerformed(evt);
             }
         });
 
@@ -150,20 +151,20 @@ public class UpdateUserFrame extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel5)
-                        .addComponent(roleField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel2)
-                        .addComponent(usernameField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel4)
-                        .addComponent(confirmPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(autofillCheck))
-                            .addComponent(passwordField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jCheckBox1))
+                            .addComponent(jPasswordField1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -172,23 +173,23 @@ public class UpdateUserFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(roleField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(usernameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(autofillCheck))
+                    .addComponent(jCheckBox1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(confirmPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(rButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -253,36 +254,36 @@ public class UpdateUserFrame extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void autofillCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autofillCheckActionPerformed
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
         String  iPassword  = "";
         boolean iEditable  = true;
         boolean iFocusable = true;
         
-        if (autofillCheck.isSelected())
+        if (jCheckBox1.isSelected())
         {
             iPassword  = "password";
             iEditable  = false;
             iFocusable = false;
         }
         
-        passwordField.setText(iPassword);
-        passwordField.setEditable(iEditable);
-        passwordField.setFocusable(iFocusable);
+        jPasswordField1.setText(iPassword);
+        jPasswordField1.setEditable(iEditable);
+        jPasswordField1.setFocusable(iFocusable);
         
-        confirmPasswordField.setText(iPassword);
-        confirmPasswordField.setEditable(iEditable);
-        confirmPasswordField.setFocusable(iFocusable);
-    }//GEN-LAST:event_autofillCheckActionPerformed
+        jPasswordField2.setText(iPassword);
+        jPasswordField2.setEditable(iEditable);
+        jPasswordField2.setFocusable(iFocusable);
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
 
-    private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
-        String role = String.valueOf(roleField.getSelectedItem()).trim();
-        String username = usernameField.getText().trim();
-        String password = String.valueOf(passwordField.getPassword()).trim();
-        String confirmPassword = String.valueOf(confirmPasswordField.getPassword()).trim();
+    private void rButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton1ActionPerformed
+        String role = String.valueOf(jComboBox1.getSelectedItem()).trim();
+        String username = jTextField1.getText().trim();
+        String password = String.valueOf(jPasswordField1.getPassword()).trim();
+        String confirmPassword = String.valueOf(jPasswordField2.getPassword()).trim();
         
         if (!Validator.isUsername(username))
         {
-            JOptionPane.showMessageDialog(submitButton, "Usernames can only be letters and numbers.");
+            JOptionPane.showMessageDialog(rButton1, "Usernames can only be letters and numbers.");
             return;
         }
         
@@ -294,15 +295,13 @@ public class UpdateUserFrame extends javax.swing.JFrame {
             }
             else
             {
-                JOptionPane.showMessageDialog(submitButton, "You must enter the same new password twice.");
+                JOptionPane.showMessageDialog(rButton1, "You must enter the same new password twice.");
                 return;
             }
         }
         
         try
         {
-            Connection conn = MyConnection.getConnection();
-            
             String sqlq = "SELECT * FROM users WHERE username = ?";
             PreparedStatement stmt = conn.prepareStatement(sqlq);
             
@@ -311,21 +310,19 @@ public class UpdateUserFrame extends javax.swing.JFrame {
             
             if (rslt.next() && rslt.getInt("id") != userId)
             {
-                JOptionPane.showMessageDialog(submitButton, "Username is already registered.");
+                JOptionPane.showMessageDialog(rButton1, "Username is already registered.");
                 return;
             }
         }
         catch (SQLException e)
         {
-            JOptionPane.showMessageDialog(submitButton, e);
+            JOptionPane.showMessageDialog(rButton1, e);
             e.printStackTrace();
             return;
         }
         
         try
         {
-            Connection conn = MyConnection.getConnection();
-            
             String sqlq = "UPDATE users SET role = ?, username = ?, password = ? WHERE id = ?";
             PreparedStatement stmt = conn.prepareStatement(sqlq);
             
@@ -337,20 +334,20 @@ public class UpdateUserFrame extends javax.swing.JFrame {
             
             if (rslt > 0)
             {
-                JOptionPane.showMessageDialog(submitButton, "User updated successfully.");
+                JOptionPane.showMessageDialog(rButton1, "User updated successfully.");
                 dispose();
             }
             else
             {
-                JOptionPane.showMessageDialog(submitButton, "Something wrong!");
+                JOptionPane.showMessageDialog(rButton1, "Something wrong!");
             }
         }
         catch (SQLException e)
         {
-            JOptionPane.showMessageDialog(submitButton, e);
+            JOptionPane.showMessageDialog(rButton1, e);
             e.printStackTrace();
         }
-    }//GEN-LAST:event_submitButtonActionPerformed
+    }//GEN-LAST:event_rButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -389,8 +386,8 @@ public class UpdateUserFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox autofillCheck;
-    private javax.swing.JPasswordField confirmPasswordField;
+    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -400,9 +397,9 @@ public class UpdateUserFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPasswordField passwordField;
-    private javax.swing.JComboBox<String> roleField;
-    private rojerusan.RSMaterialButtonRectangle submitButton;
-    private javax.swing.JTextField usernameField;
+    private javax.swing.JPasswordField jPasswordField1;
+    private javax.swing.JPasswordField jPasswordField2;
+    private javax.swing.JTextField jTextField1;
+    private rojerusan.RSMaterialButtonRectangle rButton1;
     // End of variables declaration//GEN-END:variables
 }

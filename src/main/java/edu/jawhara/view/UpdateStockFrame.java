@@ -25,12 +25,12 @@ import javax.swing.table.DefaultTableModel;
  * @author mhmmadhaibah
  */
 public class UpdateStockFrame extends javax.swing.JFrame {
-    Connection conn = MyConnection.getConnection();
+    private static final Connection conn = MyConnection.getConnection();
 
-    private static ArrayList<String[]> categoryList = new ArrayList<>();
-    private static ArrayList<String[]> productList = new ArrayList<>();
+    private final ArrayList<String[]> categoryList = new ArrayList<>();
+    private final ArrayList<String[]> productList = new ArrayList<>();
 
-    private static int stockId;
+    private final int stockId;
 
     /**
      * Creates new form UpdateStockFrame
