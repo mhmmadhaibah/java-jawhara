@@ -98,7 +98,7 @@ public class ProductsPanel extends javax.swing.JPanel {
             cPanel.setLayout(null);
             cPanel.add(_cButton_);
             
-            String sqlq = "SELECT * FROM categories";
+            String sqlq = "SELECT * FROM categories ORDER BY id ASC";
             PreparedStatement stmt = conn.prepareStatement(sqlq);
             ResultSet rslt = stmt.executeQuery();
             
