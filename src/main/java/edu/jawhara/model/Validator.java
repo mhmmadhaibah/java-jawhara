@@ -35,7 +35,7 @@ public class Validator
     
     public static boolean isPhoneNumber(String input)
     {
-        return isMatcher("^[0-9]{10,13}$", input);
+        return isMatcher("^[0-9]{10,15}$", input);
     }
     
     public static boolean isNumeric(String input)
