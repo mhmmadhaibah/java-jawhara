@@ -21,6 +21,7 @@ import javax.swing.JOptionPane;
 public class CreateProductFrame extends javax.swing.JFrame {
     private static final Connection conn = MyConnection.getConnection();
 
+    private final ArrayList<String[]> supplierList = new ArrayList<>();
     private final ArrayList<String[]> categoryList = new ArrayList<>();
 
     /**
@@ -29,7 +30,33 @@ public class CreateProductFrame extends javax.swing.JFrame {
     public CreateProductFrame() {
         initComponents();
         
+        loadSupplierForm();
         loadCategoryForm();
+    }
+
+    private void loadSupplierForm()
+    {
+        try
+        {
+            String sqlq = "SELECT * FROM suppliers";
+            PreparedStatement stmt = conn.prepareStatement(sqlq);
+            
+            ResultSet rslt = stmt.executeQuery();
+            
+            while (rslt.next())
+            {
+                supplierList.add(new String[] {
+                    rslt.getString("id"),
+                    rslt.getString("name")
+                });
+                
+                jComboBox2.addItem(rslt.getString("name"));
+            }
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     private void loadCategoryForm()
@@ -76,6 +103,8 @@ public class CreateProductFrame extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         rButton1 = new rojerusan.RSMaterialButtonRectangle();
+        jLabel4 = new javax.swing.JLabel();
+        jComboBox2 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -118,25 +147,38 @@ public class CreateProductFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel4.setText("Supplier");
+
+        jComboBox2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jComboBox2.setFocusable(false);
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(rButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel2)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel3)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(rButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel4)
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -176,14 +218,14 @@ public class CreateProductFrame extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(150, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(150, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(30, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(50, Short.MAX_VALUE))
@@ -211,25 +253,35 @@ public class CreateProductFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void rButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton1ActionPerformed
-        String categoryName = String.valueOf(jComboBox1.getSelectedItem()).trim();
-        String productName = jTextField1.getText().trim();
+        String fSupplier = String.valueOf(jComboBox2.getSelectedItem()).trim();
+        String fCategory = String.valueOf(jComboBox1.getSelectedItem()).trim();
+        String fName = jTextField1.getText().trim();
+        
+        int supplierId = 0;
+        for (String[] supplier : supplierList)
+        {
+            if (supplier[1].equals(fSupplier))
+            {
+                supplierId = Integer.parseInt(supplier[0]);
+            }
+        }
         
         int categoryId = 0;
         for (String[] category : categoryList)
         {
-            if (category[1].equals(categoryName))
+            if (category[1].equals(fCategory))
             {
                 categoryId = Integer.parseInt(category[0]);
             }
         }
         
-        if ("".equals(productName))
+        if ("".equals(fName))
         {
             JOptionPane.showMessageDialog(rButton1, "Invalid field value.");
             return;
         }
         
-        if (!Validator.isName(productName))
+        if (!Validator.isName(fName))
         {
             JOptionPane.showMessageDialog(rButton1, "Product Name can only be letters.");
             return;
@@ -237,11 +289,34 @@ public class CreateProductFrame extends javax.swing.JFrame {
         
         try
         {
-            String sqlq = "INSERT INTO products (category_id, name) VALUES (?, ?)";
+            String sqlq = "SELECT * FROM products WHERE name = ?";
+            PreparedStatement stmt = conn.prepareStatement(sqlq);
+            
+            stmt.setString(1, fName);
+            ResultSet rslt = stmt.executeQuery();
+            
+            if (rslt.next())
+            {
+                JOptionPane.showMessageDialog(rButton1, "Product is already registered.");
+                return;
+            }
+        }
+        catch (SQLException e)
+        {
+            JOptionPane.showMessageDialog(rButton1, e);
+            
+            e.printStackTrace();
+            return;
+        }
+        
+        try
+        {
+            String sqlq = "INSERT INTO products (supplier_id, category_id, name) VALUES (?, ?, ?)";
             PreparedStatement stmt = conn.prepareStatement(sqlq, Statement.RETURN_GENERATED_KEYS);
             
-            stmt.setInt(1, categoryId);
-            stmt.setString(2, productName);
+            stmt.setInt(1, supplierId);
+            stmt.setInt(2, categoryId);
+            stmt.setString(3, fName);
             
             int rows = stmt.executeUpdate();
             ResultSet rslt = stmt.getGeneratedKeys();
@@ -306,9 +381,11 @@ public class CreateProductFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

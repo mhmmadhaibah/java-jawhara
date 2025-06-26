@@ -166,15 +166,15 @@ public class CreateCategoryFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void rButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton1ActionPerformed
-        String categoryName = jTextField1.getText().trim();
+        String name = jTextField1.getText().trim();
         
-        if ("".equals(categoryName))
+        if ("".equals(name))
         {
             JOptionPane.showMessageDialog(rButton1, "Invalid field value.");
             return;
         }
         
-        if (!Validator.isName(categoryName))
+        if (!Validator.isName(name))
         {
             JOptionPane.showMessageDialog(rButton1, "Name can only be letters.");
             return;
@@ -185,7 +185,7 @@ public class CreateCategoryFrame extends javax.swing.JFrame {
             String sqlq = "SELECT * FROM categories WHERE name = ?";
             PreparedStatement stmt = conn.prepareStatement(sqlq);
             
-            stmt.setString(1, categoryName);
+            stmt.setString(1, name);
             ResultSet rslt = stmt.executeQuery();
             
             if (rslt.next())
@@ -197,6 +197,7 @@ public class CreateCategoryFrame extends javax.swing.JFrame {
         catch (SQLException e)
         {
             JOptionPane.showMessageDialog(rButton1, e);
+            
             e.printStackTrace();
             return;
         }
@@ -206,7 +207,7 @@ public class CreateCategoryFrame extends javax.swing.JFrame {
             String sqlq = "INSERT INTO categories (name) VALUES (?)";
             PreparedStatement stmt = conn.prepareStatement(sqlq);
             
-            stmt.setString(1, categoryName);
+            stmt.setString(1, name);
             int rslt = stmt.executeUpdate();
             
             if (rslt > 0)
