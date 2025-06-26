@@ -183,7 +183,7 @@ public class LoginView extends javax.swing.JFrame {
         String username = jTextField1.getText().trim();
         String password = String.valueOf(jPasswordField1.getPassword()).trim();
         
-        if (!Validator.isAtLeast(username, 1) || !Validator.isAtLeast(password, 1))
+        if (!Validator.isRequired(username) || !Validator.isRequired(password))
         {
             JOptionPane.showMessageDialog(rButton1, "Invalid field value.");
             return;
