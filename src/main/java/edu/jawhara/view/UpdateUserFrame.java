@@ -345,6 +345,7 @@ public class UpdateUserFrame extends javax.swing.JFrame {
         catch (SQLException e)
         {
             JOptionPane.showMessageDialog(rButton1, e);
+            
             e.printStackTrace();
             return;
         }
