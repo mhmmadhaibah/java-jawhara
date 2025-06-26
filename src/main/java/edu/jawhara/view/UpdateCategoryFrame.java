@@ -30,6 +30,11 @@ public class UpdateCategoryFrame extends javax.swing.JFrame {
         initComponents();
         
         this.categoryName = categoryName;
+        loadCategoryForm();
+    }
+
+    private void loadCategoryForm()
+    {
         jTextField1.setText(this.categoryName);
     }
 
@@ -175,9 +180,15 @@ public class UpdateCategoryFrame extends javax.swing.JFrame {
     private void rButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton1ActionPerformed
         String name = jTextField1.getText().trim();
         
-        if ("".equals(name) || !Validator.isName(name))
+        if ("".equals(name))
         {
             JOptionPane.showMessageDialog(rButton1, "Invalid field value.");
+            return;
+        }
+        
+        if (!Validator.isName(name))
+        {
+            JOptionPane.showMessageDialog(rButton1, "Name can only be letters.");
             return;
         }
         
@@ -198,6 +209,7 @@ public class UpdateCategoryFrame extends javax.swing.JFrame {
         catch (SQLException e)
         {
             JOptionPane.showMessageDialog(rButton1, e);
+            
             e.printStackTrace();
             return;
         }
