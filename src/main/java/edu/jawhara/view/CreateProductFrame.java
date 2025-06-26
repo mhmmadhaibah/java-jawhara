@@ -223,9 +223,15 @@ public class CreateProductFrame extends javax.swing.JFrame {
             }
         }
         
-        if ("".equals(productName) || !Validator.isName(productName))
+        if ("".equals(productName))
         {
             JOptionPane.showMessageDialog(rButton1, "Invalid field value.");
+            return;
+        }
+        
+        if (!Validator.isName(productName))
+        {
+            JOptionPane.showMessageDialog(rButton1, "Product Name can only be letters.");
             return;
         }
         

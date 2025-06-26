@@ -168,9 +168,15 @@ public class CreateCategoryFrame extends javax.swing.JFrame {
     private void rButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton1ActionPerformed
         String categoryName = jTextField1.getText().trim();
         
-        if ("".equals(categoryName) || !Validator.isName(categoryName))
+        if ("".equals(categoryName))
         {
             JOptionPane.showMessageDialog(rButton1, "Invalid field value.");
+            return;
+        }
+        
+        if (!Validator.isName(categoryName))
+        {
+            JOptionPane.showMessageDialog(rButton1, "Name can only be letters.");
             return;
         }
         

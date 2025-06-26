@@ -48,8 +48,10 @@ public class CreateUserFrame extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jPasswordField1 = new javax.swing.JPasswordField();
         jLabel4 = new javax.swing.JLabel();
-        jPasswordField2 = new javax.swing.JPasswordField();
+        jLabel6 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
         jCheckBox1 = new javax.swing.JCheckBox();
+        jPasswordField2 = new javax.swing.JPasswordField();
         rButton1 = new rojerusan.RSMaterialButtonRectangle();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -94,7 +96,10 @@ public class CreateUserFrame extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel4.setText("Confirm Password");
 
-        jPasswordField2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel6.setText("Name");
+
+        jTextField2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         jCheckBox1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jCheckBox1.setText("autofill");
@@ -103,6 +108,8 @@ public class CreateUserFrame extends javax.swing.JFrame {
                 jCheckBox1ActionPerformed(evt);
             }
         });
+
+        jPasswordField2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         rButton1.setBackground(new java.awt.Color(51, 51, 51));
         rButton1.setText("Submit");
@@ -126,19 +133,25 @@ public class CreateUserFrame extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel4)
-                        .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jCheckBox1))
-                            .addComponent(jPasswordField1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jPasswordField1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel6)
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -188,14 +201,14 @@ public class CreateUserFrame extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(150, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(150, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(30, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(50, Short.MAX_VALUE))
@@ -244,14 +257,21 @@ public class CreateUserFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     private void rButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton1ActionPerformed
+        String name = jTextField2.getText().trim();
         String role = String.valueOf(jComboBox1.getSelectedItem()).trim();
         String username = jTextField1.getText().trim();
         String password = String.valueOf(jPasswordField1.getPassword()).trim();
         String confirmPassword = String.valueOf(jPasswordField2.getPassword()).trim();
         
-        if ("".equals(username) || "".equals(password) || "".equals(confirmPassword))
+        if ("".equals(name) || "".equals(username) || "".equals(password) || "".equals(confirmPassword))
         {
             JOptionPane.showMessageDialog(rButton1, "Invalid field value.");
+            return;
+        }
+        
+        if (!Validator.isName(name))
+        {
+            JOptionPane.showMessageDialog(rButton1, "Name can only be letters.");
             return;
         }
         
@@ -290,12 +310,13 @@ public class CreateUserFrame extends javax.swing.JFrame {
         
         try
         {
-            String sqlq = "INSERT INTO users (role, username, password) VALUES (?, ?, ?)";
+            String sqlq = "INSERT INTO users (name, role, username, password) VALUES (?, ?, ?, ?)";
             PreparedStatement stmt = conn.prepareStatement(sqlq);
             
-            stmt.setString(1, role);
-            stmt.setString(2, username);
-            stmt.setString(3, Password.hashPassword(password));
+            stmt.setString(1, name);
+            stmt.setString(2, role);
+            stmt.setString(3, username);
+            stmt.setString(4, Password.hashPassword(password));
             int rslt = stmt.executeUpdate();
             
             if (rslt > 0)
@@ -358,6 +379,7 @@ public class CreateUserFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -365,6 +387,7 @@ public class CreateUserFrame extends javax.swing.JFrame {
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JPasswordField jPasswordField2;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
     private rojerusan.RSMaterialButtonRectangle rButton1;
     // End of variables declaration//GEN-END:variables
 }
