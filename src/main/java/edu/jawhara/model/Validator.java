@@ -28,6 +28,16 @@ public class Validator
         return isMatcher("^[a-zA-Z0-9]+$", input);
     }
     
+    public static boolean isEmail(String input)
+    {
+        return isMatcher("^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$", input);
+    }
+    
+    public static boolean isPhoneNumber(String input)
+    {
+        return isMatcher("^[0-9]{10,13}$", input);
+    }
+    
     public static boolean isNumeric(String input)
     {
         return isMatcher("^[0-9]+$", input);

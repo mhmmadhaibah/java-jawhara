@@ -4,11 +4,20 @@
  */
 package edu.jawhara.view;
 
+import edu.jawhara.model.MyConnection;
+import edu.jawhara.model.Validator;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author mhmmadhaibah
  */
 public class CreateOutletFrame extends javax.swing.JFrame {
+    private static final Connection conn = MyConnection.getConnection();
 
     /**
      * Creates new form CreateOutletFrame
@@ -178,7 +187,67 @@ public class CreateOutletFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void rButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton1ActionPerformed
-        // TODO add your handling code here:
+        String name = jTextField1.getText().trim();
+        String description = jTextArea1.getText().trim();
+        
+        if ("".equals(name) || "".equals(description))
+        {
+            JOptionPane.showMessageDialog(rButton1, "Invalid field value.");
+            return;
+        }
+        
+        if (!Validator.isName(name))
+        {
+            JOptionPane.showMessageDialog(rButton1, "Name can only be letters.");
+            return;
+        }
+        
+        try
+        {
+            String sqlq = "SELECT * FROM outlets WHERE name = ?";
+            PreparedStatement stmt = conn.prepareStatement(sqlq);
+            
+            stmt.setString(1, name);
+            ResultSet rslt = stmt.executeQuery();
+            
+            if (rslt.next())
+            {
+                JOptionPane.showMessageDialog(rButton1, "Outlet is already registered.");
+                return;
+            }
+        }
+        catch (SQLException e)
+        {
+            JOptionPane.showMessageDialog(rButton1, e);
+            
+            e.printStackTrace();
+            return;
+        }
+        
+        try
+        {
+            String sqlq = "INSERT INTO outlets (name, description) VALUES (?, ?)";
+            PreparedStatement stmt = conn.prepareStatement(sqlq);
+            
+            stmt.setString(1, name);
+            stmt.setString(2, description);
+            int rslt = stmt.executeUpdate();
+            
+            if (rslt > 0)
+            {
+                JOptionPane.showMessageDialog(rButton1, "New outlet has been successfully created.");
+                dispose();
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(rButton1, "Something wrong!");
+            }
+        }
+        catch (SQLException e)
+        {
+            JOptionPane.showMessageDialog(rButton1, e);
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_rButton1ActionPerformed
 
     /**
