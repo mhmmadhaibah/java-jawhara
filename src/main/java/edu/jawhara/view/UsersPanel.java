@@ -26,6 +26,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class UsersPanel extends javax.swing.JPanel {
     private static final Connection conn = MyConnection.getConnection();
+    private final boolean adminFlag = User.getRole().equals("Admin");
 
     private DefaultTableModel usersTableModel;
     private DefaultTableColumnModel usersTableColumnModel;
@@ -51,6 +52,8 @@ public class UsersPanel extends javax.swing.JPanel {
 
     private void refreshUsers()
     {
+        rButton1.setVisible(adminFlag);
+        
         Loading.infiniteLoading(jPanel1, "tablePanel");
         
         usersTableModel = (DefaultTableModel) jTable1.getModel();
@@ -164,6 +167,11 @@ public class UsersPanel extends javax.swing.JPanel {
         usersTableColumnModel.getColumn(4).setPreferredWidth(165);
         usersTableColumnModel.getColumn(4).setMaxWidth(165);
         usersTableColumnModel.getColumn(4).setMinWidth(165);
+        
+        if (!adminFlag)
+        {
+            usersTableColumnModel.removeColumn(usersTableColumnModel.getColumn(4));
+        }
         
         usersTableColumnModel.removeColumn(usersTableColumnModel.getColumn(0));
     }

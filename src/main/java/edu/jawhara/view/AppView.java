@@ -31,6 +31,8 @@ public class AppView extends javax.swing.JFrame {
             }
         });
         
+        rButton2.setVisible(adminFlag);
+        rButton3.setVisible(adminFlag);
         rButton7.setVisible(adminFlag);
         
         Loading.infiniteLoading(jPanel1, "dashboardPanel");
