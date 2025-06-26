@@ -7,6 +7,7 @@ package edu.jawhara.view;
 import edu.jawhara.model.MyConnection;
 import edu.jawhara.model.Password;
 import edu.jawhara.model.User;
+import edu.jawhara.model.Validator;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -215,7 +216,7 @@ public class ChangePasswordFrame extends javax.swing.JFrame {
             return;
         }
         
-        if (newPassword.length() < 6)
+        if (!Validator.isAtLeast(newPassword, 6))
         {
             JOptionPane.showMessageDialog(rButton1, "Password must be at least 6 characters.");
             return;

@@ -13,11 +13,6 @@ import java.util.regex.Pattern;
  */
 public class Validator
 {
-    public static boolean isRequired(String input)
-    {
-        return isMatcher(".{1,}", input);
-    }
-    
     public static boolean isAtLeast(String input, int length)
     {
         return isMatcher(".{" + length + ",}", input);
