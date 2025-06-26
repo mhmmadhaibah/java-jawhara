@@ -12,15 +12,13 @@ import edu.jawhara.model.User;
  * @author mhmmadhaibah
  */
 public class ReportsPanel extends javax.swing.JPanel {
-    private final boolean adminFlag;
+    private final boolean adminFlag = User.getRole().equals("Admin");;
 
     /**
      * Creates new form ReportsPanel
      */
     public ReportsPanel() {
         initComponents();
-        
-        adminFlag = User.getRole().equals("Admin");
         refreshReports();
     }
 

@@ -26,8 +26,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class OutletsPanel extends javax.swing.JPanel {
     private static final Connection conn = MyConnection.getConnection();
-
-    private final boolean adminFlag;
+    private final boolean adminFlag = User.getRole().equals("Admin");
 
     private DefaultTableModel outletsTableModel;
     private DefaultTableColumnModel outletsTableColumnModel;
@@ -37,8 +36,6 @@ public class OutletsPanel extends javax.swing.JPanel {
      */
     public OutletsPanel() {
         initComponents();
-        
-        adminFlag = User.getRole().equals("Admin");
         refreshOutlets();
     }
 

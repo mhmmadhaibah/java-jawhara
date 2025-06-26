@@ -27,8 +27,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class StocksPanel extends javax.swing.JPanel {
     private static final Connection conn = MyConnection.getConnection();
-
-    private final boolean adminFlag;
+    private final boolean adminFlag = User.getRole().equals("Admin");
 
     private DefaultTableModel stocksTableModel;
     private DefaultTableColumnModel stocksTableColumnModel;
@@ -38,8 +37,6 @@ public class StocksPanel extends javax.swing.JPanel {
      */
     public StocksPanel() {
         initComponents();
-        
-        adminFlag = User.getRole().equals("Admin");
         refreshStocks();
     }
 

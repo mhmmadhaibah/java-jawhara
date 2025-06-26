@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
  * @author mhmmadhaibah
  */
 public class AppView extends javax.swing.JFrame {
-    private final boolean adminFlag;
+    private final boolean adminFlag = User.getRole().equals("Admin");
 
     /**
      * Creates new form AppView
@@ -31,7 +31,6 @@ public class AppView extends javax.swing.JFrame {
             }
         });
         
-        adminFlag = User.getRole().equals("Admin");
         rButton7.setVisible(adminFlag);
         
         Loading.infiniteLoading(jPanel1, "dashboardPanel");
