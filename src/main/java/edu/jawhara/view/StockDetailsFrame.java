@@ -43,8 +43,8 @@ public class StockDetailsFrame extends javax.swing.JFrame {
         try
         {
             String sqlq = """
-                SELECT t.id, u.username AS staff, o.name AS outlet, t.type, t.notes, t.timestamp
-                    FROM transactions t JOIN users u ON t.user_id = u.id
+                SELECT t.id, u.name AS staff, o.name AS outlet, t.type, t.notes, t.timestamp
+                    FROM transactions t LEFT JOIN users u ON t.user_id = u.id
                     LEFT JOIN outlets o ON t.outlet_id = o.id
                     WHERE t.id = ?
                 """.trim();
@@ -90,7 +90,7 @@ public class StockDetailsFrame extends javax.swing.JFrame {
         {
             String sqlq = """
                 SELECT p.name AS product, c.name AS category, t.quantity
-                    FROM transaction_details t JOIN products p ON t.product_id = p.id
+                    FROM transaction_details t LEFT JOIN products p ON t.product_id = p.id
                     LEFT JOIN categories c ON p.category_id = c.id
                     WHERE t.transaction_id = ?
                     ORDER BY t.id ASC
