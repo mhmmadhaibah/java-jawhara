@@ -120,7 +120,7 @@ public class SuppliersPanel extends javax.swing.JPanel {
             {
                 int confirm = JOptionPane.showConfirmDialog(
                     null,
-                    "Are sure want to delete ?",
+                    ("Delete " + suppliersTableModel.getValueAt(row, 1) + " ?"),
                     "Delete Supplier",
                     JOptionPane.YES_NO_OPTION
                 );

@@ -223,7 +223,7 @@ public class ProductsPanel extends javax.swing.JPanel {
             {
                 int confirm = JOptionPane.showConfirmDialog(
                     null,
-                    ("Delete " + productsTableModel.getValueAt(row, 1) + " ?"),
+                    ("Delete " + productsTableModel.getValueAt(row, 2) + " ?"),
                     "Delete Product",
                     JOptionPane.YES_NO_OPTION
                 );

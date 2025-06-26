@@ -118,7 +118,7 @@ public class OutletsPanel extends javax.swing.JPanel {
             {
                 int confirm = JOptionPane.showConfirmDialog(
                     null,
-                    "Are sure want to delete ?",
+                    ("Delete " + outletsTableModel.getValueAt(row, 1) + " ?"),
                     "Delete Outlets",
                     JOptionPane.YES_NO_OPTION
                 );

@@ -115,7 +115,7 @@ public class UsersPanel extends javax.swing.JPanel {
             {
                 int confirm = JOptionPane.showConfirmDialog(
                     null,
-                    ("Delete " + usersTableModel.getValueAt(row, 2) + " " + usersTableModel.getValueAt(row, 1) + " ?"),
+                    ("Delete " + usersTableModel.getValueAt(row, 3) + " " + usersTableModel.getValueAt(row, 2) + " ?"),
                     "Delete User",
                     JOptionPane.YES_NO_OPTION
                 );
