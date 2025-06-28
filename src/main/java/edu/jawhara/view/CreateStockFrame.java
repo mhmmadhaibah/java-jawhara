@@ -10,13 +10,11 @@ import edu.jawhara.custom.ActionTableEvent;
 import edu.jawhara.custom.ActionTableEventAdapter;
 import edu.jawhara.custom.DeleteActionTablePanel;
 import edu.jawhara.model.MyConnection;
-import edu.jawhara.model.User;
 import edu.jawhara.model.Validator;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableColumnModel;
@@ -29,8 +27,12 @@ import javax.swing.table.DefaultTableModel;
 public class CreateStockFrame extends javax.swing.JFrame {
     private static final Connection conn = MyConnection.getConnection();
 
+    private final ArrayList<String[]> outletList = new ArrayList<>();
     private final ArrayList<String[]> categoryList = new ArrayList<>();
     private final ArrayList<String[]> productList = new ArrayList<>();
+
+    private DefaultTableModel stocksTableModel;
+    private DefaultTableColumnModel stocksTableColumnModel;
 
     /**
      * Creates new form CreateStockFrame
@@ -38,13 +40,39 @@ public class CreateStockFrame extends javax.swing.JFrame {
     public CreateStockFrame() {
         initComponents();
         
+        loadOutlets();
         loadCategories();
         loadProducts();
         
         loadCategoryForm();
         loadProductForm();
         
+        stocksTableModel = (DefaultTableModel) jTable1.getModel();
+        stocksTableColumnModel = (DefaultTableColumnModel) jTable1.getColumnModel();
+        
         customStockDetailsTable();
+    }
+
+    private void loadOutlets()
+    {
+        try
+        {
+            String sqlq = "SELECT * FROM outlets";
+            PreparedStatement stmt = conn.prepareStatement(sqlq);
+            ResultSet rslt = stmt.executeQuery();
+            
+            while (rslt.next())
+            {
+                outletList.add(new String[] {
+                    String.valueOf(rslt.getInt("id")),
+                    rslt.getString("name")
+                });
+            }
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     private void loadCategories()
@@ -124,23 +152,27 @@ public class CreateStockFrame extends javax.swing.JFrame {
 
     private void customStockDetailsTable()
     {
-        DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
-        DefaultTableColumnModel tableColumnModel = (DefaultTableColumnModel) jTable1.getColumnModel();
-        
-        ActionTableEvent actionTableEvent1 = new ActionTableEventAdapter() {
+        ActionTableEvent actionTableEvent = new ActionTableEventAdapter() {
             @Override
             public void onDelete(int row)
             {
-                tableModel.removeRow(row);
+                if (row != -1 && row < stocksTableModel.getRowCount())
+                {
+                    stocksTableModel.removeRow(row);
+                }
             }
         };
         
-        tableColumnModel.getColumn(3).setCellRenderer(new ActionTableCellRenderer(DeleteActionTablePanel.class));
-        tableColumnModel.getColumn(3).setCellEditor(new ActionTableCellEditor(actionTableEvent1, DeleteActionTablePanel.class));
+        stocksTableColumnModel.getColumn(2).setCellRenderer(new ActionTableCellRenderer(DeleteActionTablePanel.class));
+        stocksTableColumnModel.getColumn(2).setCellEditor(new ActionTableCellEditor(actionTableEvent, DeleteActionTablePanel.class));
         
-        tableColumnModel.getColumn(3).setPreferredWidth(104);
-        tableColumnModel.getColumn(3).setMaxWidth(104);
-        tableColumnModel.getColumn(3).setMinWidth(104);
+        stocksTableColumnModel.getColumn(2).setPreferredWidth(104);
+        stocksTableColumnModel.getColumn(2).setMaxWidth(104);
+        stocksTableColumnModel.getColumn(2).setMinWidth(104);
+        
+        stocksTableColumnModel.getColumn(1).setPreferredWidth(100);
+        stocksTableColumnModel.getColumn(1).setMaxWidth(100);
+        stocksTableColumnModel.getColumn(1).setMinWidth(100);
     }
 
     /**
@@ -367,11 +399,11 @@ public class CreateStockFrame extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Product Name", "Category", "Quantity", "Action"
+                "Product Name", "Quantity", "Action"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, true
+                false, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -489,30 +521,25 @@ public class CreateStockFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void rButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton1ActionPerformed
-        DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
-        String productName = jComboBox2.getSelectedItem().toString();
-        String categoryName = jComboBox1.getSelectedItem().toString();
-        String productQuantity = jTextField1.getText().trim();
+        String fName = jComboBox2.getSelectedItem().toString();
+        String fQuantity = jTextField1.getText().trim();
         
-        if ("".equals(productQuantity) || !Validator.isNumeric(productQuantity))
+        if ("".equals(fQuantity) || !Validator.isNumeric(fQuantity))
         {
             JOptionPane.showMessageDialog(rButton1, "Quantity must be numeric.");
             return;
         }
         
-        if (Integer.parseInt(productQuantity) <= 0)
+        if (Integer.parseInt(fQuantity) <= 0)
         {
             JOptionPane.showMessageDialog(rButton1, "Quantity must be at least 1.");
             return;
         }
         
         boolean duplicate = false;
-        for (int i = 0; i < tableModel.getRowCount(); i++)
+        for (int i = 0; i < stocksTableModel.getRowCount(); i++)
         {
-            String eCategory = tableModel.getValueAt(i, 1).toString();
-            String eProduct = tableModel.getValueAt(i, 0).toString();
-            
-            if (eCategory.equals(categoryName) && eProduct.equals(productName))
+            if (stocksTableModel.getValueAt(i, 0).toString().equals(fName))
             {
                 duplicate = true;
                 break;
@@ -521,7 +548,7 @@ public class CreateStockFrame extends javax.swing.JFrame {
         
         if (!duplicate)
         {
-            tableModel.addRow(new Object[]{productName, categoryName, productQuantity});
+            stocksTableModel.addRow(new Object[]{fName, fQuantity, null});
         }
         else
         {
@@ -530,78 +557,20 @@ public class CreateStockFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_rButton1ActionPerformed
 
     private void rButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton2ActionPerformed
-        DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
-        String stockType = jComboBox3.getSelectedItem().toString();
+        String fType = jComboBox3.getSelectedItem().toString();
+        String fNotes = "";
         
-        if (tableModel.getRowCount() <= 0)
+        int outletId = 0;
+        for (String[] outlet : outletList)
         {
-            JOptionPane.showMessageDialog(rButton2, "Please add rows of stocks first.");
-            return;
-        }
-        
-        try
-        {
-            String sqlq = "INSERT INTO transactions (user_id, type) VALUES (?, ?)";
-            PreparedStatement stmt = conn.prepareStatement(sqlq, Statement.RETURN_GENERATED_KEYS);
-            
-            stmt.setInt(1, User.getUserId());
-            stmt.setString(2, stockType);
-            
-            int rows = stmt.executeUpdate();
-            ResultSet rslt = stmt.getGeneratedKeys();
-            
-            if (rows > 0 && rslt.next())
+            if (outlet[1].equals("//jComboBox//"))
             {
-                for (int i = 0; i < tableModel.getRowCount(); i++)
-                {
-                    int productId = 0;
-                    for (String[] category : categoryList)
-                    {
-                        if (tableModel.getValueAt(i, 1).toString().equals(category[1]))
-                        {
-                            for (String[] product : productList)
-                            {
-                                if (tableModel.getValueAt(i, 0).toString().equals(product[2]) && category[0].equals(product[1]))
-                                {
-                                    productId = Integer.parseInt(product[0]);
-                                    break;
-                                }
-                            }
-                            
-                            break;
-                        }
-                    }
-                    
-                    String sqlq2 = "INSERT INTO transaction_details (transaction_id, product_id, quantity) VALUES (?, ?, ?)";
-                    PreparedStatement stmt2 = conn.prepareStatement(sqlq2);
-                    
-                    stmt2.setInt(1, rslt.getInt(1));
-                    stmt2.setInt(2, productId);
-                    stmt2.setInt(3, Integer.parseInt(tableModel.getValueAt(i, 2).toString()));
-                    stmt2.executeUpdate();
-                    
-                    String operator = stockType.equals("IN") ? "+" : "-";
-                    String sqlq3 = "UPDATE product_stocks SET quantity = quantity " + operator + " ? WHERE product_id = ?";
-                    PreparedStatement stmt3 = conn.prepareStatement(sqlq3);
-                    
-                    stmt3.setInt(1, Integer.parseInt(tableModel.getValueAt(i, 2).toString()));
-                    stmt3.setInt(2, productId);
-                    stmt3.executeUpdate();
-                }
-                
-                JOptionPane.showMessageDialog(rButton2, "New stocks has been successfully created.");
-                dispose();
-            }
-            else
-            {
-                JOptionPane.showMessageDialog(rButton2, "Something wrong!");
+                outletId = Integer.parseInt(outlet[0]);
+                break;
             }
         }
-        catch (SQLException e)
-        {
-            JOptionPane.showMessageDialog(rButton2, e);
-            e.printStackTrace();
-        }
+        
+        //
     }//GEN-LAST:event_rButton2ActionPerformed
 
     /**
