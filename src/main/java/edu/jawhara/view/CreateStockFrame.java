@@ -11,6 +11,7 @@ import edu.jawhara.custom.ActionTableEventAdapter;
 import edu.jawhara.custom.DeleteActionTablePanel;
 import edu.jawhara.model.MyConnection;
 import edu.jawhara.model.Validator;
+import java.awt.Dimension;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -626,9 +627,13 @@ public class CreateStockFrame extends javax.swing.JFrame {
 
     private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
         boolean outFlag = jComboBox3.getSelectedItem().toString().equals("OUT");
-        
         jLabel9.setVisible(outFlag);
         jComboBox4.setVisible(outFlag);
+        
+        if (!getSize().equals(new Dimension(1936, 1048)))
+        {
+            setSize(getSize().width, (!outFlag ? 872 : 931));
+        }
     }//GEN-LAST:event_jComboBox3ActionPerformed
 
     /**
