@@ -36,6 +36,7 @@ edu\jawhara\view\UpdateCategoryFrame$1.class
 edu\jawhara\view\StocksPanel$3.class
 edu\jawhara\view\UpdateUserFrame$3.class
 edu\jawhara\view\CreateStockFrame$5.class
+edu\jawhara\view\ReportsPanel$5.class
 edu\jawhara\view\CreateUserFrame$1.class
 edu\jawhara\custom\EditDeleteActionTablePanel$1.class
 edu\jawhara\view\UpdateOutletFrame$2.class
