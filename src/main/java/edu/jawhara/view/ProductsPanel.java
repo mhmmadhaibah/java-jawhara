@@ -59,6 +59,7 @@ public class ProductsPanel extends javax.swing.JPanel {
     {
         rButton1.setVisible(adminFlag);
         rButton2.setVisible(adminFlag);
+        rButton6.setVisible(adminFlag);
         
         rButton4.setVisible(false);
         rButton5.setVisible(false);
@@ -326,6 +327,7 @@ public class ProductsPanel extends javax.swing.JPanel {
         rButton3 = new rojerusan.RSMaterialButtonRectangle();
         rButton4 = new rojerusan.RSMaterialButtonRectangle();
         rButton5 = new rojerusan.RSMaterialButtonRectangle();
+        rButton6 = new rojerusan.RSMaterialButtonRectangle();
 
         rTextField1.setForeground(new java.awt.Color(51, 51, 51));
         rTextField1.setBorderColor(new java.awt.Color(51, 51, 51));
@@ -517,6 +519,14 @@ public class ProductsPanel extends javax.swing.JPanel {
             }
         });
 
+        rButton6.setBackground(new java.awt.Color(255, 0, 51));
+        rButton6.setText("Adjustments");
+        rButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rButton6ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -551,6 +561,8 @@ public class ProductsPanel extends javax.swing.JPanel {
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel6)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(rButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(rButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -585,7 +597,9 @@ public class ProductsPanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
                             .addComponent(jLabel6)))
-                    .addComponent(rButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(rButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(rButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -668,6 +682,11 @@ public class ProductsPanel extends javax.swing.JPanel {
         refreshProducts();
     }//GEN-LAST:event_rTextField1KeyReleased
 
+    private void rButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton6ActionPerformed
+        StockAdjustmentsFrame stockAdjustmentsFrame = new StockAdjustmentsFrame();
+        stockAdjustmentsFrame.setVisible(true);
+    }//GEN-LAST:event_rButton6ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private rojerusan.RSMaterialButtonRectangle cButton1;
     private rojerusan.RSMaterialButtonRectangle cButton2;
@@ -693,6 +712,7 @@ public class ProductsPanel extends javax.swing.JPanel {
     private rojerusan.RSMaterialButtonRectangle rButton3;
     private rojerusan.RSMaterialButtonRectangle rButton4;
     private rojerusan.RSMaterialButtonRectangle rButton5;
+    private rojerusan.RSMaterialButtonRectangle rButton6;
     private rojerusan.RSMetroTextPlaceHolder rTextField1;
     // End of variables declaration//GEN-END:variables
 }
