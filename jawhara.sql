@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 25 Jun 2025 pada 17.01
+-- Waktu pembuatan: 28 Jun 2025 pada 23.19
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -125,6 +125,21 @@ INSERT INTO `product_stocks` (`id`, `product_id`, `quantity`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `stock_adjustments`
+--
+
+CREATE TABLE `stock_adjustments` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `notes` text DEFAULT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `suppliers`
 --
 
@@ -230,6 +245,12 @@ ALTER TABLE `product_stocks`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indeks untuk tabel `stock_adjustments`
+--
+ALTER TABLE `stock_adjustments`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indeks untuk tabel `suppliers`
 --
 ALTER TABLE `suppliers`
@@ -280,6 +301,12 @@ ALTER TABLE `products`
 --
 ALTER TABLE `product_stocks`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT untuk tabel `stock_adjustments`
+--
+ALTER TABLE `stock_adjustments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `suppliers`
