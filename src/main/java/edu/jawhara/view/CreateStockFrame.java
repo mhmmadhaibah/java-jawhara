@@ -10,12 +10,14 @@ import edu.jawhara.custom.ActionTableEvent;
 import edu.jawhara.custom.ActionTableEventAdapter;
 import edu.jawhara.custom.DeleteActionTablePanel;
 import edu.jawhara.model.MyConnection;
+import edu.jawhara.model.User;
 import edu.jawhara.model.Validator;
 import java.awt.Dimension;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableColumnModel;
@@ -612,6 +614,12 @@ public class CreateStockFrame extends javax.swing.JFrame {
         String fType = jComboBox3.getSelectedItem().toString();
         String fNotes = jTextArea1.getText().trim();
         
+        if (stocksTableModel.getRowCount() <= 0)
+        {
+            JOptionPane.showMessageDialog(rButton2, "Please add rows of stocks first.");
+            return;
+        }
+        
         int outletId = 0;
         for (String[] outlet : outletList)
         {
@@ -622,7 +630,79 @@ public class CreateStockFrame extends javax.swing.JFrame {
             }
         }
         
-        //
+        try
+        {
+            String sqlq = "INSERT INTO transactions (user_id, outlet_id, type, notes) VALUES (?, ?, ?, ?)";
+            PreparedStatement stmt = conn.prepareStatement(sqlq, Statement.RETURN_GENERATED_KEYS);
+            
+            stmt.setInt(1, User.getUserId());
+            stmt.setString(3, fType);
+            
+            if (fType.equals("OUT"))
+            {
+                stmt.setInt(2, outletId);
+            }
+            else
+            {
+                stmt.setNull(2, java.sql.Types.INTEGER);
+            }
+            
+            if (!fNotes.isEmpty())
+            {
+                stmt.setString(4, fNotes);
+            }
+            else
+            {
+                stmt.setNull(4, java.sql.Types.VARCHAR);
+            }
+            
+            int rows = stmt.executeUpdate();
+            ResultSet rslt = stmt.getGeneratedKeys();
+            
+            if (rows > 0 && rslt.next())
+            {
+                for (int i = 0; i < stocksTableModel.getRowCount(); i++)
+                {
+                    int productId = 0;
+                    for (String[] product : productList)
+                    {
+                        if (stocksTableModel.getValueAt(i, 0).toString().equals(product[2]))
+                        {
+                            productId = Integer.parseInt(product[0]);
+                            break;
+                        }
+                    }
+                    
+                    String sqlq2 = "INSERT INTO transaction_details (transaction_id, product_id, quantity) VALUES (?, ?, ?)";
+                    PreparedStatement stmt2 = conn.prepareStatement(sqlq2);
+                    
+                    stmt2.setInt(1, rslt.getInt(1));
+                    stmt2.setInt(2, productId);
+                    stmt2.setInt(3, Integer.parseInt(stocksTableModel.getValueAt(i, 1).toString()));
+                    stmt2.executeUpdate();
+                    
+                    String operator = fType.equals("IN") ? "+" : "-";
+                    String sqlq3 = "UPDATE product_stocks SET quantity = quantity " + operator + " ? WHERE product_id = ?";
+                    PreparedStatement stmt3 = conn.prepareStatement(sqlq3);
+                    
+                    stmt3.setInt(1, Integer.parseInt(stocksTableModel.getValueAt(i, 1).toString()));
+                    stmt3.setInt(2, productId);
+                    stmt3.executeUpdate();
+                }
+                
+                JOptionPane.showMessageDialog(rButton2, "New stock has been successfully created.");
+                dispose();
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(rButton2, "Something wrong!");
+            }
+        }
+        catch (SQLException e)
+        {
+            JOptionPane.showMessageDialog(rButton2, e);
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_rButton2ActionPerformed
 
     private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed

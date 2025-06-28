@@ -45,7 +45,7 @@ public class StockDetailsFrame extends javax.swing.JFrame {
             String sqlq = """
                 SELECT t.id, u.name AS staff, o.name AS outlet, t.type, t.notes, t.timestamp
                     FROM transactions t JOIN users u ON t.user_id = u.id
-                    JOIN outlets o ON t.outlet_id = o.id
+                    LEFT JOIN outlets o ON t.outlet_id = o.id
                     WHERE t.id = ?
                 """.trim();
             
