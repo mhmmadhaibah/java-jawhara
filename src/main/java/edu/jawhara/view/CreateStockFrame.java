@@ -66,7 +66,7 @@ public class CreateStockFrame extends javax.swing.JFrame {
             while (rslt.next())
             {
                 outletList.add(new String[] {
-                    String.valueOf(rslt.getInt("id")),
+                    rslt.getString("id"),
                     rslt.getString("name")
                 });
             }
@@ -88,7 +88,7 @@ public class CreateStockFrame extends javax.swing.JFrame {
             while (rslt.next())
             {
                 categoryList.add(new String[] {
-                    String.valueOf(rslt.getInt("id")),
+                    rslt.getString("id"),
                     rslt.getString("name")
                 });
             }
@@ -110,8 +110,8 @@ public class CreateStockFrame extends javax.swing.JFrame {
             while (rslt.next())
             {
                 productList.add(new String[] {
-                    String.valueOf(rslt.getInt("id")),
-                    String.valueOf(rslt.getInt("category_id")),
+                    rslt.getString("id"),
+                    rslt.getString("category_id"),
                     rslt.getString("name")
                 });
             }
