@@ -103,17 +103,17 @@ public class ProductsPanel extends javax.swing.JPanel {
             int x = 132;
             while (rslt.next())
             {
-                String categoryName = rslt.getString("name");
+                String tCategory = rslt.getString("name");
                 
                 RSMaterialButtonRectangle cButton = new RSMaterialButtonRectangle();
-                cButton.setText(categoryName);
+                cButton.setText(tCategory);
                 cButton.setBounds(x, 6, 120, 60);
                 cButton.addActionListener(evt -> {
                     rButton4.setVisible(adminFlag);
                     rButton5.setVisible(adminFlag);
                     
                     rTextField1.setText("");
-                    categorySelected = categoryName;
+                    categorySelected = tCategory;
                     
                     refreshProducts();
                 });

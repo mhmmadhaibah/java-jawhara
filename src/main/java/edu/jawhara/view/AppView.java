@@ -60,11 +60,11 @@ public class AppView extends javax.swing.JFrame {
                 LoginView loginView = new LoginView();
                 loginView.setVisible(true);
                 
-                for (Window window : Window.getWindows())
+                for (Window frameView : Window.getWindows())
                 {
-                    if (window != loginView)
+                    if (frameView != loginView)
                     {
-                        window.dispose();
+                        frameView.dispose();
                     }
                 }
             }
