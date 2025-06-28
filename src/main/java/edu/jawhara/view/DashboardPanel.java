@@ -104,7 +104,7 @@ public class DashboardPanel extends javax.swing.JPanel {
                 SELECT p.name, ps.quantity
                     FROM products p JOIN product_stocks ps ON p.id = ps.product_id
                     WHERE ps.quantity <= 0
-                    ORDER BY p.id ASC
+                    ORDER BY ps.quantity ASC
                 """.trim();
             
             PreparedStatement stmt = conn.prepareStatement(sqlq);
