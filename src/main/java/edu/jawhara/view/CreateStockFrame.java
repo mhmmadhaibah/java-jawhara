@@ -575,7 +575,7 @@ public class CreateStockFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void rButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton1ActionPerformed
-        String fName = jComboBox2.getSelectedItem().toString();
+        String fProduct = jComboBox2.getSelectedItem().toString();
         String fQuantity = jTextField1.getText().trim();
         
         if ("".equals(fQuantity) || !Validator.isNumeric(fQuantity))
@@ -593,7 +593,7 @@ public class CreateStockFrame extends javax.swing.JFrame {
         boolean duplicate = false;
         for (int i = 0; i < stocksTableModel.getRowCount(); i++)
         {
-            if (stocksTableModel.getValueAt(i, 0).toString().equals(fName))
+            if (stocksTableModel.getValueAt(i, 0).toString().equals(fProduct))
             {
                 duplicate = true;
                 break;
@@ -602,7 +602,7 @@ public class CreateStockFrame extends javax.swing.JFrame {
         
         if (!duplicate)
         {
-            stocksTableModel.addRow(new Object[]{fName, fQuantity, null});
+            stocksTableModel.addRow(new Object[]{fProduct, fQuantity, null});
         }
         else
         {

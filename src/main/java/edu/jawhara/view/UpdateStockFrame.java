@@ -11,6 +11,7 @@ import edu.jawhara.custom.ActionTableEventAdapter;
 import edu.jawhara.custom.DeleteActionTablePanel;
 import edu.jawhara.model.MyConnection;
 import edu.jawhara.model.Validator;
+import java.awt.Dimension;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,8 +28,12 @@ import javax.swing.table.DefaultTableModel;
 public class UpdateStockFrame extends javax.swing.JFrame {
     private static final Connection conn = MyConnection.getConnection();
 
+    private final ArrayList<String[]> outletList = new ArrayList<>();
     private final ArrayList<String[]> categoryList = new ArrayList<>();
     private final ArrayList<String[]> productList = new ArrayList<>();
+
+    private DefaultTableModel stocksTableModel;
+    private DefaultTableColumnModel stocksTableColumnModel;
 
     private final int stockId;
 
@@ -38,43 +43,37 @@ public class UpdateStockFrame extends javax.swing.JFrame {
     public UpdateStockFrame(int stockId) {
         initComponents();
         
-        this.stockId = stockId;
-        loadDetailsTable();
-        
+        loadOutlets();
         loadCategories();
         loadProducts();
         
+        loadOutletForm();
         loadCategoryForm();
         loadProductForm();
+        
+        stocksTableModel = (DefaultTableModel) jTable1.getModel();
+        stocksTableColumnModel = (DefaultTableColumnModel) jTable1.getColumnModel();
+        
+        this.stockId = stockId;
+        loadStockDetailsTable();
         
         customStockDetailsTable();
     }
 
-    private void loadDetailsTable()
+    private void loadOutlets()
     {
         try
         {
-            DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
-            
-            String sqlq = "SELECT t.type, p.name AS product, c.name AS category, td.quantity ";
-            sqlq += "FROM transactions t JOIN transaction_details td ON t.id = td.transaction_id ";
-            sqlq += "JOIN products p ON p.id = td.product_id JOIN categories c ON c.id = p.category_id ";
-            sqlq += "WHERE t.id = ? ORDER BY td.id ASC ";
-            
-            PreparedStatement stmt = conn.prepareStatement(sqlq.trim());
-            
-            stmt.setInt(1, stockId);
+            String sqlq = "SELECT * FROM outlets";
+            PreparedStatement stmt = conn.prepareStatement(sqlq);
             ResultSet rslt = stmt.executeQuery();
             
             while (rslt.next())
             {
-                Object[] data = new Object[3];
-                data[0] = rslt.getString("product");
-                data[1] = rslt.getString("category");
-                data[2] = String.valueOf(rslt.getInt("quantity"));
-                
-                tableModel.addRow(data);
-                jComboBox3.setSelectedItem(rslt.getString("type"));
+                outletList.add(new String[] {
+                    rslt.getString("id"),
+                    rslt.getString("name")
+                });
             }
         }
         catch (SQLException e)
@@ -94,7 +93,7 @@ public class UpdateStockFrame extends javax.swing.JFrame {
             while (rslt.next())
             {
                 categoryList.add(new String[] {
-                    String.valueOf(rslt.getInt("id")),
+                    rslt.getString("id"),
                     rslt.getString("name")
                 });
             }
@@ -116,8 +115,8 @@ public class UpdateStockFrame extends javax.swing.JFrame {
             while (rslt.next())
             {
                 productList.add(new String[] {
-                    String.valueOf(rslt.getInt("id")),
-                    String.valueOf(rslt.getInt("category_id")),
+                    rslt.getString("id"),
+                    rslt.getString("category_id"),
                     rslt.getString("name")
                 });
             }
@@ -125,6 +124,14 @@ public class UpdateStockFrame extends javax.swing.JFrame {
         catch (SQLException e)
         {
             e.printStackTrace();
+        }
+    }
+
+    private void loadOutletForm()
+    {
+        for (String[] outlet : outletList)
+        {
+            jComboBox4.addItem(outlet[1]);
         }
     }
 
@@ -158,25 +165,69 @@ public class UpdateStockFrame extends javax.swing.JFrame {
         }
     }
 
+    private void loadStockDetailsTable()
+    {
+        try
+        {
+            String sqlq = """
+                SELECT t.type, o.name AS outlet, p.name AS product, td.quantity, t.notes
+                    FROM transactions t JOIN transaction_details td ON t.id = td.transaction_id
+                    LEFT JOIN outlets o ON o.id = t.outlet_id
+                    JOIN products p ON p.id = td.product_id
+                    WHERE t.id = ? ORDER BY td.id ASC
+                """.trim();
+            
+            PreparedStatement stmt = conn.prepareStatement(sqlq);
+            
+            stmt.setInt(1, stockId);
+            ResultSet rslt = stmt.executeQuery();
+            
+            while (rslt.next())
+            {
+                Object[] data = new Object[3];
+                data[0] = rslt.getString("product");
+                data[1] = rslt.getString("quantity");
+                data[2] = null;
+                
+                stocksTableModel.addRow(data);
+                jTextArea1.setText(rslt.getString("notes"));
+                jComboBox3.setSelectedItem(rslt.getString("type"));
+                
+                if (rslt.getString("type").equals("OUT"))
+                {
+                    jComboBox4.setSelectedItem(rslt.getString("outlet"));
+                }
+            }
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
     private void customStockDetailsTable()
     {
-        DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
-        DefaultTableColumnModel tableColumnModel = (DefaultTableColumnModel) jTable1.getColumnModel();
-        
-        ActionTableEvent actionTableEvent1 = new ActionTableEventAdapter() {
+        ActionTableEvent actionTableEvent = new ActionTableEventAdapter() {
             @Override
             public void onDelete(int row)
             {
-                tableModel.removeRow(row);
+                if (row != -1 && row < stocksTableModel.getRowCount())
+                {
+                    stocksTableModel.removeRow(row);
+                }
             }
         };
         
-        tableColumnModel.getColumn(3).setCellRenderer(new ActionTableCellRenderer(DeleteActionTablePanel.class));
-        tableColumnModel.getColumn(3).setCellEditor(new ActionTableCellEditor(actionTableEvent1, DeleteActionTablePanel.class));
+        stocksTableColumnModel.getColumn(2).setCellRenderer(new ActionTableCellRenderer(DeleteActionTablePanel.class));
+        stocksTableColumnModel.getColumn(2).setCellEditor(new ActionTableCellEditor(actionTableEvent, DeleteActionTablePanel.class));
         
-        tableColumnModel.getColumn(3).setPreferredWidth(104);
-        tableColumnModel.getColumn(3).setMaxWidth(104);
-        tableColumnModel.getColumn(3).setMinWidth(104);
+        stocksTableColumnModel.getColumn(2).setPreferredWidth(104);
+        stocksTableColumnModel.getColumn(2).setMaxWidth(104);
+        stocksTableColumnModel.getColumn(2).setMinWidth(104);
+        
+        stocksTableColumnModel.getColumn(1).setPreferredWidth(100);
+        stocksTableColumnModel.getColumn(1).setMaxWidth(100);
+        stocksTableColumnModel.getColumn(1).setMinWidth(100);
     }
 
     /**
@@ -207,6 +258,11 @@ public class UpdateStockFrame extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jComboBox3 = new javax.swing.JComboBox<>();
         rButton2 = new rojerusan.RSMaterialButtonRectangle();
+        jLabel9 = new javax.swing.JLabel();
+        jComboBox4 = new javax.swing.JComboBox<>();
+        jLabel10 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
         jPanel7 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
@@ -216,16 +272,16 @@ public class UpdateStockFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setText("Update Stock");
+        jLabel1.setText("Create New Stock");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(470, Short.MAX_VALUE)
+                .addContainerGap(452, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addContainerGap(470, Short.MAX_VALUE))
+                .addContainerGap(452, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -336,7 +392,13 @@ public class UpdateStockFrame extends javax.swing.JFrame {
 
         jComboBox3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "IN", "OUT" }));
+        jComboBox3.setSelectedItem("OUT");
         jComboBox3.setFocusable(false);
+        jComboBox3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox3ActionPerformed(evt);
+            }
+        });
 
         rButton2.setBackground(new java.awt.Color(51, 51, 51));
         rButton2.setText("Submit");
@@ -346,18 +408,41 @@ public class UpdateStockFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel9.setText("Outlet");
+
+        jComboBox4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jComboBox4.setFocusable(false);
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel10.setText("Notes");
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTextArea1.setLineWrap(true);
+        jTextArea1.setRows(5);
+        jScrollPane2.setViewportView(jTextArea1);
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(rButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel7)
-                        .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(rButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel7)
+                            .addComponent(jComboBox3, 0, 200, Short.MAX_VALUE)
+                            .addComponent(jLabel9)
+                            .addComponent(jComboBox4, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel10)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -366,6 +451,14 @@ public class UpdateStockFrame extends javax.swing.JFrame {
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(rButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -403,11 +496,11 @@ public class UpdateStockFrame extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Product Name", "Category", "Quantity", "Action"
+                "Product Name", "Quantity", "Action"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, true
+                false, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -432,14 +525,14 @@ public class UpdateStockFrame extends javax.swing.JFrame {
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE)
+                .addComponent(jScrollPane1)
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
+                .addComponent(jScrollPane1)
                 .addContainerGap())
         );
 
@@ -478,8 +571,8 @@ public class UpdateStockFrame extends javax.swing.JFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -525,30 +618,25 @@ public class UpdateStockFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void rButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton1ActionPerformed
-        DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
-        String categoryName = jComboBox1.getSelectedItem().toString();
-        String productName = jComboBox2.getSelectedItem().toString();
-        String productQuantity = jTextField1.getText().trim();
+        String fProduct = jComboBox2.getSelectedItem().toString();
+        String fQuantity = jTextField1.getText().trim();
         
-        if ("".equals(productQuantity) || !Validator.isNumeric(productQuantity))
+        if ("".equals(fQuantity) || !Validator.isNumeric(fQuantity))
         {
             JOptionPane.showMessageDialog(rButton1, "Quantity must be numeric.");
             return;
         }
         
-        if (Integer.parseInt(productQuantity) <= 0)
+        if (Integer.parseInt(fQuantity) <= 0)
         {
             JOptionPane.showMessageDialog(rButton1, "Quantity must be at least 1.");
             return;
         }
         
         boolean duplicate = false;
-        for (int i = 0; i < tableModel.getRowCount(); i++)
+        for (int i = 0; i < stocksTableModel.getRowCount(); i++)
         {
-            String eCategory = tableModel.getValueAt(i, 1).toString();
-            String eProduct = tableModel.getValueAt(i, 0).toString();
-            
-            if (eCategory.equals(categoryName) && eProduct.equals(productName))
+            if (stocksTableModel.getValueAt(i, 0).toString().equals(fProduct))
             {
                 duplicate = true;
                 break;
@@ -557,7 +645,7 @@ public class UpdateStockFrame extends javax.swing.JFrame {
         
         if (!duplicate)
         {
-            tableModel.addRow(new Object[]{productName, categoryName, productQuantity});
+            stocksTableModel.addRow(new Object[]{fProduct, fQuantity, null});
         }
         else
         {
@@ -566,13 +654,23 @@ public class UpdateStockFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_rButton1ActionPerformed
 
     private void rButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton2ActionPerformed
-        DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
-        String stockType = jComboBox3.getSelectedItem().toString();
+        String fType = jComboBox3.getSelectedItem().toString();
+        String fNotes = jTextArea1.getText().trim();
         
-        if (tableModel.getRowCount() <= 0)
+        if (stocksTableModel.getRowCount() <= 0)
         {
             JOptionPane.showMessageDialog(rButton2, "Please add rows of stocks first.");
             return;
+        }
+        
+        int outletId = 0;
+        for (String[] outlet : outletList)
+        {
+            if (outlet[1].equals(jComboBox4.getSelectedItem().toString()))
+            {
+                outletId = Integer.parseInt(outlet[0]);
+                break;
+            }
         }
         
         try
@@ -581,9 +679,9 @@ public class UpdateStockFrame extends javax.swing.JFrame {
                 SELECT td.*, t.type
                     FROM transactions t JOIN transaction_details td
                     ON t.id = td.transaction_id WHERE t.id = ?
-                """;
+                """.trim();
             
-            PreparedStatement stmt = conn.prepareStatement(sqlq.trim());
+            PreparedStatement stmt = conn.prepareStatement(sqlq);
             
             stmt.setInt(1, stockId);
             ResultSet rslt = stmt.executeQuery();
@@ -605,48 +703,42 @@ public class UpdateStockFrame extends javax.swing.JFrame {
                 stmt3.executeUpdate();
             }
             
-            for (int i = 0; i < tableModel.getRowCount(); i++)
+            for (int i = 0; i < stocksTableModel.getRowCount(); i++)
             {
                 int productId = 0;
-                for (String[] category : categoryList)
+                for (String[] product : productList)
                 {
-                    if (tableModel.getValueAt(i, 1).toString().equals(category[1]))
+                    if (stocksTableModel.getValueAt(i, 0).toString().equals(product[2]))
                     {
-                        for (String[] product : productList)
-                        {
-                            if (tableModel.getValueAt(i, 0).toString().equals(product[2]) && category[0].equals(product[1]))
-                            {
-                                productId = Integer.parseInt(product[0]);
-                                break;
-                            }
-                        }
-                            
+                        productId = Integer.parseInt(product[0]);
                         break;
                     }
                 }
                 
                 String sqlq4 = "INSERT INTO transaction_details (transaction_id, product_id, quantity) VALUES (?, ?, ?)";
                 PreparedStatement stmt4 = conn.prepareStatement(sqlq4);
-                
+                    
                 stmt4.setInt(1, stockId);
                 stmt4.setInt(2, productId);
-                stmt4.setInt(3, Integer.parseInt(tableModel.getValueAt(i, 2).toString()));
+                stmt4.setInt(3, Integer.parseInt(stocksTableModel.getValueAt(i, 1).toString()));
                 stmt4.executeUpdate();
                 
-                String operator = stockType.equals("IN") ? "+" : "-";
+                String operator = fType.equals("IN") ? "+" : "-";
                 String sqlq5 = "UPDATE product_stocks SET quantity = quantity " + operator + " ? WHERE product_id = ?";
                 PreparedStatement stmt5 = conn.prepareStatement(sqlq5);
-                
-                stmt5.setInt(1, Integer.parseInt(tableModel.getValueAt(i, 2).toString()));
+                    
+                stmt5.setInt(1, Integer.parseInt(stocksTableModel.getValueAt(i, 1).toString()));
                 stmt5.setInt(2, productId);
                 stmt5.executeUpdate();
             }
             
-            String sqlq6 = "UPDATE transactions SET type = ? WHERE id = ?";
+            String sqlq6 = "UPDATE transactions SET type = ?, outlet_id = ?, notes = ? WHERE id = ?";
             PreparedStatement stmt6 = conn.prepareStatement(sqlq6);
             
-            stmt6.setString(1, jComboBox3.getSelectedItem().toString());
-            stmt6.setInt(2, stockId);
+            stmt6.setString(1, fType);
+            stmt6.setInt(2, outletId);
+            stmt6.setString(3, fNotes);
+            stmt6.setInt(4, stockId);
             stmt6.executeUpdate();
             
             JOptionPane.showMessageDialog(rButton2, "Product updated successfully.");
@@ -658,6 +750,17 @@ public class UpdateStockFrame extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }//GEN-LAST:event_rButton2ActionPerformed
+
+    private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
+        boolean outFlag = jComboBox3.getSelectedItem().toString().equals("OUT");
+        jLabel9.setVisible(outFlag);
+        jComboBox4.setVisible(outFlag);
+        
+        if (!getSize().equals(new Dimension(1936, 1048)))
+        {
+            setSize(getSize().width, (!outFlag ? 872 : 931));
+        }
+    }//GEN-LAST:event_jComboBox3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -699,7 +802,9 @@ public class UpdateStockFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -707,6 +812,7 @@ public class UpdateStockFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -716,7 +822,9 @@ public class UpdateStockFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     private rojerusan.RSMaterialButtonRectangle rButton1;
     private rojerusan.RSMaterialButtonRectangle rButton2;
