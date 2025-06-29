@@ -6,6 +6,7 @@ package edu.jawhara.view;
 
 import edu.jawhara.model.MyReport;
 import edu.jawhara.model.User;
+import java.util.HashMap;
 
 /**
  *
@@ -140,23 +141,23 @@ public class ReportsPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void rButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton1ActionPerformed
-        MyReport.viewReport("CurrentStockReport", false);
+        MyReport.viewReport("CurrentStockReport", new HashMap(), false);
     }//GEN-LAST:event_rButton1ActionPerformed
 
     private void rButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton2ActionPerformed
-        MyReport.viewReport("OutOfStocksReport", false);
+        MyReport.viewReport("OutOfStocksReport", new HashMap(), false);
     }//GEN-LAST:event_rButton2ActionPerformed
 
     private void rButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton3ActionPerformed
-        MyReport.viewReport("StockMovementSummaryReport", false);
+        MyReport.viewReport("StockMovementSummaryReport", new HashMap(), false);
     }//GEN-LAST:event_rButton3ActionPerformed
 
     private void rButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton4ActionPerformed
-        MyReport.viewReport("StaffActivityReport", false);
+        MyReport.viewReport("StaffActivityReport", new HashMap(), false);
     }//GEN-LAST:event_rButton4ActionPerformed
 
     private void rButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton5ActionPerformed
-        MyReport.viewReport("StockAdjustmentsReport", false);
+        MyReport.viewReport("StockAdjustmentsReport", new HashMap(), false);
     }//GEN-LAST:event_rButton5ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

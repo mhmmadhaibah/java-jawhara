@@ -26,7 +26,7 @@ public class MyReport
         return getClass().getResource(name);
     }
     
-    public static void viewReport(String fileName, boolean isExitOnClose)
+    public static void viewReport(String fileName, HashMap parameters, boolean isExitOnClose)
     {
         Connection conn = MyConnection.getConnection();
         
@@ -37,6 +37,7 @@ public class MyReport
         Map params = new HashMap();
         params.put("TITTLE", "Jawhara Syari`i");
         params.put("ICON_IMAGE", iconImageUrl.toString());
+        params.putAll(parameters);
         
         try
         {

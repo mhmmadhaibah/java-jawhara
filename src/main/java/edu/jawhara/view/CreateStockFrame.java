@@ -10,6 +10,7 @@ import edu.jawhara.custom.ActionTableEvent;
 import edu.jawhara.custom.ActionTableEventAdapter;
 import edu.jawhara.custom.DeleteActionTablePanel;
 import edu.jawhara.model.MyConnection;
+import edu.jawhara.model.MyReport;
 import edu.jawhara.model.User;
 import edu.jawhara.model.Validator;
 import java.awt.Dimension;
@@ -19,6 +20,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.DefaultTableModel;
@@ -616,7 +618,13 @@ public class CreateStockFrame extends javax.swing.JFrame {
         
         if (stocksTableModel.getRowCount() <= 0)
         {
-            JOptionPane.showMessageDialog(rButton2, "Please add rows of stocks first.");
+            JOptionPane.showMessageDialog(rButton2, "Please add stock row first.");
+            return;
+        }
+        
+        if (stocksTableModel.getRowCount() > 30)
+        {
+            JOptionPane.showMessageDialog(rButton2, "Stock rows cannot be more than 30.");
             return;
         }
         
@@ -690,7 +698,7 @@ public class CreateStockFrame extends javax.swing.JFrame {
                     stmt3.executeUpdate();
                 }
                 
-                JOptionPane.showMessageDialog(rButton2, "New stock has been successfully created.");
+                MyReport.viewReport("StockTransactionsReceipt", new HashMap() {{ put("TRANSACTION_ID", rslt.getInt(1)); }}, false);
                 dispose();
             }
             else
