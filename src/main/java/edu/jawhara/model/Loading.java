@@ -19,7 +19,7 @@ public class Loading
         CardLayout cardLayout = (CardLayout) jPanel.getLayout();
         
         cardLayout.show(jPanel, "infinitePanel");
-        Timer timer = new Timer(100, evt -> {
+        Timer timer = new Timer(0, evt -> {
             cardLayout.show(jPanel, cardName);
         });
         
