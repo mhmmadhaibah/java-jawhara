@@ -297,7 +297,7 @@ public class UpdateUserFrame extends javax.swing.JFrame {
         String password = String.valueOf(jPasswordField1.getPassword()).trim();
         String confirmPassword = String.valueOf(jPasswordField2.getPassword()).trim();
         
-        if ("".equals(name) || "".equals(username) || "".equals(password) || "".equals(confirmPassword))
+        if ("".equals(name) || "".equals(username))
         {
             JOptionPane.showMessageDialog(rButton1, "Invalid field value.");
             return;
