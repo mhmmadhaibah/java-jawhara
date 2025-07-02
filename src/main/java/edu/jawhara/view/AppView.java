@@ -38,12 +38,12 @@ public class AppView extends javax.swing.JFrame {
         Loading.infiniteLoading(jPanel1, "dashboardPanel");
     }
 
-    private void logoutHandle(boolean exitOnClose)
+    private void logoutHandle(boolean isExitOnClose)
     {
         int confirm = JOptionPane.showConfirmDialog(
             null,
-            (exitOnClose ? "Are sure want to close application ?" : "Are sure want to logout ?"),
-            (exitOnClose ? "Close Application" : "User Logout"),
+            (isExitOnClose ? "Are sure want to close application ?" : "Are sure want to logout ?"),
+            (isExitOnClose ? "Close Application" : "User Logout"),
             JOptionPane.YES_NO_OPTION
         );
         
@@ -55,7 +55,7 @@ public class AppView extends javax.swing.JFrame {
             User.setUsername(null);
             User.setPassword(null);
             
-            if (!exitOnClose)
+            if (!isExitOnClose)
             {
                 LoginView loginView = new LoginView();
                 loginView.setVisible(true);
