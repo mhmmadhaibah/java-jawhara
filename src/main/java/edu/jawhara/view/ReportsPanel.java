@@ -45,6 +45,8 @@ public class ReportsPanel extends javax.swing.JPanel {
         rButton4 = new rojerusan.RSMaterialButtonRectangle();
         rButton5 = new rojerusan.RSMaterialButtonRectangle();
 
+        setPreferredSize(new java.awt.Dimension(1280, 720));
+
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel1.setText("Reports");
 
@@ -125,7 +127,7 @@ public class ReportsPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(350, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(

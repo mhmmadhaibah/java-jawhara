@@ -24,7 +24,7 @@ public class SettingsPanel extends javax.swing.JPanel {
     private void refreshSettings()
     {
         jLabel2.setVisible(adminFlag);
-        rButton2.setVisible(adminFlag);
+        jPanel2.setVisible(adminFlag);
     }
 
     /**
