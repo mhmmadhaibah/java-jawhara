@@ -21,9 +21,9 @@ public class User
         return userId;
     }
     
-    public static void setUserId(int input)
+    public static void setUserId(int value)
     {
-        userId = input;
+        userId = value;
     }
     
     public static String getName()
@@ -31,9 +31,9 @@ public class User
         return name;
     }
     
-    public static void setName(String input)
+    public static void setName(String value)
     {
-        name = input;
+        name = value;
     }
     
     public static String getRole()
@@ -41,9 +41,9 @@ public class User
         return role;
     }
     
-    public static void setRole(String input)
+    public static void setRole(String value)
     {
-        role = input;
+        role = value;
     }
     
     public static String getUsername()
@@ -51,9 +51,9 @@ public class User
         return username;
     }
     
-    public static void setUsername(String input)
+    public static void setUsername(String value)
     {
-        username = input;
+        username = value;
     }
     
     public static String getPassword()
@@ -61,8 +61,8 @@ public class User
         return password;
     }
     
-    public static void setPassword(String input)
+    public static void setPassword(String value)
     {
-        password = input;
+        password = value;
     }
 }
