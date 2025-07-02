@@ -123,7 +123,7 @@
         </Component>
         <Component class="rojerusan.RSMaterialButtonRectangle" name="rButton4">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Staff Activity"/>
+            <Property name="text" type="java.lang.String" value="Staff Transaction"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rButton4ActionPerformed"/>

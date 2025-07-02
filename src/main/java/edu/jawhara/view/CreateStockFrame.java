@@ -698,7 +698,7 @@ public class CreateStockFrame extends javax.swing.JFrame {
                     stmt3.executeUpdate();
                 }
                 
-                MyReport.viewReport("StockTransactionsReceipt", new HashMap() {{ put("TRANSACTION_ID", rslt.getInt(1)); }}, false);
+                MyReport.viewReport("StockTransactionReceipt", new HashMap() {{ put("TRANSACTION_ID", rslt.getInt(1)); }}, false);
                 dispose();
             }
             else

@@ -71,7 +71,7 @@ public class ReportsPanel extends javax.swing.JPanel {
             }
         });
 
-        rButton4.setText("Staff Activity");
+        rButton4.setText("Staff Transaction");
         rButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rButton4ActionPerformed(evt);
@@ -146,15 +146,15 @@ public class ReportsPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_rButton1ActionPerformed
 
     private void rButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton2ActionPerformed
-        MyReport.viewReport("OutOfStocksReport", false);
+        MyReport.viewReport("OutOfStockReport", false);
     }//GEN-LAST:event_rButton2ActionPerformed
 
     private void rButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton3ActionPerformed
-        MyReport.viewReport("StockMovementSummaryReport", false);
+        MyReport.viewReport("StockMovementSummary", false);
     }//GEN-LAST:event_rButton3ActionPerformed
 
     private void rButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton4ActionPerformed
-        MyReport.viewReport("StaffActivityReport", false);
+        MyReport.viewReport("StaffTransactionReport", false);
     }//GEN-LAST:event_rButton4ActionPerformed
 
     private void rButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton5ActionPerformed

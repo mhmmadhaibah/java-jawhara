@@ -1,5 +1,5 @@
 <!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 7.0.1-573496633c2b4074e32f433154b543003f7d2498  -->
-<jasperReport name="StockTransactionsReceipt" language="java" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ba023486-b3d2-46a0-9463-20c980e20698">
+<jasperReport name="StockTransactionReceipt" language="java" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d934cd40-3b53-4eac-a579-972268ff4645">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Jawhara DB"/>
 	<style name="Title" fontName="Times New Roman" fontSize="50.0" bold="true"/>
@@ -96,106 +96,106 @@ ORDER BY
 	</field>
 	<background splitType="Stretch"/>
 	<title height="100" splitType="Stretch">
-		<element kind="textField" uuid="ffee0ef1-7c3a-49aa-b868-218596c976f4" x="40" y="0" width="410" height="62" vTextAlign="Middle" style="Title">
+		<element kind="textField" uuid="48fe357b-7fea-47cc-ba98-36d49397c644" x="40" y="0" width="410" height="62" vTextAlign="Middle" style="Title">
 			<expression><![CDATA[$P{TITTLE}]]></expression>
 			<property name="com.jaspersoft.studio.unit.width" value="px"/>
 		</element>
-		<element kind="staticText" uuid="1c7de94a-bd24-44ff-817d-bce6678faea9" x="80" y="62" width="200" height="22" fontName="Times New Roman" style="SubTitle">
-			<text><![CDATA[Stock Transactions Receipt
+		<element kind="staticText" uuid="67fbfd5f-fca8-41ca-8ed6-63197e6d8412" x="80" y="62" width="200" height="22" fontName="Times New Roman" style="SubTitle">
+			<text><![CDATA[Stock Transaction Receipt
 ]]></text>
 		</element>
-		<element kind="image" uuid="05759cdc-fa37-46a5-8cee-7a8f2c971b2a" x="460" y="-115" width="267" height="209">
+		<element kind="image" uuid="32efe797-07d2-4174-affd-6ff55a48247d" x="460" y="-115" width="267" height="209">
 			<expression><![CDATA[$P{ICON_IMAGE}]]></expression>
 			<property name="com.jaspersoft.studio.unit.x" value="px"/>
 		</element>
 	</title>
 	<pageHeader height="80" splitType="Stretch">
-		<element kind="line" uuid="1755f884-ba33-476e-a134-aaa4cf913a4c" positionType="FixRelativeToBottom" x="0" y="0" width="555" height="1">
+		<element kind="line" uuid="114eaca8-86c2-43a4-871b-2db5ffbc1f91" positionType="FixRelativeToBottom" x="0" y="0" width="555" height="1">
 			<pen lineWidth="0.5" lineColor="#999999"/>
 		</element>
-		<element kind="staticText" uuid="968e1657-ad52-4932-8ca0-1858192a0669" x="10" y="20" width="90" height="44" fontSize="11.0">
+		<element kind="staticText" uuid="e7ee443d-2405-48f7-9a4b-82e482561e57" x="10" y="20" width="90" height="44" fontSize="11.0">
 			<text><![CDATA[Transaction No.
 Transaction Type
 Transaction Notes]]></text>
 		</element>
-		<element kind="staticText" uuid="54325497-19cb-4f11-83ac-5a42293ae78a" x="110" y="20" width="2" height="44" fontSize="11.0">
+		<element kind="staticText" uuid="41c452d0-0dcd-44af-bec0-9b00d0db0bea" x="110" y="20" width="2" height="44" fontSize="11.0">
 			<text><![CDATA[:
 :
 :]]></text>
 		</element>
-		<element kind="staticText" uuid="7bb1733a-ec93-4441-b580-c3f41dba77ad" x="390" y="20" width="30" height="44" fontSize="11.0">
+		<element kind="staticText" uuid="b75bf583-3a24-4079-aa1b-2eb008c29d56" x="390" y="20" width="30" height="44" fontSize="11.0">
 			<text><![CDATA[Date
 Staff]]></text>
 		</element>
-		<element kind="staticText" uuid="fe3b8e66-f2bb-4360-b293-b680ef7357b7" x="420" y="20" width="2" height="44" fontSize="11.0">
+		<element kind="staticText" uuid="fade85f0-f781-4284-a3f3-c739f40e68fa" x="420" y="20" width="2" height="44" fontSize="11.0">
 			<text><![CDATA[:
 :]]></text>
 		</element>
-		<element kind="textField" uuid="711641f5-cd22-4eaf-abe2-08a0ed0669f0" x="120" y="20" width="160" height="14" fontSize="11.0">
+		<element kind="textField" uuid="ea999c09-7da7-4418-9047-3caa88e84713" x="120" y="20" width="160" height="14" fontSize="11.0">
 			<expression><![CDATA[$F{no}]]></expression>
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 		</element>
-		<element kind="textField" uuid="f99e4305-858a-4ed5-824f-ebad73dbf64e" x="120" y="34" width="160" height="14" fontSize="11.0">
+		<element kind="textField" uuid="2d9207e7-9a0e-41cc-b34e-283550543de5" x="120" y="34" width="160" height="14" fontSize="11.0">
 			<expression><![CDATA[$F{type}]]></expression>
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 		</element>
-		<element kind="textField" uuid="ec9b94a1-7a11-49e8-a7b9-41db7c8511e6" x="120" y="48" width="260" height="14" fontSize="11.0">
+		<element kind="textField" uuid="58043bab-3c59-4290-88c2-8ea7c45d296e" x="120" y="48" width="260" height="14" fontSize="11.0">
 			<expression><![CDATA[$F{notes}]]></expression>
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 		</element>
-		<element kind="textField" uuid="6156ba0f-bc41-4f83-83ed-70563145d9a3" x="430" y="20" width="124" height="14" fontSize="11.0">
+		<element kind="textField" uuid="5d1a70f7-68f4-4071-83b5-2a180b233e99" x="430" y="20" width="124" height="14" fontSize="11.0">
 			<expression><![CDATA[$F{timestamp}]]></expression>
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 		</element>
-		<element kind="textField" uuid="aca98e64-ead2-44e5-b4df-6d930a7c7ef5" x="430" y="34" width="124" height="14" fontSize="11.0">
+		<element kind="textField" uuid="9108033c-8b66-4752-8de7-531ac64cdc4c" x="430" y="34" width="124" height="14" fontSize="11.0">
 			<expression><![CDATA[$F{staff}]]></expression>
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 		</element>
 		<property name="com.jaspersoft.studio.unit.height" value="px"/>
 	</pageHeader>
 	<columnHeader height="16" splitType="Stretch">
-		<element kind="line" uuid="0254b3ff-7929-46da-b7ef-5acb73852428" positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1">
+		<element kind="line" uuid="ed961cda-455f-4aa4-a3ab-77259751d48c" positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1">
 			<pen lineWidth="0.5" lineColor="#999999"/>
 		</element>
-		<element kind="staticText" uuid="0536690c-a625-4c18-aa84-99cc99782246" x="140" y="0" width="110" height="15" forecolor="#736343" style="Column header">
+		<element kind="staticText" uuid="8421c2c5-d081-479e-a049-074948ab49aa" x="140" y="0" width="110" height="15" forecolor="#736343" style="Column header">
 			<text><![CDATA[Category]]></text>
 			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a3742f96-dcc0-460e-907c-ea4c94302e5c"/>
 		</element>
-		<element kind="staticText" uuid="4ff07edc-2b1d-455d-93b5-65e6c6684443" x="260" y="0" width="190" height="15" forecolor="#736343" style="Column header">
+		<element kind="staticText" uuid="1179750e-12bf-4f1f-ba98-7cafec985065" x="260" y="0" width="190" height="15" forecolor="#736343" style="Column header">
 			<text><![CDATA[Product Name]]></text>
 			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8f6c6a80-b093-4269-9991-9b5ea8c79660"/>
 			<property name="com.jaspersoft.studio.unit.width" value="px"/>
 		</element>
-		<element kind="staticText" uuid="8cffba1f-c4b1-4cba-8959-642145c5adc6" x="460" y="0" width="94" height="15" forecolor="#736343" style="Column header">
+		<element kind="staticText" uuid="fd640da1-71e5-44e4-a211-ae3f2061defa" x="460" y="0" width="94" height="15" forecolor="#736343" style="Column header">
 			<text><![CDATA[Quantity]]></text>
 			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f08ae3fb-1474-4312-a757-d91ffad6f2a4"/>
 			<property name="com.jaspersoft.studio.unit.x" value="px"/>
 			<property name="com.jaspersoft.studio.unit.width" value="px"/>
 		</element>
-		<element kind="staticText" uuid="73956994-7d2f-4abe-8bb1-b72e33e4914c" x="0" y="1" width="128" height="15" forecolor="#736343" style="Column header">
+		<element kind="staticText" uuid="c5b224b6-4296-40b3-b7e8-e74f5d46043e" x="0" y="1" width="128" height="15" forecolor="#736343" style="Column header">
 			<text><![CDATA[Supplier]]></text>
 			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a3742f96-dcc0-460e-907c-ea4c94302e5c"/>
 		</element>
 	</columnHeader>
 	<detail>
 		<band height="15" splitType="Stretch">
-			<element kind="frame" uuid="785c7823-fd22-4a87-a784-b09bf707240a" mode="Opaque" x="0" y="0" width="555" height="15" style="Row">
-				<element kind="textField" uuid="2b7f5cda-23d0-4b6b-88bf-89c573e2a946" x="140" y="0" width="110" height="15" textAdjust="StretchHeight" style="Detail">
+			<element kind="frame" uuid="3787756c-2a25-4265-a7fe-634bfed5a7a6" mode="Opaque" x="0" y="0" width="555" height="15" style="Row">
+				<element kind="textField" uuid="673c88ad-28fe-47bb-b881-287b39baaf82" x="140" y="0" width="110" height="15" textAdjust="StretchHeight" style="Detail">
 					<expression><![CDATA[$F{category}]]></expression>
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a3742f96-dcc0-460e-907c-ea4c94302e5c"/>
 				</element>
-				<element kind="textField" uuid="bb661f31-3685-4465-9c27-ce9070b22218" x="260" y="0" width="190" height="15" textAdjust="StretchHeight" style="Detail">
+				<element kind="textField" uuid="989ff62f-2d4d-4f6f-a2d2-5bf207dbfe26" x="260" y="0" width="190" height="15" textAdjust="StretchHeight" style="Detail">
 					<expression><![CDATA[$F{product}]]></expression>
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8f6c6a80-b093-4269-9991-9b5ea8c79660"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</element>
-				<element kind="textField" uuid="4e89d63e-dddc-47cc-a705-220849dca929" x="460" y="0" width="94" height="15" textAdjust="StretchHeight" style="Detail">
+				<element kind="textField" uuid="637e19bc-097a-4c59-a608-7779418a6870" x="460" y="0" width="94" height="15" textAdjust="StretchHeight" style="Detail">
 					<expression><![CDATA[$F{quantity}]]></expression>
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f08ae3fb-1474-4312-a757-d91ffad6f2a4"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</element>
-				<element kind="textField" uuid="0df9bbfa-39a0-4268-ad0d-89ef9b3433b1" x="-1" y="0" width="130" height="15" textAdjust="StretchHeight" style="Detail">
+				<element kind="textField" uuid="28fd99cc-3c55-47ef-bebb-1b2bf1b04623" x="-1" y="0" width="130" height="15" textAdjust="StretchHeight" style="Detail">
 					<expression><![CDATA[$F{supplier}]]></expression>
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a3742f96-dcc0-460e-907c-ea4c94302e5c"/>
 				</element>
@@ -203,17 +203,17 @@ Staff]]></text>
 		</band>
 	</detail>
 	<columnFooter height="20" splitType="Stretch">
-		<element kind="line" uuid="8136e040-508c-4226-8359-bc36d444f958" positionType="FixRelativeToBottom" x="0" y="10" width="555" height="1">
+		<element kind="line" uuid="94a6e57f-5987-4580-87f4-6d43243c52b0" positionType="FixRelativeToBottom" x="0" y="10" width="555" height="1">
 			<pen lineWidth="0.5" lineColor="#999999"/>
 		</element>
 		<property name="com.jaspersoft.studio.unit.height" value="px"/>
 	</columnFooter>
 	<pageFooter height="135" splitType="Stretch">
-		<element kind="staticText" uuid="e5c036f3-da7f-481e-b90f-40776660decc" x="5" y="10" width="100" height="20" fontSize="11.0">
+		<element kind="staticText" uuid="8c609b6b-fa4e-41e1-80d8-ecb3eda4320f" x="5" y="10" width="100" height="20" fontSize="11.0">
 			<text><![CDATA[Signatures]]></text>
 			<property name="com.jaspersoft.studio.unit.y" value="px"/>
 		</element>
-		<element kind="staticText" uuid="2f69bab6-9661-4086-b219-ca6fb6977788" x="360" y="30" width="170" height="90" fontSize="11.0" hTextAlign="Right">
+		<element kind="staticText" uuid="d3eb0947-b30f-4090-8953-7ea7fb967b33" x="360" y="30" width="170" height="90" fontSize="11.0" hTextAlign="Right">
 			<text><![CDATA[Acknowledged by
 
 
@@ -222,7 +222,7 @@ Staff]]></text>
 (    ..........................................    )]]></text>
 			<property name="com.jaspersoft.studio.unit.y" value="px"/>
 		</element>
-		<element kind="staticText" uuid="6143a8e0-271e-4100-82e2-21bb9cbdb24f" x="30" y="30" width="170" height="90" fontSize="11.0">
+		<element kind="staticText" uuid="60693cce-a296-4082-b89a-4d15a51b2d69" x="30" y="30" width="170" height="90" fontSize="11.0">
 			<text><![CDATA[Processed by
 
 
@@ -231,16 +231,16 @@ Staff]]></text>
 (    ..........................................    )]]></text>
 			<property name="com.jaspersoft.studio.unit.y" value="px"/>
 		</element>
-		<element kind="textField" uuid="fea2af2b-6356-456a-b2ed-b2547b6fb0dc" x="41" y="90" width="140" height="14" fontSize="11.0" hTextAlign="Center">
+		<element kind="textField" uuid="2200b8c7-dc7f-4344-9ac8-5b680a7fd2ee" x="41" y="90" width="140" height="14" fontSize="11.0" hTextAlign="Center">
 			<expression><![CDATA[$F{staff}]]></expression>
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<property name="com.jaspersoft.studio.unit.y" value="px"/>
 		</element>
-		<element kind="textField" uuid="598d35d0-d229-444d-9e53-148c5f86d7f8" x="444" y="10" width="104" height="20" fontSize="11.0" pattern="dd/MM/yyyy HH:mm" hTextAlign="Right">
+		<element kind="textField" uuid="fafb0167-dbe6-4336-96c4-ab5fd2209a53" x="444" y="10" width="104" height="20" fontSize="11.0" pattern="dd/MM/yyyy HH:mm" hTextAlign="Right">
 			<expression><![CDATA[new java.util.Date()]]></expression>
 			<property name="com.jaspersoft.studio.unit.y" value="px"/>
 		</element>
-		<element kind="staticText" uuid="767f952f-177a-404f-bf40-b9cdbe06281d" x="400" y="10" width="54" height="20" fontSize="11.0" hTextAlign="Right">
+		<element kind="staticText" uuid="5dd6fcc1-3a8e-4fb9-a257-47f8ffd937ff" x="400" y="10" width="54" height="20" fontSize="11.0" hTextAlign="Right">
 			<text><![CDATA[Printed on]]></text>
 			<property name="com.jaspersoft.studio.unit.y" value="px"/>
 		</element>
