@@ -21,11 +21,6 @@ import net.sf.jasperreports.view.JasperViewer;
  */
 public class MyReport
 {
-    public URL getResource(String name)
-    {
-        return getClass().getResource(name);
-    }
-    
     public static void viewReport(String fileName, boolean isExitOnClose)
     {
         MyReport.viewReport(fileName, new HashMap(), isExitOnClose);
@@ -55,5 +50,10 @@ public class MyReport
         {
             e.printStackTrace();
         }
+    }
+    
+    public URL getResource(String name)
+    {
+        return getClass().getResource(name);
     }
 }
