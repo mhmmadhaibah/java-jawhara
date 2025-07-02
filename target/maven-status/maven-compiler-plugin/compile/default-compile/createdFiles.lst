@@ -86,6 +86,7 @@ edu\jawhara\view\SuppliersPanel$3.class
 edu\jawhara\view\LoginView$2.class
 edu\jawhara\view\AppView$5.class
 edu\jawhara\custom\EditDeleteActionTablePanel$2.class
+edu\jawhara\model\MyUtils.class
 edu\jawhara\view\ChangePasswordFrame$1.class
 edu\jawhara\view\CreateCategoryFrame.class
 edu\jawhara\view\CreateStockFrame$6.class

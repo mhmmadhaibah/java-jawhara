@@ -30,9 +30,9 @@ public class MyReport
     {
         Connection conn = MyConnection.getConnection();
         
-        MyReport myReport = new MyReport();
-        URL fileUrl = myReport.getResource("/reports/" + fileName + ".jasper");
-        URL iconImageUrl = myReport.getResource("/images/coffee_stain.png");
+        MyUtils myUtils = new MyUtils();
+        URL fileUrl = myUtils.getResource("/reports/" + fileName + ".jasper");
+        URL iconImageUrl = myUtils.getResource("/images/coffee_stain.png");
         
         Map params = new HashMap();
         params.put("TITTLE", "Jawhara Syar`i");
@@ -50,10 +50,5 @@ public class MyReport
         {
             e.printStackTrace();
         }
-    }
-    
-    public URL getResource(String name)
-    {
-        return getClass().getResource(name);
     }
 }
