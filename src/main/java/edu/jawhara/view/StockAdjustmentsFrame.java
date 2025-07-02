@@ -95,7 +95,7 @@ public class StockAdjustmentsFrame extends javax.swing.JFrame {
         int categoryId = 0;
         for (String[] category : categoryList)
         {
-            if (category[1].equals(jComboBox1.getSelectedItem()))
+            if (category[1].equals(jComboBox1.getSelectedItem().toString()))
             {
                 categoryId = Integer.parseInt(category[0]);
                 break;
@@ -337,7 +337,7 @@ public class StockAdjustmentsFrame extends javax.swing.JFrame {
             int productId = 0;
             for (String[] product : productList)
             {
-                if (fProduct.equals(product[2]))
+                if (product[2].equals(fProduct))
                 {
                     productId = Integer.parseInt(product[0]);
                     break;
