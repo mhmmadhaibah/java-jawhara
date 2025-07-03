@@ -16,8 +16,8 @@
 	<query language="SQL"><![CDATA[SELECT 
     u.name,
     COUNT(t.id) AS total_transactions,
-    SUM(CASE WHEN t.type = 'IN' THEN td.quantity ELSE 0 END) AS total_in,
-    SUM(CASE WHEN t.type = 'OUT' THEN td.quantity ELSE 0 END) AS total_out
+    SUM(CASE WHEN (t.type = 'IN') THEN td.quantity ELSE 0 END) AS total_in,
+    SUM(CASE WHEN (t.type = 'OUT') THEN td.quantity ELSE 0 END) AS total_out
 FROM 
     users u
 JOIN 
@@ -25,7 +25,7 @@ JOIN
 JOIN 
     transaction_details td ON t.id = td.transaction_id
 GROUP BY 
-    u.id
+    u.id, u.name
 ORDER BY 
     total_transactions DESC]]></query>
 	<field name="name" class="java.lang.String">

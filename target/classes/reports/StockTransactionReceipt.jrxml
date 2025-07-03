@@ -19,10 +19,10 @@
 	<query language="SQL"><![CDATA[SELECT 
     CONCAT('TRX-', DATE_FORMAT(t.timestamp, '%Y%m%d'), '-', LPAD(t.id, 3, '0')) AS no,
     CASE 
-        WHEN t.type = 'IN' THEN 'IN Stock'
-        WHEN t.type = 'OUT' AND o.name IS NOT NULL THEN CONCAT('OUT Stock for ', o.name)
-        WHEN t.type = 'OUT' AND o.name IS NULL THEN 'OUT Stock'
-        ELSE 'Unknown'
+        WHEN (t.type = 'IN') THEN 'IN Stock'
+        WHEN (t.type = 'OUT') AND o.name IS NOT NULL THEN CONCAT('OUT Stock for ', o.name)
+        WHEN (t.type = 'OUT') AND o.name IS NULL THEN 'OUT Stock'
+        ELSE 'Undefined'
     END AS type,
     t.notes,
     u.name AS staff,
@@ -48,7 +48,7 @@ JOIN
 WHERE 
     t.id = $P{TRANSACTION_ID}
 ORDER BY 
-    s.name DESC, c.name ASC]]></query>
+    s.id ASC, c.id ASC, p.name ASC]]></query>
 	<field name="no" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="no"/>
 		<property name="com.jaspersoft.studio.field.name" value="no"/>

@@ -27,7 +27,7 @@ JOIN
 JOIN 
     categories c ON p.category_id = c.id
 ORDER BY 
-    s.id ASC, c.name ASC]]></query>
+    s.id ASC, c.id ASC, p.name ASC]]></query>
 	<field name="supplier" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="supplier"/>
 		<property name="com.jaspersoft.studio.field.name" value="supplier"/>

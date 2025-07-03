@@ -17,8 +17,8 @@
     s.name AS supplier,
     c.name AS category,
     p.name AS product,
-    SUM(CASE WHEN t.type = 'IN' THEN td.quantity ELSE 0 END) AS total_in,
-    SUM(CASE WHEN t.type = 'OUT' THEN td.quantity ELSE 0 END) AS total_out
+    SUM(CASE WHEN (t.type = 'IN') THEN td.quantity ELSE 0 END) AS total_in,
+    SUM(CASE WHEN (t.type = 'OUT') THEN td.quantity ELSE 0 END) AS total_out
 FROM 
     transaction_details td
 JOIN 
@@ -30,9 +30,9 @@ JOIN
 JOIN 
     categories c ON p.category_id = c.id
 GROUP BY 
-    p.id
+    p.id, p.name, s.name, c.name
 ORDER BY 
-    s.name ASC, c.name ASC]]></query>
+    s.id ASC, c.id ASC, p.name ASC]]></query>
 	<field name="supplier" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="supplier"/>
 		<property name="com.jaspersoft.studio.field.name" value="supplier"/>
