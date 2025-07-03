@@ -18,17 +18,17 @@
     c.name AS category,
     p.name AS product,
     ps.quantity
-FROM
+FROM 
     products p
-JOIN
+JOIN 
     product_stocks ps ON p.id = ps.product_id
-JOIN
+JOIN 
     suppliers s ON p.supplier_id = s.id
-JOIN
+JOIN 
     categories c ON p.category_id = c.id
-WHERE
+WHERE 
     ps.quantity <= 0
-ORDER BY
+ORDER BY 
     ps.quantity ASC, s.id ASC, c.name ASC]]></query>
 	<field name="supplier" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="supplier"/>

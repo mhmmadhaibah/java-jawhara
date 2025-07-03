@@ -122,7 +122,7 @@ public class AppView extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Jawhara Syar'i");
+        jLabel2.setText("Jawhara Syar`i");
         jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         rButton1.setBackground(new java.awt.Color(51, 51, 51));

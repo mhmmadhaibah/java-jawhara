@@ -16,7 +16,7 @@
 	<parameter name="TRANSACTION_ID" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
 	</parameter>
-	<query language="SQL"><![CDATA[SELECT
+	<query language="SQL"><![CDATA[SELECT 
     CONCAT('TRX-', DATE_FORMAT(t.timestamp, '%Y%m%d'), '-', LPAD(t.id, 3, '0')) AS no,
     CASE 
         WHEN t.type = 'IN' THEN 'IN Stock'
@@ -31,23 +31,23 @@
     p.name AS product,
     td.quantity,
     t.timestamp
-FROM
+FROM 
     transactions t
-JOIN
+JOIN 
     transaction_details td ON t.id = td.transaction_id
-JOIN
+JOIN 
     users u ON t.user_id = u.id
-LEFT JOIN
+LEFT JOIN 
     outlets o ON t.outlet_id = o.id
-JOIN
+JOIN 
     products p ON td.product_id = p.id
-JOIN
+JOIN 
     suppliers s ON p.supplier_id = s.id
-JOIN
+JOIN 
     categories c ON p.category_id = c.id
-WHERE
+WHERE 
     t.id = $P{TRANSACTION_ID}
-ORDER BY
+ORDER BY 
     s.name DESC, c.name ASC]]></query>
 	<field name="no" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="no"/>

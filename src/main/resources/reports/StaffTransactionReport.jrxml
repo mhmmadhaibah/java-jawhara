@@ -20,9 +20,9 @@
     SUM(CASE WHEN t.type = 'OUT' THEN td.quantity ELSE 0 END) AS total_out
 FROM 
     users u
-JOIN
+JOIN 
     transactions t ON u.id = t.user_id
-JOIN
+JOIN 
     transaction_details td ON t.id = td.transaction_id
 GROUP BY 
     u.id

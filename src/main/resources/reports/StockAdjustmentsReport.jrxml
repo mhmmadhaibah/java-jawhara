@@ -13,20 +13,20 @@
 	</style>
 	<parameter name="TITTLE" class="java.lang.String"/>
 	<parameter name="ICON_IMAGE" class="java.lang.String"/>
-	<query language="SQL"><![CDATA[SELECT
+	<query language="SQL"><![CDATA[SELECT 
     u.name AS admin,
     p.name AS product,
     sa.quantity,
     sa.notes,
     sa.timestamp
-FROM
+FROM 
     stock_adjustments sa
-JOIN
+JOIN 
     users u ON sa.user_id = u.id
-JOIN
+JOIN 
     products p ON sa.product_id = p.id
-ORDER BY
-    sa.id ASC]]></query>
+ORDER BY 
+    sa.timestamp DESC]]></query>
 	<field name="admin" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="admin"/>
 		<property name="com.jaspersoft.studio.field.label" value="admin"/>
