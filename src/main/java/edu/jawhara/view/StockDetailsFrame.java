@@ -43,7 +43,7 @@ public class StockDetailsFrame extends javax.swing.JFrame {
         try
         {
             String sqlq = """
-                SELECT t.id, u.name AS staff, o.name AS outlet, t.type, t.notes, t.timestamp
+                SELECT u.name AS staff, o.name AS outlet, t.type, t.notes, t.timestamp
                     FROM transactions t JOIN users u ON t.user_id = u.id
                     LEFT JOIN outlets o ON t.outlet_id = o.id
                     WHERE t.id = ?
@@ -89,11 +89,12 @@ public class StockDetailsFrame extends javax.swing.JFrame {
         try
         {
             String sqlq = """
-                SELECT p.name AS product, c.name AS category, td.quantity
+                SELECT s.name AS supplier, c.name AS category, p.name AS product, td.quantity
                     FROM transaction_details td JOIN products p ON td.product_id = p.id
+                    JOIN suppliers s ON p.supplier_id = s.id
                     JOIN categories c ON p.category_id = c.id
                     WHERE td.transaction_id = ?
-                    ORDER BY td.id ASC
+                    ORDER BY s.id ASC, c.id ASC, p.name ASC
                 """.trim();
             
             PreparedStatement stmt = conn.prepareStatement(sqlq);
@@ -103,10 +104,11 @@ public class StockDetailsFrame extends javax.swing.JFrame {
             
             while (rslt.next())
             {
-                Object[] data = new Object[3];
-                data[0] = rslt.getString("product");
+                Object[] data = new Object[4];
+                data[0] = rslt.getString("supplier");
                 data[1] = rslt.getString("category");
-                data[2] = rslt.getString("quantity");
+                data[2] = rslt.getString("product");
+                data[3] = rslt.getString("quantity");
                 
                 tableModel.addRow(data);
             }
@@ -206,11 +208,11 @@ public class StockDetailsFrame extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Product Name", "Category", "Quantity"
+                "Supplier", "Category", "Product Name", "Quantity"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

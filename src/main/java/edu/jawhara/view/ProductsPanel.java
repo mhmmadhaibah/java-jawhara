@@ -160,10 +160,10 @@ public class ProductsPanel extends javax.swing.JPanel {
     {
         try
         {
-            String sqlq = "SELECT p.id, s.name AS supplier, p.name, c.name AS category, ps.quantity ";
+            String sqlq = "SELECT p.id, s.name AS supplier, c.name AS category, p.name, ps.quantity ";
             sqlq += "FROM products p JOIN product_stocks ps ON p.id = ps.product_id ";
-            sqlq += "JOIN suppliers s ON s.id = p.supplier_id ";
-            sqlq += "JOIN categories c ON c.id = p.category_id ";
+            sqlq += "JOIN suppliers s ON p.supplier_id = s.id ";
+            sqlq += "JOIN categories c ON p.category_id = c.id ";
             
             if (rTextField1.getText().trim().equals("0"))
             {
@@ -181,7 +181,7 @@ public class ProductsPanel extends javax.swing.JPanel {
                 sqlq += "WHERE c.name = '" + categorySelected + "' ";
             }
             
-            sqlq += "ORDER BY p.id ASC";
+            sqlq += "ORDER BY s.id ASC, c.id ASC, p.name ASC";
             
             PreparedStatement stmt = conn.prepareStatement(sqlq.trim());
             ResultSet rslt = stmt.executeQuery();
@@ -191,8 +191,8 @@ public class ProductsPanel extends javax.swing.JPanel {
                 Object[] data = new Object[6];
                 data[0] = rslt.getString("id");
                 data[1] = rslt.getString("supplier");
-                data[2] = rslt.getString("name");
-                data[3] = rslt.getString("category");
+                data[2] = rslt.getString("category");
+                data[3] = rslt.getString("name");
                 data[4] = rslt.getString("quantity");
                 data[5] = null;
                 
@@ -224,7 +224,7 @@ public class ProductsPanel extends javax.swing.JPanel {
             {
                 int confirm = JOptionPane.showConfirmDialog(
                     null,
-                    ("Delete " + productsTableModel.getValueAt(row, 2) + " ?"),
+                    ("Delete " + productsTableModel.getValueAt(row, 3) + " ?"),
                     "Delete Product",
                     JOptionPane.YES_NO_OPTION
                 );
@@ -282,9 +282,9 @@ public class ProductsPanel extends javax.swing.JPanel {
         productsTableColumnModel.getColumn(4).setMaxWidth(100);
         productsTableColumnModel.getColumn(4).setMinWidth(100);
         
-        productsTableColumnModel.getColumn(3).setPreferredWidth(200);
-        productsTableColumnModel.getColumn(3).setMaxWidth(200);
-        productsTableColumnModel.getColumn(3).setMinWidth(200);
+        productsTableColumnModel.getColumn(2).setPreferredWidth(200);
+        productsTableColumnModel.getColumn(2).setMaxWidth(200);
+        productsTableColumnModel.getColumn(2).setMinWidth(200);
         
         productsTableColumnModel.getColumn(1).setPreferredWidth(200);
         productsTableColumnModel.getColumn(1).setMaxWidth(200);
@@ -453,7 +453,7 @@ public class ProductsPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "ID", "Supplier", "Product Name", "Category", "Quantity", "Action"
+                "ID", "Supplier", "Category", "Product Name", "Quantity", "Action"
             }
         ) {
             boolean[] canEdit = new boolean [] {

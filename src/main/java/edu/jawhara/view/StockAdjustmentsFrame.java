@@ -41,7 +41,7 @@ public class StockAdjustmentsFrame extends javax.swing.JFrame {
     {
         try
         {
-            String sqlq = "SELECT * FROM categories";
+            String sqlq = "SELECT * FROM categories ORDER BY id ASC";
             PreparedStatement stmt = conn.prepareStatement(sqlq);
             ResultSet rslt = stmt.executeQuery();
             
@@ -63,7 +63,7 @@ public class StockAdjustmentsFrame extends javax.swing.JFrame {
     {
         try
         {
-            String sqlq = "SELECT * FROM products";
+            String sqlq = "SELECT * FROM products ORDER BY category_id ASC, name ASC";
             PreparedStatement stmt = conn.prepareStatement(sqlq);
             ResultSet rslt = stmt.executeQuery();
             
