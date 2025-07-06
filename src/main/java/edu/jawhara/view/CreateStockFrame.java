@@ -147,7 +147,7 @@ public class CreateStockFrame extends javax.swing.JFrame {
         int categoryId = 0;
         for (String[] category : categoryList)
         {
-            if (category[1].equals(jComboBox1.getSelectedItem()))
+            if (category[1].equals(String.valueOf(jComboBox1.getSelectedItem()).trim()))
             {
                 categoryId = Integer.parseInt(category[0]);
                 break;
@@ -577,7 +577,7 @@ public class CreateStockFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void rButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton1ActionPerformed
-        String fProduct = jComboBox2.getSelectedItem().toString();
+        String fProduct = String.valueOf(jComboBox2.getSelectedItem()).trim();
         String fQuantity = jTextField1.getText().trim();
         
         if ("".equals(fQuantity) || !Validator.isNumeric(fQuantity))
@@ -613,7 +613,7 @@ public class CreateStockFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_rButton1ActionPerformed
 
     private void rButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton2ActionPerformed
-        String fType = jComboBox3.getSelectedItem().toString();
+        String fType = String.valueOf(jComboBox3.getSelectedItem()).trim();
         String fNotes = jTextArea1.getText().trim();
         
         if (stocksTableModel.getRowCount() <= 0)
@@ -631,7 +631,7 @@ public class CreateStockFrame extends javax.swing.JFrame {
         int outletId = 0;
         for (String[] outlet : outletList)
         {
-            if (outlet[1].equals(jComboBox4.getSelectedItem().toString()))
+            if (outlet[1].equals(String.valueOf(jComboBox4.getSelectedItem()).trim()))
             {
                 outletId = Integer.parseInt(outlet[0]);
                 break;
@@ -714,7 +714,7 @@ public class CreateStockFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_rButton2ActionPerformed
 
     private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
-        boolean outFlag = jComboBox3.getSelectedItem().toString().equals("OUT");
+        boolean outFlag = String.valueOf(jComboBox3.getSelectedItem()).trim().equals("OUT");
         jLabel9.setVisible(outFlag);
         jComboBox4.setVisible(outFlag);
         

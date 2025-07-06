@@ -95,7 +95,7 @@ public class StockAdjustmentsFrame extends javax.swing.JFrame {
         int categoryId = 0;
         for (String[] category : categoryList)
         {
-            if (category[1].equals(String.valueOf(jComboBox1.getSelectedItem())))
+            if (category[1].equals(String.valueOf(jComboBox1.getSelectedItem()).trim()))
             {
                 categoryId = Integer.parseInt(category[0]);
                 break;
@@ -303,7 +303,7 @@ public class StockAdjustmentsFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void rButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButton1ActionPerformed
-        String fProduct = String.valueOf(jComboBox2.getSelectedItem());
+        String fProduct = String.valueOf(jComboBox2.getSelectedItem()).trim();
         String fQuantity = jTextField1.getText().trim();
         String fNotes = jTextArea1.getText().trim();
         
