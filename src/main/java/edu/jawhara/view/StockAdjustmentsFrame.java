@@ -327,7 +327,7 @@ public class StockAdjustmentsFrame extends javax.swing.JFrame {
         
         int confirm = JOptionPane.showConfirmDialog(
             null,
-            ("Are you sure want to correct the product quantity? this cannot be undone."),
+            "Are you sure want to correct the product quantity? this cannot be undone.",
             "Stock Adjustments",
             JOptionPane.YES_NO_OPTION
         );
@@ -357,13 +357,13 @@ public class StockAdjustmentsFrame extends javax.swing.JFrame {
                 {
                     String sqlq2 = "INSERT INTO stock_adjustments (user_id, product_id, quantity, notes) VALUES (?, ?, ?, ?)";
                     PreparedStatement stmt2 = conn.prepareStatement(sqlq2);
-                
+                    
                     stmt2.setInt(1, User.getUserId());
                     stmt2.setInt(2, productId);
                     stmt2.setInt(3, Integer.parseInt(fQuantity));
                     stmt2.setString(4, fNotes);
                     stmt2.executeUpdate();
-                
+                    
                     JOptionPane.showMessageDialog(rButton1, "Product Quantity successfully corrected.");
                     dispose();
                 }
