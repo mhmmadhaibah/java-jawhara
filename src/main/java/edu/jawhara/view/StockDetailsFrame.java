@@ -61,10 +61,6 @@ public class StockDetailsFrame extends javax.swing.JFrame {
                 {
                     jTextField1.setText(" " + n);
                 }
-                else
-                {
-                    jTextField1.setText(" Empty Description...");
-                }
                 
                 String t = rslt.getString("type");
                 t += t.equals("OUT") ? " Stock for " + rslt.getString("outlet") + " —" : " Stock —";
@@ -182,6 +178,7 @@ public class StockDetailsFrame extends javax.swing.JFrame {
         );
 
         jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTextField1.setText(" Empty Description...");
         jTextField1.setFocusable(false);
         jTextField1.setEditable(false);
 
