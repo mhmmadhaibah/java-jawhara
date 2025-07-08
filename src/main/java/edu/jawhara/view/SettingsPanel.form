@@ -124,7 +124,7 @@
       <SubComponents>
         <Component class="rojerusan.RSMaterialButtonRectangle" name="rButton2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Stock Adjustment"/>
+            <Property name="text" type="java.lang.String" value="Stock Adjustments"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rButton2ActionPerformed"/>
